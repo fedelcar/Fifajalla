@@ -1,0 +1,32 @@
+<h1>New Stat</h1>
+
+<%= form_for :stat, url: stats_path do |f| %>
+	<p>
+		<%= f.label :gf %><br>
+		<%= f.text_field :gf %>
+	</p>
+	<p>
+		<%= f.label :ga %><br>
+		<%= f.text_field :ga %>
+	</p>
+	<p>
+		<%= f.label :wins %><br>
+		<%= f.text_field :wins %>
+	</p>
+	<p>
+		<%= f.label :loses %><br>
+		<%= f.text_field :loses %>
+	</p>
+	<p>
+		<%= f.label :draws %><br>
+		<%= f.text_field :draws %>
+	</p>
+	<p>
+		<%= f.label :user %><br>
+		<%= f.text_field :user %>
+	</p>
+
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>

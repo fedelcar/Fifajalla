@@ -15,8 +15,17 @@ class UsersController < ApplicationController
 		redirect_to users_path
 	end
 
+	def destroy
+		User.destroy(params[:id])
+		@users = User.all
+		
+		render 'users/index'
+	end
+
 	private
+	
 		def user_params
-			params.require(:user).permit(:name)
+			params.require(:user).permit(:name, :id)
 		end
+
 end

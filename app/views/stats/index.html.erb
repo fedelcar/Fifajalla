@@ -1,0 +1,21 @@
+<table>
+	<tr>
+		<th>User</th>
+		<th>GF</th>
+		<th>GA</th>
+		<th>W</th>
+		<th>L</th>
+		<th>D</th>
+	</tr>
+
+	<% @stats.each do |stat| %>
+		<tr>
+			<td><%= stat.user.name %></td>
+			<td><%= stat.gf %></td>
+			<td><%= stat.ga %></td>
+			<td><%= stat.wins %></td>
+			<td><%= stat.loses %></td>
+			<td><%= stat.draws %></td>
+		</tr>
+	<% end %>
+</table>

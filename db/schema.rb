@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140719041835) do
+ActiveRecord::Schema.define(version: 20140719062424) do
+
+  create_table "stats", force: true do |t|
+    t.integer  "gf"
+    t.integer  "ga"
+    t.integer  "wins"
+    t.integer  "draws"
+    t.integer  "loses"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
