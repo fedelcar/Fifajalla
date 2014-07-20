@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_id: 
+  first_name: MyString
+  last_name: MyString
+  overall: 1
+  primary_position: MyString
+  secondary_position: MyString
+  tertiary_position: MyString
+  games_played: 1
+  goals: 1
+  assists: 1
+  own_goals: 1
+  yellow_cards: 1
+  red_cards: 1
+  pace: 1
+  shooting: 1
+  passing: 1
+  dribbling: 1
+  defence: 1
+  heading: 1
+
+two:
+  team_id: 
+  first_name: MyString
+  last_name: MyString
+  overall: 1
+  primary_position: MyString
+  secondary_position: MyString
+  tertiary_position: MyString
+  games_played: 1
+  goals: 1
+  assists: 1
+  own_goals: 1
+  yellow_cards: 1
+  red_cards: 1
+  pace: 1
+  shooting: 1
+  passing: 1
+  dribbling: 1
+  defence: 1
+  heading: 1
