@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720221311) do
+ActiveRecord::Schema.define(version: 20140721010517) do
 
   create_table "matches", force: true do |t|
     t.integer  "local_goals"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20140720221311) do
     t.integer  "overall"
     t.string   "primary_position"
     t.string   "secondary_position"
-    t.string   "tertiary_position"
     t.integer  "games_played"
     t.integer  "goals"
     t.integer  "assists"
@@ -57,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140720221311) do
     t.integer  "heading"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "league"
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id"
