@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  root 'welcome#index'
+  
+  resources :draft
+
+  resources :trades
+
   resources :users
 
   resources :players
