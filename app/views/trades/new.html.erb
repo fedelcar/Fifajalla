@@ -1,0 +1,14 @@
+<div class="container">
+	<h1>New Trade</h1>
+
+	<%= form_for :trade, url: trades_path do |t| %>
+		<p>
+			<%= t.label :player_id %><br>
+			<%= t.text_field :player_id %>
+		</p>
+
+		<p>
+			<%= t.submit %>
+		</p>
+	<% end %>
+</div>

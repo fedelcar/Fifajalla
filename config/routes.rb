@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'trades/addToTradeBlock'
+
+  get 'trades/onTheBlock'
+
+  get 'trades/new'
+
   root 'welcome#index'
   
   resources :draft

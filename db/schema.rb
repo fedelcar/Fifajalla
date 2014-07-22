@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721010517) do
+ActiveRecord::Schema.define(version: 20140722022142) do
 
   create_table "matches", force: true do |t|
     t.integer  "local_goals"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140721010517) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "league"
+    t.boolean  "on_the_block"
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id"
