@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
 	has_many :teams
 
 	has_one :stat, dependent: :destroy
-
+	has_secure_password
 end

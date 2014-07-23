@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722022142) do
+ActiveRecord::Schema.define(version: 20140723023612) do
 
   create_table "matches", force: true do |t|
     t.integer  "local_goals"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20140722022142) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
+    t.string   "password_digest"
   end
 
 end

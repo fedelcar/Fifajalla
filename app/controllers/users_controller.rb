@@ -10,8 +10,14 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
- 
-		@user.save
+ 		if User.where(name:@user.name).exists? or User.where(email:@user.email).exists?
+ 			
+ 		else
+ 			@user.save
+ 			UserMailer.welcome_email(@user).deliver
+
+ 		end
+		
 		redirect_to users_path
 	end
 
@@ -25,7 +31,7 @@ class UsersController < ApplicationController
 	private
 	
 		def user_params
-			params.require(:user).permit(:name, :id)
+			params.require(:user).permit(:name, :id, :password, :email, :password_confirmation)
 		end
 
 end
