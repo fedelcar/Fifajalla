@@ -1,8 +1,42 @@
 <div class="container">
 	<h1>New Trade</h1>
-
+	<div class="row">
+		<a class="btn btn-default btn-lg" href="/trades" role="button">Volver</a>
+	</div>
 	<%= form_for :trade, url: trades_path do |t| %>
 		<p>
+			<%= t.label :player_id %>
+			<%= t.text_field :player_id %><br>
+			<%= t.label :usuario_origen %>
+			<%= t.text_field :first_user_id %><br>
+			<%= t.label :equipo_origen %>
+			<%= t.text_field :first_team_id %><br>
+			<%= t.label :second_user_id %>
+			<%= t.text_field :second_user_id %><br>
+			<%= t.label :second_team_id %>
+			<%= t.text_field :second_team_id %><br>
+		</p>
+
+		<p>
+			<%= t.submit %>
+		</p>
+	<% end %>
+
+
+
+	<div class="col-md-4">
+		<h3>Team A gets</h3>
+		<%= form_for :trade, url: trades_path do |t| %>
+		<p>
+			<%= t.label :user_id %><br>
+			<%= t.collection_select :user_id, @users.order(:name),:id,:name %>
+			<br>
+
+			<%= t.label :team_id %><br>
+			
+			<%= t.collection_select :team_id, @teams.order(:name),:id,:name %>
+			<br>
+
 			<%= t.label :player_id %><br>
 			<%= t.text_field :player_id %>
 		</p>
@@ -11,4 +45,51 @@
 			<%= t.submit %>
 		</p>
 	<% end %>
+	</div>
+	<div class="col-md-4">
+		<h3>Team B gets</h3>
+		<%= form_for :trade, url: trades_path do |t| %>
+		<p>
+			<%= t.label :user_id %><br>
+			<%= t.collection_select :user_id, @users.order(:name),:id,:name %>
+			<br>
+
+			<%= t.label :team_id %><br>
+			
+			<%= t.collection_select :team_id, @teams.order(:name),:id,:name %>
+			<br>
+
+			<%= t.label :player_id %><br>
+			<%= t.text_field :player_id %>
+		</p>
+
+		<p>
+			<%= t.submit %>
+		</p>
+	<% end %>
+	</div>
+	<div class="col-md-4">
+		<h3>Team C gets</h3>
+		<%= form_for :trade, url: trades_path do |t| %>
+		<p>
+			<%= t.label :user_id %><br>
+			<%= t.collection_select :user_id, @users.order(:name),:id,:name %>
+			<br>
+
+			<%= t.label :team_id %><br>
+			
+			<%= t.collection_select :team_id, @teams.order(:name),:id,:name %>
+			<br>
+
+			<%= t.label :player_id %><br>
+			<%= t.text_field :player_id %>
+		</p>
+
+		<p>
+			<%= t.submit %>
+		</p>
+	<% end %>
+	</div>
+	<br>
+	
 </div>

@@ -29,6 +29,9 @@ gem 'spring',        group: :development
 # Add foreign key helper methods
 gem 'foreigner'
 
+# Add simple form http://simple-form.plataformatec.com.br/
+gem 'simple_form'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,8 +1,8 @@
 <div class="container">
-	<div clas="row">
+	<div class="row">
 		<h1>Past Trades</h1>
 	</div>
-	<div clas="row">
+	<div class="row">
 		<a class="btn btn-default btn-lg" href="/" role="button">Volver</a>
 		<a class="btn btn-default btn-lg" href="/trades/onTheBlock" role="button">View Players on the Block</a>
 		<a class="btn btn-default btn-lg" href="/trades/addToTradeBlock" role="button">Add players to Trade Block</a>
@@ -10,29 +10,55 @@
 
 		
 	</div>
-	<div clas="row">
-		<table>
-			<tr>
-				<th>Jugador</th>
-				<th>User Origen</th>
-				<th>Equipo Origen</th>
-				<th>User Destino</th>
-				<th>Equipo Destino</th>
-				<th>Fecha</th>
-			</tr>
-
-			<% @trades.each do |trade| %>
-				<tr>
-					<td><%= trade.player_id %></td>
-					<td><%= trade.first_user_id %></td>
-					<td><%= trade.first_team_id%></td>
-					<td><%= trade.second_user_id %></td>
-					<td><%= trade.second_team_id%></td>
-					<td><%= trade.created_at %></td>
-
-				</tr>
-			<% end %>
-		</table>
+	<div class="row">
+		<br>
+		
+		<div class="col-md-12">
+			<div class="col-md-1">
+				<center><b>Nombre</b><br></center>
+				<% @trades.each do |trade| %>
+				<center><td><%= @players.find(trade.player_id).first_name %></td><br></center>
+				<% end %>
+			</div>
+			<div class="col-md-1">
+				<center><b>Apellido</b><br></center>
+				<% @trades.each do |trade| %>
+				<center><td><%= @players.find(trade.player_id).last_name %></td><br></center>
+				<% end %>
+			</div>
+			<div class="col-md-2">
+				<center><b>User Origen</b><br></center>
+				<% @trades.each do |trade| %>
+				<center><td><%= @users.find(trade.first_user_id).name %></td><br></center>
+				<% end %>
+			</div>
+			<div class="col-md-2">
+				<center><b>Equipo Origen</b><br></center>
+				<% @trades.each do |trade| %>
+				<center><td><%= @teams.find(trade.first_team_id).name %></td><br></center>
+				<% end %>
+			</div>
+			<div class="col-md-2">
+				<center><b>User Destino</b><br></center>
+				<% @trades.each do |trade| %>
+				<center><td><%= @users.find(trade.second_user_id).name %></td><br></center>
+				<% end %>
+			</div>
+			<div class="col-md-2">
+				<center><b>Equipo Destino</b><br>
+				<% @trades.each do |trade| %>
+				<center><td><%= @teams.find(trade.second_team_id).name %></td><br></center>
+				<% end %>
+			</div>
+			<div class="col-md-2">
+				<center><b>Fecha</b><br></center>
+				<% @trades.each do |trade| %>
+				<center><td><%= trade.created_at.to_date %></td><br></center>
+				<% end %>
+			</div>
+		</div>
+		
+		
 	</div>
 	
 	

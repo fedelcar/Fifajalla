@@ -1,5 +1,9 @@
 class TradesController < ApplicationController
   def new
+  	@trades=Trade.all
+  	@players = Player.all
+  	@teams = Team.all
+  	@users = User.all
   end
   
   def onTheBlock
@@ -14,6 +18,10 @@ class TradesController < ApplicationController
 
   def index
   	@trades=Trade.all
+  	@players = Player.all
+  	@teams = Team.all
+  	@users = User.all
+
   end
 
 	def create
@@ -27,6 +35,6 @@ class TradesController < ApplicationController
 	private
 	
 		def trade_params
-			params.require(:trade).permit(:player_id, :first_team_id)
+			params.require(:trade).permit(:player_id, :first_team_id, :first_user_id, :second_team_id, :second_user_id)
 		end
 end
