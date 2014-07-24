@@ -10,5 +10,7 @@ class PlayersController < ApplicationController
 		@team = Team.find_by id:@player.team_id
 		@user = User.find_by id:@team.user_id
 	end
+	
+
 
 end

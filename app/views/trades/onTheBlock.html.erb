@@ -1,13 +1,11 @@
 <div class="container">
-	<h1>Trades#onTheBlock</h1>
-	<div class="row">
-		<a class="btn btn-default btn-lg" href="/trades" role="button">Volver</a>
-	</div>
-	<div class="row">
-		<table>
-
-			<tr>
-				<th> Name </th>
+	<h1>On the Block</h1>
+	<h3>Players for trade</h3>
+	<br>
+	
+	<table class="table table-striped table-hover ">
+    	<thead><tr>
+    		<th> Name </th>
 				<th> Overall </th>
 				<th> Primary Position </th>
 				<th> Secondary Position </th>
@@ -17,11 +15,11 @@
 				<th> Passing </th>
 				<th> Heading </th>
 				<th> Defence </th>
-			</tr>
-
-			<% @players.where(:on_the_block => 1).each do |player| %>
-				<tr>
-					<td><%= player.first_name %> <%= player.last_name %></td>
+    	</tr></thead>
+    	
+  		<% @players.where(:on_the_block => 1).each do |player| %>
+  		<tbody><tr>
+  			<td><%= player.first_name %> <%= player.last_name %></td>
 					<td><%= player.overall %></td>
 					<td><%= player.primary_position %></td>
 					<td><%= player.secondary_position %></td>
@@ -32,10 +30,10 @@
 					<td><%= player.heading ? player.heading : "N/A" %></td>
 					<td><%= player.defence ? player.defence : "N/A" %></td>
 					<td><a class="btn btn-default" href="/trades/new" role="button">Trade For</a></td>
-				</tr>
-			<% end %>
-		</table>
-	</div>
+  		</tr></tbody>
+  		<% end %>
+  	</table>
+	
 </div>
 
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'players/download'
+
   get 'trades/addToTradeBlock'
 
   get 'trades/onTheBlock'

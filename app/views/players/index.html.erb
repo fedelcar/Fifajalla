@@ -1,60 +1,29 @@
 <div class="container">
-	<center>
-	<div class="row">
-		<b><div class="col-md-2">
-			Name
-		</div>
-
-		<div class="col-md-2">
-			Overall
-		</div>
-
-		<div class="col-md-2">
-			Position
-		</div>
-
-		<div class="col-md-2">
-			Team
-		</div>
-
-		<div class="col-md-2">
-			User
-		</div>
-
-		<div class="col-md-2">
-			More Info
-		</div></b>
-	</div>	
-
-	<% @players.each do |player| %>
-	<div class="row">
-		<div class="col-md-2">
-			<%= player.first_name %> <%= player.last_name %>
-		</div>
-
-		<div class="col-md-2">
-			<%= player.overall %>
-		</div>
-
-		<div class="col-md-2">
-			<%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %>
-		</div>
-
-		<div class="col-md-2">
-			<%= player.team.name %>
-			
-		</div>
-
-		<div class="col-md-2">
-			<%= player.team.user.name %>
-		</div>
-
-		<div class="col-md-2">
-			<%= link_to "Info", player_path(player.id), :method => "get" %>
-		</div>
-	</div>	
-	<% end %>
+	<table class="table table-striped table-hover ">
+    	<thead><tr>
+    		<th>Name</th>
+    		<th>Overall</th>
+    		<th>Position</th>
+    		<th>Team</th>
+    		<th>User</th>
+    		<th>More Info</th>
+    	</tr></thead>
+    	
+  		<% @players.each do |player| %>
+  		<tbody><tr>
+  			<td><%= player.first_name %> <%= player.last_name %></td>
+  			<td><%= player.overall %></td>
+  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
+  			<td><%= player.team.name %></td>
+  			<td><%= player.team.user.name %></td>
+  			<td><%= link_to "Info", player_path(player.id), :method => "get" %></td>
+  		</tr></tbody>
+  		<% end %>
+  	</table>
 
 
-	</center>
+
+ 
+
+	
 </div>
