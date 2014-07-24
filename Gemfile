@@ -32,6 +32,11 @@ gem 'foreigner'
 # Add simple form http://simple-form.plataformatec.com.br/
 gem 'simple_form'
 
+# Add Twitter Bootstrap
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootswatch-rails'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '3.1.2'
 

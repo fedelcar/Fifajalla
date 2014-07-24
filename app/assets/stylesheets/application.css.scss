@@ -10,8 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
- */
 
-body { padding-top: 70px; }
+ */
+// Import Flatly theme variables
+ @import "bootswatch/flatly/variables";
+
+// Import Bootstrap
+@import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+body { padding-top: 60px; }
+
+// Import Flatly theme
+@import "bootswatch/flatly/bootswatch";
