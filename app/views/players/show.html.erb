@@ -1,1 +1,58 @@
-<h1> <%= @player.first_name %> </h1>
+<div class="container">
+
+	<h1> <%= @player.first_name %>
+	<%= @player.last_name %> </h1>
+	<br>
+	<div class="col-md-4">
+		<h2> Information</h2>
+		<b>Equipo:</b> <%= @team.name %><br>
+		<b>League:</b> <%= @player.league %><br>
+		<b>Usuario:</b> <%= @user.name %><br>
+		<b>Overall:</b> <%= @player.overall %><br>
+		<b>Position:</b> <%= @player.primary_position %><br>
+		<b>Secondary Positon:</b> <%= @player.secondary_position %><br>
+		<b>On the Trade Block?</b> <%= @player.on_the_block %><br>
+	</div>
+
+	<div class="col-md-4">
+		<h2> Stats</h2>
+		<b>Games Played:</b> <%= @player.games_played %><br>
+		<b>Goals:</b> <%= @player.goals %><br>
+		<b>Assists:</b> <%= @player.assists %><br>
+		<b>Own Goals:</b> <%= @player.own_goals %><br>
+		<b>Yellow Cards:</b> <%= @player.yellow_cards %><br>
+		<b>Red Cards:</b> <%= @player.red_cards %><br>
+		<b>Goal Average:</b> 
+							<% if @player.games_played = 0 %>
+									0
+							<% else %>
+								 	@player.goals / @player.games_played%><br>
+							<% end %>
+		
+	</div>
+
+	<div class="col-md-4">
+		<h2> Ratings</h2>
+		<b>Overall:</b> <%= @player.overall %><br>
+		<b>Pace:</b> <%= @player.pace %><br>
+		<b>Shooting:</b> <%= @player.shooting %><br>
+		<b>Dribbling:</b> <%= @player.dribbling %><br>
+		<b>Passing:</b> <%= @player.passing %><br>
+		<b>Defence:</b> <%= @player.defence %><br>
+		<b>Heading:</b> <%= @player.heading %><br>
+		<h3> Positional Ratings:</h3>
+		<b>Defender:</b> <%= (@player.defence*6 + @player.pace*2 + @player.heading*5 + @player.passing)/14 %><br>
+		<b>Midfielder:</b> <%= (@player.shooting*4 + @player.pace*4 + @player.dribbling*4 + @player.heading+ @player.defence*2 + @player.passing*6)/20 %><br>
+		<b>Winger:</b> <%= (@player.shooting*4 + @player.pace*6 + @player.dribbling*5 + @player.heading + @player.passing*4 + @player.defence)/21 %><br>
+		<b>Forward:</b> <%= (@player.shooting*6 + @player.pace*5 + @player.dribbling*3 + @player.heading*4 + @player.passing*2)/19%><br>
+
+	</div>
+
+	
+	
+	
+	
+	
+	
+	
+</div>

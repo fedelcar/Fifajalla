@@ -1,36 +1,60 @@
 <div class="container">
+	<center>
+	<div class="row">
+		<b><div class="col-md-2">
+			Name
+		</div>
 
-	<a class="btn btn-default btn-lg" href="/" role="button">Volver</a>
+		<div class="col-md-2">
+			Overall
+		</div>
 
-<table>
+		<div class="col-md-2">
+			Position
+		</div>
 
-	<tr>
-		<th>Name</th>
-		<th>Overall</th>
-		<th>Primary Position</th>
-		<th>Secondary Position</th>
-		<th>Pace</th>
-		<th>Shooting</th>
-		<th>Dribbling</th>
-		<th>Passing</th>
-		<th>Heading</th>
-		<th>Defence</th>
-	</tr>
+		<div class="col-md-2">
+			Team
+		</div>
+
+		<div class="col-md-2">
+			User
+		</div>
+
+		<div class="col-md-2">
+			More Info
+		</div></b>
+	</div>	
 
 	<% @players.each do |player| %>
-		<tr>
-			<td><%= player.first_name %> <%= player.last_name %></td>
-			<td><%= player.overall %></td>
-			<td><%= player.primary_position %></td>
-			<td><%= player.secondary_position %></td>
-			<td><%= player.pace ? player.pace : "N/A" %></td>
-			<td><%= player.shooting ? player.shooting : "N/A" %></td>
-		  	<td><%= player.dribbling ? player.dribbling : "N/A" %></td>
-			<td><%= player.passing ? player.passing : "N/A" %></td>
-			<td><%= player.heading ? player.heading : "N/A" %></td>
-			<td><%= player.defence ? player.defence : "N/A" %></td>
-		</tr>
-	<% end %>
-</table>
+	<div class="row">
+		<div class="col-md-2">
+			<%= player.first_name %> <%= player.last_name %>
+		</div>
 
+		<div class="col-md-2">
+			<%= player.overall %>
+		</div>
+
+		<div class="col-md-2">
+			<%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %>
+		</div>
+
+		<div class="col-md-2">
+			<%= player.team.name %>
+			
+		</div>
+
+		<div class="col-md-2">
+			<%= player.team.user.name %>
+		</div>
+
+		<div class="col-md-2">
+			<%= link_to "Info", player_path(player.id), :method => "get" %>
+		</div>
+	</div>	
+	<% end %>
+
+
+	</center>
 </div>
