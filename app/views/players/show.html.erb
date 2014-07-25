@@ -5,9 +5,9 @@
 	<br>
 	<div class="col-md-4">
 		<h2> Information</h2>
-		<b>Equipo:</b> <%= @team.name %><br>
+		<b>Equipo:</b> <%= link_to @team.name, team_path(@team.id), :method => "get" %><br>
+		<b>User: </b><%= link_to @user.name, user_path(@team.user_id), :method => "get" %><br>
 		<b>League:</b> <%= @player.league %><br>
-		<b>Usuario:</b> <%= @user.name %><br>
 		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Position:</b> <%= @player.primary_position %><br>
 		<b>Secondary Positon:</b> <%= @player.secondary_position %><br>

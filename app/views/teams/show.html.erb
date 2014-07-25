@@ -4,7 +4,7 @@
 	<br>
 	<div class="col-md-3">
 		<h2> Totales</h2>
-
+		<b>User: </b><%= link_to @user.name, user_path(@team.user_id), :method => "get" %><br>
 		<b>Partidos Jugados:</b><%= @pj %><br>
 		<b>Puntos:</b> <%= @pts%><br>
 		<b>Partidos Ganados:</b> <%= @team.wins%><br>
@@ -46,7 +46,7 @@
   					<th>Info</th>
   				</tr></thead>
 			
-  				<% @players.each do |player| %>
+  				<% @players.take(1000).each do |player| %>
 				<tbody><tr>
 					
 		  			<td><%= player.first_name %> <%= player.last_name %></td>

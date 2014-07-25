@@ -11,19 +11,21 @@
 		<th><%= link_to "GA", :sort => "ga" %></th>  
 		<th><%= link_to "DG", :sort => "dg" %></th>  
 		<th><%= link_to "Pts", :sort => "pts" %></th>  
+		<th><%= link_to "Eff", :sort => "eff" %></th>  
 		<th>More Info</th>
 	</tr></thead>
 
 	<% @users.each do |user| %>
 		<tbody><tr>
 			<td><%= user.name %></td>
-  			<td><%= @stats.where(user_id: user.id).take.wins %></td>
-  			<td><%= @stats.where(user_id: user.id).take.draws %></td>
-  			<td><%= @stats.where(user_id: user.id).take.loses %></td>
-  			<td><%= @stats.where(user_id: user.id).take.gf %></td>
-  			<td><%= @stats.where(user_id: user.id).take.ga %></td>
-  			<td><%= @stats.where(user_id: user.id).take.gf-@stats.where(user_id: user.id).take.ga %></td>
-  			<td><%= @stats.where(user_id: user.id).take.wins*3+@stats.where(user_id: user.id).take.draws %></td>
+  			<td><%= user.wins%></td>
+  			<td><%= user.draws%></td>
+  			<td><%= user.loses%></td>
+  			<td><%= user.gf%></td>
+  			<td><%= user.ga%></td>
+  			<td><%= user.dg%></td>
+  			<td><%= user.pts%></td>
+  			<td><%= user.eff%></td>
   			<td><%= link_to "Info", user_path(user.id), :method => "get" %></td>
 		</tr></tbody>
 	<% end %>

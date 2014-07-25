@@ -2,18 +2,18 @@ class UsersController < ApplicationController
 
 	def index
 		@users = User.where("id>1")
-		@stats = Stat.all.order(sort_column + ' ' + sort_direction)
+		
 
 	end
 
 	def show
 		@user = User.find_by id: params[:id]
-		@stats = Stat.find_by user_id: params[:id]	
-		@pj = @stats.wins+@stats.draws+@stats.loses
-		@pts = @stats.wins*3+@stats.draws
+		
+		@pj = @user.wins+@user.draws+@user.loses
+		@pts = @user.wins*3+@user.draws
 		@efectividad = @pts.to_f/(3*@pj)
-		@gfpp = @stats.gf.to_f/@pj.to_f
-		@gapp = @stats.ga.to_f/@pj.to_f
+		@gfpp = @user.gf.to_f/@pj.to_f
+		@gapp = @user.ga.to_f/@pj.to_f
 		@dgpp = @gfpp.to_f-@gapp.to_f
 		@teams = Team.where("user_id=?", params[:id])
 
@@ -23,8 +23,16 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
  		if User.where(name:@user.name).exists? or User.where(email:@user.email).exists?
- 			
+
  		else
+	 		@user.gf=0
+	 		@user.ga=0
+	 		@user.wins=0
+	 		@user.loses=0
+	 		@user.draws=0
+	 		@user.dg=0
+	 		@user.pts=0
+	 		@user.eff=0	
  			@user.save
  			UserMailer.welcome_email(@user).deliver
 

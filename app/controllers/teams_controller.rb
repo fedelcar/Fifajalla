@@ -19,10 +19,29 @@ class TeamsController < ApplicationController
 
   end
 
-  def new
+  def create
+  	@users = User.all
+  	@team = Team.new(team_params)
+  			
+ 			@team.country=0
+ 			@team.gf=0
+ 			@team.ga=0
+ 			@team.wins=0
+ 			@team.draws=0
+ 			@team.loses=0
+ 			@team.pts=0
+ 			@team.dg=0
+ 			@team.eff=0
+ 			@team.save
+		redirect_to team_path(@team.id)
   end
 
 private
+
+  def team_params
+			params.require(:team).permit(:name, :user_id)
+  end
+  
   def sort_column
     params[:sort] || "id"
   end
