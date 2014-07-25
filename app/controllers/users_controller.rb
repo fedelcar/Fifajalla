@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
 
 	def index
-		@users = User.all
+		@users = User.where("id>1")
+		@stats = Stat.all.order(sort_column + ' ' + sort_direction)
+
 	end
 
 	def show
-		@user = User.find_by name: params[:id]
-		@stats = Stat.find(@user.id)
+		@user = User.find_by id: params[:id]
+		@stats = Stat.find_by user_id: params[:id]	
 		@pj = @stats.wins+@stats.draws+@stats.loses
 		@pts = @stats.wins*3+@stats.draws
 		@efectividad = @pts.to_f/(3*@pj)
 		@gfpp = @stats.gf.to_f/@pj.to_f
 		@gapp = @stats.ga.to_f/@pj.to_f
 		@dgpp = @gfpp.to_f-@gapp.to_f
-		@teams = Team.where("user_id=?", @user.id)
+		@teams = Team.where("user_id=?", params[:id])
 
 
 	end
@@ -43,5 +45,15 @@ class UsersController < ApplicationController
 		def user_params
 			params.require(:user).permit(:name, :id, :password, :email, :password_confirmation)
 		end
+
+
+		  def sort_column
+		    params[:sort] || "wins"
+		  end
+		  
+		  def sort_direction
+		    params[:direction] || "desc"
+		  end
+
 
 end

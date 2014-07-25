@@ -1,16 +1,31 @@
 <div class="container">
 <h1> Users</h1>
 
-<table>
-	<tr>
+<table class="table table-striped table-hover ">
+	<thead><tr>
 		<th>Name</th>
-	</tr>
+		<th><%= link_to "Wins", :sort => "wins" %></th>  
+		<th><%= link_to "Draws", :sort => "draws" %></th>  
+		<th><%= link_to "Loses", :sort => "loses" %></th>  
+		<th><%= link_to "GF", :sort => "gf" %></th>  
+		<th><%= link_to "GA", :sort => "ga" %></th>  
+		<th><%= link_to "DG", :sort => "dg" %></th>  
+		<th><%= link_to "Pts", :sort => "pts" %></th>  
+		<th>More Info</th>
+	</tr></thead>
 
 	<% @users.each do |user| %>
-		<tr>
-			
-			<td><%= link_to user.name, user_path(user.name), :method => "get" %></td>
-		</tr>
+		<tbody><tr>
+			<td><%= user.name %></td>
+  			<td><%= @stats.where(user_id: user.id).take.wins %></td>
+  			<td><%= @stats.where(user_id: user.id).take.draws %></td>
+  			<td><%= @stats.where(user_id: user.id).take.loses %></td>
+  			<td><%= @stats.where(user_id: user.id).take.gf %></td>
+  			<td><%= @stats.where(user_id: user.id).take.ga %></td>
+  			<td><%= @stats.where(user_id: user.id).take.gf-@stats.where(user_id: user.id).take.ga %></td>
+  			<td><%= @stats.where(user_id: user.id).take.wins*3+@stats.where(user_id: user.id).take.draws %></td>
+  			<td><%= link_to "Info", user_path(user.id), :method => "get" %></td>
+		</tr></tbody>
 	<% end %>
 </table>
 </div>

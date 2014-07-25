@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   get 'players/stats'
 
   get 'players/download'
@@ -21,6 +23,12 @@ Rails.application.routes.draw do
   resources :players
 
   resources :stats
+  
+  resources :league
+  
+  resources :matches
+  
+  resources :teams
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
