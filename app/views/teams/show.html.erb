@@ -43,6 +43,7 @@
   					<th><%= link_to "Overall", :sort => "overall" %></th>  
   					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
   					<th><%= link_to "Goles", :sort => "goals" %></th> 
+  					<th>Info</th>
   				</tr></thead>
 			
   				<% @players.each do |player| %>
@@ -52,6 +53,7 @@
 		  			<td><%= player.overall %></td>
 		  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
 		  			<td><%= player.goals %></td>
+		  			<td><%= link_to "Info", player_path(player.id), :method => "get" %></td>
 
   				</tr></tbody>
   				<% end %>
