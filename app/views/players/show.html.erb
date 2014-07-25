@@ -23,10 +23,10 @@
 		<b>Yellow Cards:</b> <%= @player.yellow_cards %><br>
 		<b>Red Cards:</b> <%= @player.red_cards %><br>
 		<b>Goal Average:</b> 
-							<% if @player.games_played = 0 %>
+							<% if @player.games_played == 0 %>
 									0
 							<% else %>
-								 	@player.goals / @player.games_played%><br>
+								 	<%= number_with_precision(@player.goals.to_f / @player.games_played.to_f, precision: 2)%><br>
 							<% end %>
 		
 	</div>

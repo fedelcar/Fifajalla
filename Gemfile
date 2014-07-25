@@ -45,6 +45,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # For CSV Export
 gem "comma", "~> 3.2.1"
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
