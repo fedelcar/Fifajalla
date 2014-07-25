@@ -1,7 +1,6 @@
 <div class="container">
 <h1> Users</h1>
-<a class="btn btn-default btn-lg" href="/" role="button">Volver</a>
-<a class="btn btn-default btn-lg" href="/users/new" role="button">New User</a>
+
 <table>
 	<tr>
 		<th>Name</th>
@@ -9,7 +8,8 @@
 
 	<% @users.each do |user| %>
 		<tr>
-			<td><%= user.name %></td>
+			
+			<td><%= link_to user.name, user_path(user.name), :method => "get" %></td>
 		</tr>
 	<% end %>
 </table>

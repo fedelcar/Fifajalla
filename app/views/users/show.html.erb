@@ -1,1 +1,58 @@
-<h1> <%= @user.name %> </h1>
+<div class="container">
+
+	<h1> <%= @user.name %></h1>
+	<br>
+	<div class="col-md-4">
+		<h2> Totales</h2>
+
+		<b>Partidos Jugados:</b><%= @pj %><br>
+		<b>Puntos:</b> <%= @pts%><br>
+		<b>Partidos Ganados:</b> <%= @stats.wins%><br>
+		<b>Partidos Empatados:</b> <%= @stats.draws%><br>
+		<b>Partidos Perdidos:</b> <%= @stats.loses%><br>
+		<b>Goles a Favor:</b> <%= @stats.gf%><br>
+		<b>Goles en contra:</b> <%= @stats.ga%><br>
+		<b>Diferencia de goles:</b> <%= @stats.gf - @stats.ga%><br>
+
+	
+		
+		
+		
+		
+		
+	</div>
+
+	<div class="col-md-4">
+		<h2> Promedios</h2>
+		<b>Promedio Goles a Favor:</b> <%= number_with_precision(@gfpp, precision: 2)%><br>
+		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gapp, precision: 2)%><br>
+		<b>Promedio Diferencia de gol:</b> <%= number_with_precision(@dgpp, precision: 2)%><br>
+		<b>Efectividad:</b> <%= number_to_percentage(@efectividad*100, precision: 2)     %><br>
+		
+	</div>
+
+	<div class="col-md-4">
+		<div class="row">
+			<h2> Equipos</h2>
+			<% @teams.each do |team| %>
+  			<table>
+				<tbody><tr>
+		  			<td><%= team.name %></td>
+		  			
+  				</tr></tbody>
+  			</table>
+  		
+  		<% end %>
+		</div>
+		
+		
+	</div>
+
+	
+	
+	
+	
+	
+	
+	
+</div>

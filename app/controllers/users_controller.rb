@@ -6,6 +6,16 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find_by name: params[:id]
+		@stats = Stat.find(@user.id)
+		@pj = @stats.wins+@stats.draws+@stats.loses
+		@pts = @stats.wins*3+@stats.draws
+		@efectividad = @pts.to_f/(3*@pj)
+		@gfpp = @stats.gf.to_f/@pj.to_f
+		@gapp = @stats.ga.to_f/@pj.to_f
+		@dgpp = @gfpp.to_f-@gapp.to_f
+		@teams = Team.where("user_id=?", @user.id)
+
+
 	end
 
 	def create
