@@ -12,7 +12,10 @@ class TradesController < ApplicationController
   end
 
   def addToTradeBlock
-  	@players = Player.all
+  	@teams = Team.where(user_id:18)
+    @teams.each do |t|
+      @players = Player.where("team_id=?",t.id)
+    end
   end
 
 

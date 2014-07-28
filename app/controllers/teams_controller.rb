@@ -21,8 +21,7 @@ class TeamsController < ApplicationController
 
   def create
   	@users = User.all
-  	@team = Team.new(team_params)
-  			
+  	@team = Team.new(team_params)	
  			@team.country=0
  			@team.gf=0
  			@team.ga=0

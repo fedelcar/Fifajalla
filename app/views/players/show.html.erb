@@ -9,8 +9,7 @@
 		<b>User: </b><%= link_to @user.name, user_path(@team.user_id), :method => "get" %><br>
 		<b>League:</b> <%= @player.league %><br>
 		<b>Overall:</b> <%= @player.overall %><br>
-		<b>Position:</b> <%= @player.primary_position %><br>
-		<b>Secondary Positon:</b> <%= @player.secondary_position %><br>
+		<b>Position:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
 		<b>On the Trade Block?</b> <%= @player.on_the_block %><br>
 	</div>
 

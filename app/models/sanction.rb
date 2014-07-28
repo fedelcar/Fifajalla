@@ -1,5 +1,5 @@
-class Sanction < ActiveRecord::Base
+class Event < ActiveRecord::Base
 
-	belongs_to :player
+	has_one :player
 	
 end
