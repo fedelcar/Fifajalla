@@ -5,5 +5,6 @@ class DraftController < ApplicationController
   	@numberOfUsers=3
   	@users=User.all
   	@players=Player.all
+  	@currentPick=1
   end
 end
