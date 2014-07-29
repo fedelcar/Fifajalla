@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725222229) do
+ActiveRecord::Schema.define(version: 20140729000349) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140725222229) do
     t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "player_id"
   end
 
   add_index "picks", ["user_id"], name: "index_picks_on_user_id"
