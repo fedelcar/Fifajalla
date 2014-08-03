@@ -1,2 +1,53 @@
-<h1>Matches#index</h1>
-<p>Find me in app/views/matches/index.html.erb</p>
+<div class="container">
+	<h1>Match List</h1>
+	
+	<table class="table table-striped table-hover ">
+		<thead><tr>
+			<th>Fecha</th>
+			<th>User L.</th>
+			<th>Equipo L.</th>
+			<th>Goles L.</th>
+			<th>Goles V.</th>
+			<th>Equipo V.</th>
+			<th>User V.</th>
+			<th>Info</th>
+
+		</tr></thead>
+
+		<% @matches.each do |match| %>
+			<tr><center>
+				<td><%= match.date %></td>
+
+				<% if match.local_goals > match.away_goals %>
+					<td><b><p class="text-info"><%= @users.find(match.local_user_id).name %></p></b>	</td>
+					<td><b><p class="text-info"><%= @teams.find(match.local_team_id).name %></p> </b></td>
+					<td><b><p class="text-info"><%= match.local_goals %></p></b></td>
+					<td><%= match.away_goals %></td>
+					<td><%= @teams.find(match.away_team_id).name %></td>
+					<td><%= @users.find(match.away_user_id).name %></td>	
+				<% else %>
+					<% if match.local_goals < match.away_goals %>
+						<td><%= @users.find(match.local_user_id).name %>	</td>
+						<td><%= @teams.find(match.local_team_id).name %> </td>
+						<td><%= match.local_goals %></td>
+						<td><b><p class="text-info"><%= match.away_goals %></p></b></td>
+						<td><b><p class="text-info"><%= @teams.find(match.away_team_id).name %></p></b></td>
+						<td><b><p class="text-info"><%= @users.find(match.away_user_id).name %></p></b></td>
+					<% else %>
+						<td><%= @users.find(match.local_user_id).name %>	</td>
+						<td><%= @teams.find(match.local_team_id).name %> </td>
+						<td><%= match.local_goals %></td>
+						<td><%= match.away_goals %></td>
+						<td><%= @teams.find(match.away_team_id).name %></td>
+						<td><%= @users.find(match.away_user_id).name %></td>
+					<% end %>
+				<% end %>
+				
+				<td><%= link_to "Info", match_path(match.id), :method => "get" %></td>
+
+			</tr>
+		<% end %>
+	</table>
+
+</div>
+

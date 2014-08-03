@@ -3,6 +3,8 @@ class Player < ActiveRecord::Base
 	belongs_to :team
 
 	has_many :sanctions
+
+   has_many :events
 	
 
 # starts a Comma description block, generating 2 methods #to_comma and
