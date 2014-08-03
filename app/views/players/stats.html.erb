@@ -3,24 +3,26 @@
 	<h1>Player Stats</h1>
 	<table class="table table-striped table-hover ">
     	<thead><tr>
+        <th></th>
     		<th>Name</th>
     		<th><%= link_to "Goals", :sort => "goals" %></th>  
     		<th><%= link_to "Assists", :sort => "assists" %></th>  
     		<th>Team</th>
     		<th>User</th>
-    		<th>More Info</th>
+    	
 			
 			
     	</tr></thead>
     	
   		<% @players.each do |player| %>
   		<tbody><tr>
+        <td><right><%= link_to "", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%></right></td>
   			<td><%= player.first_name %> <%= player.last_name %></td>
   			<td><%= player.goals %></td>
   			<td><%= player.assists %></td>
   			<td><%= player.team.name %></td>
   			<td><%= player.team.user.name %></td>
-  			<td><%= link_to "Info", player_path(player.id), :method => "get" %></td>
+  			
 
   		</tr></tbody>
   		<% end %>
