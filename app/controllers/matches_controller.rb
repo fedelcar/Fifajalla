@@ -21,9 +21,14 @@ class MatchesController < ApplicationController
 	@yellow_cards = Event.where("match_id=? and event_type_id=12", @match.id)
 	@red_cards = Event.where("match_id=? and (event_type_id=13 or event_type_id=14)", @match.id)
 		
-	@pom_event = Event.where("match_id=4 and event_type_id=9")
-	@pome = @pom_event.take
-	@pom = Player.find(@pome.player_id)
+	if Event.where("match_id=? and event_type_id=9",@match.id).exists?
+		@pom_event = Event.where("match_id=? and event_type_id=9",@match.id)
+		@pome = @pom_event.take
+		@pomp = Player.find(@pome.player_id)
+		@pom=@pomp.first_name + " " + @pomp.last_name
+	else
+		@pom = ""
+	end
 
 	@players_local = Player.where("team_id=?",@team_local.id)
 	@players_visitante = Player.where("team_id=?",@team_visitante.id)
