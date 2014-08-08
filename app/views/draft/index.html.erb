@@ -23,7 +23,7 @@
 								<% end %></td>
 
 				<td><%= pick.number %></td>
-				<td><%= @users.find(pick.user_id).name %></td>
+				<td><%= @users.find(pick.user_id).display_name %></td>
 				
 				<% @player=@players.find(pick.player_id) %>
 				

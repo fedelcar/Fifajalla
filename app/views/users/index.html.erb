@@ -22,7 +22,7 @@
 		<tbody><tr>
 
 			<td><font color="black"><%= link_to "", user_path(user.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%></font></td>
-			<td> <%= user.name %>
+			<td> <%= user.display_name %>
   			<td><%= user.wins%></td>
   			<td><%= user.draws%></td>
   			<td><%= user.loses%></td>

@@ -5,7 +5,7 @@
 		<br>
 		<div class="row">
 			<center><h1><%= link_to @team_local.name, team_path(@team_local.id), :method => "get" %></h1>
-				<center><h2><%= link_to @user_local.name, user_path(@user_local.id), :method => "get" %></h2></center>		
+				<center><h2><%= link_to @user_local.display_name, user_path(@user_local.id), :method => "get" %></h2></center>		
 		</div>
 		<div class="row">
 			<br>
@@ -129,7 +129,7 @@
 		<br>
 		<div class="row">
 			<center><h1><%= link_to @team_visitante.name, team_path(@team_visitante.id), :method => "get" %></h1>
-			<center><h2><%= link_to @user_visitante.name, user_path(@user_visitante.id), :method => "get" %></h>
+			<center><h2><%= link_to @user_visitante.display_name, user_path(@user_visitante.id), :method => "get" %></h>
 			</center>		
 		</div>
 		

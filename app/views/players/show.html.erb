@@ -6,7 +6,7 @@
 	<div class="col-md-4">
 		<h2> Information</h2>
 		<b>Equipo:</b> <%= link_to @team.name, team_path(@team.id), :method => "get" %><br>
-		<b>User: </b><%= link_to @user.name, user_path(@team.user_id), :method => "get" %><br>
+		<b>User: </b><%= link_to @user.display_name, user_path(@team.user_id), :method => "get" %><br>
 		<b>League:</b> <%= @player.league %><br>
 		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Position:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
