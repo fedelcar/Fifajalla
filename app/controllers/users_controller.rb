@@ -8,17 +8,39 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find_by id: params[:id]
-		
-		@pj = @user.wins+@user.draws+@user.loses
-		@pts = @user.wins*3+@user.draws
-		@efectividad = @pts.to_f/(3*@pj)
-		@gfpp = @user.gf.to_f/@pj.to_f
-		@gapp = @user.ga.to_f/@pj.to_f
-		@dgpp = @gfpp.to_f-@gapp.to_f
-		@teams = Team.where("user_id=?", params[:id])
-
+		if @user
+			@pj = @user.wins+@user.draws+@user.loses
+			@pts = @user.wins*3+@user.draws
+			@efectividad = @pts.to_f/(3*@pj)
+			@gfpp = @user.gf.to_f/@pj.to_f
+			@gapp = @user.ga.to_f/@pj.to_f
+			@dgpp = @gfpp.to_f-@gapp.to_f
+			@teams = Team.where("user_id=?", params[:id])
+		else
+			@pj = 0
+			@pts = 0
+			@efectividad = 0
+			@gfpp = 0
+			@gapp = 0
+			@dgpp = 0
+			@teams = ""
+		end
 
 	end
+
+	def update
+	  
+		@user = User.find(current_user.id)
+		
+		@user.display_name = params[:display_name]
+		@user.email = params[:email]
+
+		@user.save
+		redirect_to users_path
+   
+
+	end
+
 
 	def create
 		@user = User.new(user_params)
@@ -51,7 +73,7 @@ class UsersController < ApplicationController
 	private
 	
 		def user_params
-			params.require(:user).permit(:name, :id, :password, :email, :password_confirmation)
+			params.require(:user).permit(:name, :id, :password, :email, :password_confirmation, :display_name)
 		end
 
 

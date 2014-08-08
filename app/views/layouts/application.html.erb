@@ -16,8 +16,12 @@
     	<!-- Brand and toggle get grouped for better mobile display -->
     	<div class="navbar-header">
     		 <a class="navbar-brand" href="/">Fifajalla</a>
-    		 <ul class="nav navbar-nav">
-          <li><a href="/users/new">Register</a></li>
+    		 
+      </div>
+
+
+      <div class="collapse navbar-collapse">    
+        <ul class="nav navbar-nav">
     			<li><a href="/users">Users</a></li>
 
           <li class="dropdown">
@@ -57,14 +61,28 @@
     			<li><a href="/draft">Draft</a></li>
           
           <li><a href="/league">League</a></li>
-       
+
+
+          </ul>
+          
+         <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
+                <li><%= link_to current_user.name, "/users/cPanel" %></li>
+                <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
+          <% else %>
+                <li><%= link_to "Sign in", "/auth/facebook", id: "sign_in" %></li>
+          <% end %>
+             
+         </ul>  
          
-    		</ul>
-    	</div>
+    		
+    	
    </div>
+ </div>
 </nav>
 
 <%= yield %>
+
 
 <nav class="navbar navbar-inverse navbar-fixed-bottom " role="navigation">
 	<div class="container-fluid">

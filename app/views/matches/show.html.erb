@@ -1,7 +1,7 @@
 <div class="container">
 
 
-	<div class="col-md-4">
+	<div class="col-sm-4">
 		<br>
 		<div class="row">
 			<center><h1><%= link_to @team_local.name, team_path(@team_local.id), :method => "get" %></h1>
@@ -23,7 +23,7 @@
 
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-sm-4">
 		<br>
 		<div class="row">
 			<br>
@@ -36,7 +36,7 @@
 		<div class="row">
 			<h1><center><p class="text-primary">Goles</p></center></h1>
 			
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
 					<% if @players_local.where("id=?",goal.player_id).exists? %>
 						<font color="black"><center><p>
@@ -45,7 +45,7 @@
 					<% end %>
 				<% end %>
 			</div>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
 					<% if @players_visitante.where("id=?",goal.player_id).exists? %>
 						<font color="black"><center><p>

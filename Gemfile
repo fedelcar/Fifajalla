@@ -46,6 +46,14 @@ gem 'bcrypt', '~> 3.1.7'
 # For CSV Export
 gem "comma", "~> 3.2.1"
 
+# For OAuth
+gem 'omniauth-github'
+gem 'omniauth-openid'
+gem 'omniauth-facebook'
+
+#for Font awesome
+gem 'font-awesome-sass'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
