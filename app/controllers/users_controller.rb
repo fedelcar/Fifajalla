@@ -47,7 +47,9 @@ class UsersController < ApplicationController
  		if User.where(name:@user.name).exists? or User.where(email:@user.email).exists?
 
  		else
- 			@user.display_name = @user.name.split(" ").first
+ 			if @user.display_name=""
+ 				@user.display_name = @user.name.split(" ").first
+ 			end
 	 		@user.gf=0
 	 		@user.ga=0
 	 		@user.wins=0
