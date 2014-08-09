@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-  		@team = Team.find_by id: params[:id]
+  	@team = Team.find_by id: params[:id]
 		@pj = @team.wins+@team.draws+@team.loses
 		@pts = @team.wins*3+@team.draws
 		@efectividad = @pts.to_f/(3*@pj)
@@ -19,9 +19,18 @@ class TeamsController < ApplicationController
 
   end
 
+
+  def new
+    @users = User.where("id>1")
+  end
+
   def create
-  	@users = User.all
-  	@team = Team.new(team_params)	
+  	@users = User.where("id>1")
+    user_id = (@users.find_by display_name: params[:user]).id
+
+    @team = Team.new
+      @team.name= params[:name]
+      @team.user_id=user_id
  			@team.country=0
  			@team.gf=0
  			@team.ga=0
@@ -38,7 +47,7 @@ class TeamsController < ApplicationController
 private
 
   def team_params
-			params.require(:team).permit(:name, :user_id)
+			params.require(:team).permit(:name,:user, :user_id, :country, :gf, :ga, :wins, :draws, :loses, :pts, :dg, :eff)
   end
   
   def sort_column
