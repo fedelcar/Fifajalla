@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
 	
 	def TradeBlock
 		@player = Player.find(params[:id])
-		if @player.on_the_block=1
+		if @player.on_the_block
 			 @player.on_the_block=0
 		else
 			 @player.on_the_block=1
@@ -28,8 +28,12 @@ class PlayersController < ApplicationController
 
 		if params[:from] == "players"
 			redirect_to player_path(@player.id)
-		else	
-			redirect_to team_path(@player.team_id)
+		else
+			if params[:from] == "trades"	
+				redirect_to '/trades/addToTradeBlock'
+			else
+				redirect_to team_path(@player.team_id)
+			end
 		end
 	end
 

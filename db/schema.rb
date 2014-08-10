@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808055059) do
+ActiveRecord::Schema.define(version: 20140810050935) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -98,9 +98,11 @@ ActiveRecord::Schema.define(version: 20140808055059) do
     t.datetime "updated_at"
     t.string   "league"
     t.boolean  "on_the_block"
+    t.integer  "user_id"
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id"
+  add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "sanctions", force: true do |t|
     t.integer  "player_id"

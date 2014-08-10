@@ -13,10 +13,17 @@
 		<b>On the Trade Block?</b>
 		<% if @player.on_the_block %>
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
-			<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp; <%= link_to "Remove", @link %> </font></td>
+			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp;  </font>
+
+				<% if player.user_id == current_user.id %>
+		  			<%= link_to "Remove", @link %> </font></td>
+		  		<% end %>
 		<% else %>
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
-			<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; <%= link_to "Add", @link %> </font></td>
+			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp;  </font>
+			<% if @player.user_id == current_user.id %>
+				<%= link_to "Add", @link %>
+			<% end %>
 		<% end %>
 	</div>
 

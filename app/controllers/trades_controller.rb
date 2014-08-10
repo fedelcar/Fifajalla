@@ -7,20 +7,11 @@ class TradesController < ApplicationController
   end
   
   def onTheBlock
-  	@teams = Team.where("user_id=29")
-  	@players = Array.new
-    
-    @teams.each do |team|
-      @players.push(Player.where("team_id=?",team.id))
-    end
     
   end
 
   def addToTradeBlock
-  	@teams = Team.where(user_id:18)
-    @teams.each do |t|
-      @players = Player.where("team_id=?",t.id)
-    end
+  	
   end
 
 
