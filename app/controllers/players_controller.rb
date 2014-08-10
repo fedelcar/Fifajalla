@@ -1,8 +1,18 @@
 class PlayersController < ApplicationController
 
 	def index
-		@players = Player.take(1000)
-		
+			case params[:filter]
+				when "def"
+					@players = Player.where("primary_position='CB' or primary_position='RB' or primary_position='LB' or primary_position='RWB' or primary_position='LWB'").take(150)
+				when "med"
+					@players = Player.where("primary_position='CDM' or primary_position='CM' or primary_position='LM' or primary_position='RM' or primary_position='CAM'").take(150)
+				when "fw"
+					@players = Player.where("primary_position='CF' or primary_position='ST' or primary_position='LW' or primary_position='RW'").take(150)
+				when "all"
+					@players = Player.take(1000)
+				else
+					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter]).take(150)
+			end	
 	end
 
 	def show

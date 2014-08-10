@@ -1,13 +1,45 @@
 <div class="container">
-	<table class="table table-striped table-hover ">
-    	<thead><tr>
+ <h1> Player List</h1>
+
+ <h3> Filters </h3>
+ <div class="btn-toolbar">
+
+
+      <div class="btn-group">
+        <a href="players?filter=all"><button type="button" class="btn btn-default btn-sm">All</button></a> &nbsp;
+        <a href="players?filter=GK"><button type="button" class="btn btn-warning btn-sm">GK</button></a>
+        <a href="players?filter=def"><button type="button" class="btn btn-primary btn-sm">DEF</button></a>
+        <a href="players?filter=med"><button type="button" class="btn btn-success btn-sm">MED</button></a>
+        <a href="players?filter=fw"><button type="button" class="btn btn-danger btn-sm">FW</button></a> &nbsp;
+        <a href="players?filter=RB"><button type="button" class="btn btn-primary btn-sm">RB</button></a>
+        <a href="players?filter=RWB"><button type="button" class="btn btn-primary btn-sm">RWB</button></a>
+        <a href="players?filter=CB"><button type="button" class="btn btn-primary btn-sm">CB</button></a>
+        <a href="players?filter=LB"><button type="button" class="btn btn-primary btn-sm">LB</button></a>
+        <a href="players?filter=LWB"><button type="button" class="btn btn-primary btn-sm">LWB</button></a>
+        <a href="players?filter=CDM"><button type="button" class="btn btn-success btn-sm">CDM</button></a>
+        <a href="players?filter=CM"><button type="button" class="btn btn-success btn-sm">CM</button></a>
+        <a href="players?filter=CAM"><button type="button" class="btn btn-success btn-sm">CAM</button></a>
+        <a href="players?filter=RM"><button type="button" class="btn btn-success btn-sm">RM</button></a>
+        <a href="players?filter=LM"><button type="button" class="btn btn-success btn-sm">LM</button></a>
+        <a href="players?filter=RW"><button type="button" class="btn btn-danger btn-sm">RW</button></a>
+        <a href="players?filter=LW"><button type="button" class="btn btn-danger btn-sm">LW</button></a>
+        <a href="players?filter=CF"><button type="button" class="btn btn-danger btn-sm">CF</button></a>
+        <a href="players?filter=ST"><button type="button" class="btn btn-danger btn-sm">ST</button></a>
+
+      </div>
+
+  </div>
+  <br>
+  <table class="table table-striped table-hover ">
+    	<br>
+      <thead><tr>
         <th></th>
     		<th>Name</th>
     		<th>Overall</th>
     		<th>Position</th>
     		<th>Team</th>
     		<th>User</th>
-        <th>Status</th>
+        <th></th>
     	</tr></thead>
     	
   		<% @players.each do |player| %>
@@ -23,7 +55,7 @@
             <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
             <td><%= link_to "Draft", @link%></td>
         <% else %>
-            <% if player.team_id!=1 %>
+            <% if player.team_id!=1 and next_pick.user_id == current_user.id %>
               <td>Drafted</td>
             <% end %>
         <% end %>

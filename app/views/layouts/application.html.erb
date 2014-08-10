@@ -35,7 +35,7 @@
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Players <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                  <li><a href="/players">Player List</a></li>
+                  <li><a href="/players?filter=all">Player List</a></li>
                   <li><a href="/players/stats?sort=goals">Stats</a></li>
               </ul>
           </li>
@@ -67,7 +67,7 @@
           
          <ul class="nav navbar-nav navbar-right">
           <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
-          
+
           <% if current_user %>
                 <li><%= link_to current_user.display_name, "/users/cPanel" %></li>
                 <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
