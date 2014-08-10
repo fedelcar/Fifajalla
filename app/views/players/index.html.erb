@@ -1,12 +1,13 @@
 <div class="container">
 	<table class="table table-striped table-hover ">
     	<thead><tr>
-        <th>
+        <th></th>
     		<th>Name</th>
     		<th>Overall</th>
     		<th>Position</th>
     		<th>Team</th>
     		<th>User</th>
+        <th>Status</th>
     	</tr></thead>
     	
   		<% @players.each do |player| %>
@@ -18,6 +19,14 @@
   			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
   			<td><%= player.team.name %></td>
   			<td><%= player.team.user.display_name %></td>
+        <% if next_pick.user_id == current_user.id and player.team_id==1 %>
+            <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
+            <td><%= link_to "Draft", @link%></td>
+        <% else %>
+            <% if player.team_id!=1 %>
+              <td>Drafted</td>
+            <% end %>
+        <% end %>
   		</tr></tbody>
   		<% end %>
   	</table>

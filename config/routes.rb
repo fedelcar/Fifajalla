@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
 
+  get 'draft/draftPlayer', to: 'draft#draftPlayer'
+
   resources :draft
 
   resources :trades

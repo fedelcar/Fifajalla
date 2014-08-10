@@ -66,6 +66,8 @@
           </ul>
           
          <ul class="nav navbar-nav navbar-right">
+          <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
+          
           <% if current_user %>
                 <li><%= link_to current_user.display_name, "/users/cPanel" %></li>
                 <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>

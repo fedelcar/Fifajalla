@@ -15,7 +15,7 @@
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
 			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp;  </font>
 
-				<% if player.user_id == current_user.id %>
+				<% if @player.user_id == current_user.id %>
 		  			<%= link_to "Remove", @link %> </font></td>
 		  		<% end %>
 		<% else %>
