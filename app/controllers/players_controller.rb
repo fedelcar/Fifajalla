@@ -10,6 +10,10 @@ class PlayersController < ApplicationController
 					@players = Player.where("primary_position='CF' or primary_position='ST' or primary_position='LW' or primary_position='RW'").take(150)
 				when "all"
 					@players = Player.take(1000)
+				when "drafted"
+					@players=Player.where("user_id<>1").take(1000)
+				when "undrafted"
+					@players=Player.where("user_id=1").take(1000)
 				else
 					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter]).take(150)
 			end	

@@ -5,7 +5,7 @@
 	
 	<table class="table table-striped table-hover ">
     	<thead><tr>
-    			<th></th>
+    			
     			<th> Name </th>
 				<th> Overall </th>
 				<th> Primary Position </th>
@@ -21,8 +21,8 @@
     	
   		<% Player.where("on_the_block='t' and user_id=?",current_user.id).each do |player| %>
   		<tbody><tr>
-  					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%></td>
-  					<td><%= player.first_name %> <%= player.last_name %></td>
+  					
+  					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp;<%= player.first_name %> <%= player.last_name %></td>
 					<td><%= player.overall %></td>
 					<td><%= player.primary_position %></td>
 					<td><%= player.secondary_position %></td>

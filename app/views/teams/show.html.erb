@@ -39,7 +39,7 @@
 			<h2> Jugadores</h2>
 			<table class="table table-striped table-hover ">
 				<thead><tr>
-					<th></th>
+					
   					<th>Name</th>
   					<th><%= link_to "Overall", :sort => "overall" %></th>  
   					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
@@ -51,8 +51,8 @@
   				<% @players.take(1000).each do |player| %>
 				<tbody><tr>
 					<% @name = player.first_name + " "+ player.last_name%>
-		  			<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%></td>
-					<td><%= @name %></td>
+		  			
+					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp; <%= @name %></td>
 		  			<td><%= player.overall %></td>
 		  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
 		  			<td><%= player.goals %></td>
