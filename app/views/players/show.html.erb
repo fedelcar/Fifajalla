@@ -10,7 +10,14 @@
 		<b>League:</b> <%= @player.league %><br>
 		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Position:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
-		<b>On the Trade Block?</b> <%= @player.on_the_block %><br>
+		<b>On the Trade Block?</b>
+		<% if @player.on_the_block %>
+			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
+			<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp; <%= link_to "Remove", @link %> </font></td>
+		<% else %>
+			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
+			<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; <%= link_to "Add", @link %> </font></td>
+		<% end %>
 	</div>
 
 	<div class="col-md-4">

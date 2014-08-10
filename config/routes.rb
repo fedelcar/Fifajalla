@@ -21,6 +21,9 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   
+  get 'players/addToTradeBlock', to: 'players#TradeBlock'
+
+  get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
 
   resources :draft
 

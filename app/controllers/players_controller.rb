@@ -16,6 +16,22 @@ class PlayersController < ApplicationController
 		
 	end
 	
+	def TradeBlock
+		@player = Player.find(params[:id])
+		if @player.on_the_block=1
+			 @player.on_the_block=0
+		else
+			 @player.on_the_block=1
+		end
+
+		@player.save
+
+		if params[:from] == "players"
+			redirect_to player_path(@player.id)
+		else	
+			redirect_to team_path(@player.team_id)
+		end
+	end
 
 private
   def sort_column

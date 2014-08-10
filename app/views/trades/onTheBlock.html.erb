@@ -17,9 +17,10 @@
 				<th> Defence </th>
     	</tr></thead>
     	
-  		<% @players.where(:on_the_block => 1).each do |player| %>
+  		<% @players.each do |player| %>
   		<tbody><tr>
-  			<td><%= player.first_name %> <%= player.last_name %></td>
+  					
+  					<td><%= player.first_name %> <%= player.last_name %></td>
 					<td><%= player.overall %></td>
 					<td><%= player.primary_position %></td>
 					<td><%= player.secondary_position %></td>
