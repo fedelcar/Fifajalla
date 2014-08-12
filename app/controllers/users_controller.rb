@@ -49,19 +49,16 @@ class UsersController < ApplicationController
 	end
 
 	private
-	
 		def user_params
 			params.require(:user).permit(:name, :id, :password, :email, :password_confirmation)
 		end
 
-
-		  def sort_column
-		    params[:sort] || "wins"
-		  end
+		def sort_column
+			params[:sort] || "wins"
+		end
 		  
-		  def sort_direction
-		    params[:direction] || "desc"
-		  end
-
+		def sort_direction
+			params[:direction] || "desc"
+		end
 
 end

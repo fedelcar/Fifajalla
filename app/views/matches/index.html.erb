@@ -2,20 +2,24 @@
 	<h1>Match List</h1>
 	
 	<table class="table table-striped table-hover ">
-		<thead><tr>
-			<th>Fecha</th>
-			<th>User L.</th>
-			<th>Equipo L.</th>
-			<th>Goles L.</th>
-			<th>Goles V.</th>
-			<th>Equipo V.</th>
-			<th>User V.</th>
-			<th>Info</th>
-
-		</tr></thead>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Fecha</th>
+				<th>User L.</th>
+				<th>Equipo L.</th>
+				<th>Goles L.</th>
+				<th>Goles V.</th>
+				<th>Equipo V.</th>
+				<th>User V.</th>
+				<th>Finalizado</th>
+			</tr>
+		</thead>
 
 		<% @matches.each do |match| %>
 			<tr><center>
+  			<td><right><%= link_to "", match_path(match.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%></right></td>
+
 				<td><%= match.date %></td>
 
 				<% if match.local_goals > match.away_goals %>
@@ -42,8 +46,14 @@
 						<td><%= @users.find(match.away_user_id).name %></td>
 					<% end %>
 				<% end %>
-				
-				<td><%= link_to "Info", match_path(match.id), :method => "get" %></td>
+
+				<td>
+					<% if match.finished %>
+						<span class="glyphicon glyphicon-ok"%></span>
+					<% else %>
+							<%= link_to "Jugar", edit_match_path(match.id), :method => "get" %>
+					<% end %>
+				</td>				
 
 			</tr>
 		<% end %>

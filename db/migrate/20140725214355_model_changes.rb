@@ -1,7 +1,5 @@
 class ModelChanges < ActiveRecord::Migration
   def change
-  	User.create(name: "N/A", id: 1, gf:0, ga:0, wins:0, draws:0, loses:0, dg:0, pts:0, eff:0)
-  	Team.create(name: "FA", id:1, gf:0, ga:0, wins:0, draws:0, loses:0)
 
   	create_table :picks do |p|
   		p.references :user, index: true

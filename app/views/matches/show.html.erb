@@ -1,11 +1,17 @@
 <div class="container">
-
-
-	<div class="col-md-4">
+	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @team_local.name, team_path(@team_local.id), :method => "get" %></h1>
-				<center><h2><%= link_to @user_local.name, user_path(@user_local.id), :method => "get" %></h2></center>		
+			<center>
+				<h1>
+					<%= link_to @team_local.name, team_path(@team_local.id), :method => "get" %>
+				</h1>
+			</center>
+			<center>
+				<h2>
+					<%= link_to @user_local.name, user_path(@user_local.id), :method => "get" %>
+				</h2>
+			</center>
 		</div>
 		<div class="row">
 			<br>
@@ -23,7 +29,7 @@
 
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-sm-4">
 		<br>
 		<div class="row">
 			<br>
@@ -36,7 +42,7 @@
 		<div class="row">
 			<h1><center><p class="text-primary">Goles</p></center></h1>
 			
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
 					<% if @players_local.where("id=?",goal.player_id).exists? %>
 						<font color="black"><center><p>
@@ -45,7 +51,7 @@
 					<% end %>
 				<% end %>
 			</div>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
 					<% if @players_visitante.where("id=?",goal.player_id).exists? %>
 						<font color="black"><center><p>
@@ -58,7 +64,7 @@
 		
 		<div class="row">
 			<h2><center><p class="text-primary">Asistencias</p></center></h2>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @assists.each do |assist| %>
 					<% if @players_local.where("id=?",assist.player_id).exists? %>
 						
@@ -68,7 +74,7 @@
 					<% end %>
 				<% end %>
 			</div>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @assists.each do |assist| %>
 					<% if @players_visitante.where("id=?",assist.player_id).exists? %>
 						<font color="black"><center><p>
@@ -81,7 +87,7 @@
 
 		<div class="row">
 			<h2><center><p class="text-primary">Amonestaciones</p></center></h2>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @yellow_cards.each do |yellow_card| %>
 					<% if @players_local.where("id=?",yellow_card.player_id).exists? %>
 						<font color="black"><center><p>
@@ -90,7 +96,7 @@
 					<% end %>
 				<% end %>
 			</div>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @yellow_cards.each do |yellow_card| %>
 					<% if @players_visitante.where("id=?",yellow_card.player_id).exists? %>
 						<font color="black"><center><p>
@@ -103,7 +109,7 @@
 
 		<div class="row">
 			<h2><center><p class="text-primary">Expulsiones</p></center></h2>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @red_cards.each do |red_card| %>
 					<% if @players_local.where("id=?",red_card.player_id).exists? %>
 						<font color="black"><center><p>
@@ -112,7 +118,7 @@
 					<% end %>
 				<% end %>
 			</div>
-			<div class="col-md-6">
+			<div class="col-sm-6">
 				<% @red_cards.each do |red_card| %>
 					<% if @players_visitante.where("id=?",red_card.player_id).exists? %>
 						<font color="black"><center><p>
@@ -125,17 +131,15 @@
 		
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-sm-4">
 		<br>
 		<div class="row">
 			<center><h1><%= link_to @team_visitante.name, team_path(@team_visitante.id), :method => "get" %></h1>
 			<center><h2><%= link_to @user_visitante.name, user_path(@user_visitante.id), :method => "get" %></h>
-			</center>		
+			</center>
 		</div>
 		
 
 		
 	</div>
-
-
 </div>

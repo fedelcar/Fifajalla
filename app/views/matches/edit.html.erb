@@ -1,0 +1,61 @@
+<div class="container">
+	<div class="col-sm-4">
+		<br>
+		<div class="row">
+			<center><h1><%= link_to @home_team.name, team_path(@home_team.id), :method => "get" %></h1>
+			<center><h2><%= link_to @home_user.name, user_path(@home_user.id), :method => "get" %></h2></center>		
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<br>
+		<div class="row">
+			<br>
+			<h1><font size= "7"><center><%= @match.local_goals %>   -    <%=  @match.away_goals %></center></font></h1>
+		</div>
+	</div>
+
+	<div class="col-sm-4">
+		<br>
+		<div class="row">
+			<center><h1><%= link_to @away_team.name, team_path(@away_team.id), :method => "get" %></h1>
+			<center><h2><%= link_to @away_user.name, user_path(@away_user.id), :method => "get" %></h>
+			</center>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<center>
+		<br>
+		<h2>Nuevo Evento</h2>
+		<br>
+		<%= form_for :new_event, url: {action: "create", :match_id => @match.id} do |f| %>	
+			<%= f.select :player_id, grouped_options_for_select(@grouped_players), {}, {:class => "form-control"} %>
+			<br>
+			<%= f.submit "De Jugada", :class => "btn btn-success" %>
+			<%= f.submit "De Cabeza", :class => "btn btn-success" %>
+			<%= f.submit "De Tiro Libre", :class => "btn btn-success" %>
+			<%= f.submit "De Penal", :class => "btn btn-success" %>
+			<%= f.submit "En Contra", :class => "btn btn-success" %>
+			<br>
+			<br>
+			<%= f.submit "Amarilla", :class => "btn btn-warning" %>
+			<%= f.submit "Roja", :class => "btn btn-danger" %>
+			<br>
+			<br>
+			<%= f.submit "Asistencia", :class => "btn btn-default" %>
+			<%= f.submit "Jugador del Partido", :class => "btn btn-default" %>
+			<%= f.submit "Lesión", :class => "btn btn-default" %>
+			<%= f.submit "Penal Atajado", :class => "btn btn-default" %>
+		<% end %>
+		<br>
+		<br>
+		<br>
+		<%= form_for :match, url: {action: "update"}, :method => "patch" do |f| %>
+			<%= f.submit "Finalizar Partido", :class => "btn btn-primary" %>
+		<% end %>
+	</center>
+</div>
+
+<br><br><br><br><br>

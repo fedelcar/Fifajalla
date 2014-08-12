@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   get 'players/stats'
 
   get 'players/download'

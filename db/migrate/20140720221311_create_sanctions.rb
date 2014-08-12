@@ -3,7 +3,6 @@ class CreateSanctions < ActiveRecord::Migration
     create_table :sanctions do |t|
       t.references :player, index: true
       t.integer :games
-
       t.timestamps
     end
   end
