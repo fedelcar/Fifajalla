@@ -38,7 +38,7 @@
 	</div>
 	<div class="col-md-4">
 		<h2>Next Pick</h2>
-		<b>User:</b> <%=@users.find(@picks.find(next_pick).user_id).name%><br>
+		<b>User:</b> <%=@users.find(@picks.find(next_pick).user_id).display_name%><br>
 		<b>Round:</b> <%= (next_pick.number-1)/@numberOfUsers+1 %><br>
 		<b>Pick:</b> <% if next_pick.number % @numberOfUsers == 0 %>
 										<%= @numberOfUsers%>

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery with: :null_session
   helper_method :current_user
   helper_method :next_pick
+ 
 
   def next_pick
   	@next_pick = Pick.where("player_id=62302").first
