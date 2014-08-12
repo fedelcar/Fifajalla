@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
 				when "GK", "RB", "RWB","CB","LB","LWB","CM","CDM","CAM","LM","RM","RW","LW","CF","ST"
 					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter]).take(150)
 				else					
-					@players=Player.where("last_name LIKE ? or first_name LIKE ?",params[:filter],params[:filter])
+					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
 			end	
 
 	end
