@@ -6,11 +6,25 @@
 	<div class="col-md-4">
 		<h2> Information</h2>
 		<b>Equipo:</b> <%= link_to @team.name, team_path(@team.id), :method => "get" %><br>
-		<b>User: </b><%= link_to @user.name, user_path(@team.user_id), :method => "get" %><br>
+		<b>User: </b><%= link_to @user.display_name, user_path(@team.user_id), :method => "get" %><br>
 		<b>League:</b> <%= @player.league %><br>
 		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Position:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
-		<b>On the Trade Block?</b> <%= @player.on_the_block %><br>
+		<b>On the Trade Block?</b>
+		<% if @player.on_the_block %>
+			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
+			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp;  </font>
+
+				<% if @player.user_id == current_user.id %>
+		  			<%= link_to "Remove", @link %> </font></td>
+		  		<% end %>
+		<% else %>
+			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
+			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp;  </font>
+			<% if @player.user_id == current_user.id %>
+				<%= link_to "Add", @link %>
+			<% end %>
+		<% end %>
 	</div>
 
 	<div class="col-md-4">

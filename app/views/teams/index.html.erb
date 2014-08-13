@@ -3,7 +3,7 @@
     	<br>
       <h1>Team List</h1>
       <thead><tr>
-        <th>
+        
     		<th>Name</th>
     		<th>User</th>
     		<th><%= link_to "Wins", :sort => "wins" %></th>  
@@ -18,9 +18,9 @@
     	
   		<% @teams.each do |team| %>
   		<tbody><tr>
-        <td><font color="black"><%= link_to "", team_path(team.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%></font></td>
-        <td><%= team.name %></td>
-  			<td><%= team.user.name %></td>
+        
+        <td><%= link_to "", team_path(team.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp;<%= team.name %></td>
+  			<td><%= team.user.display_name %></td>
   			<td><%= team.wins %></td>
   			<td><%= team.draws %></td>
   			<td><%= team.loses %></td>

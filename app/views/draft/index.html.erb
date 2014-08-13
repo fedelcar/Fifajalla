@@ -23,7 +23,7 @@
 								<% end %></td>
 
 				<td><%= pick.number %></td>
-				<td><%= @users.find(pick.user_id).name %></td>
+				<td><%= @users.find(pick.user_id).display_name %></td>
 				
 				<% @player=@players.find(pick.player_id) %>
 				
@@ -38,15 +38,15 @@
 	</div>
 	<div class="col-md-4">
 		<h2>Next Pick</h2>
-		<b>User:</b> <%=@users.find(@picks.find(@currentPick).user_id).name%><br>
-		<b>Round:</b> <%= (@currentPick-1)/@numberOfUsers+1 %><br>
-		<b>Pick:</b> <% if @currentPick % @numberOfUsers == 0 %>
+		<b>User:</b> <%=@users.find(@picks.find(next_pick).user_id).display_name%><br>
+		<b>Round:</b> <%= (next_pick.number-1)/@numberOfUsers+1 %><br>
+		<b>Pick:</b> <% if next_pick.number % @numberOfUsers == 0 %>
 										<%= @numberOfUsers%>
 								<% else %>
-									 	<%= @currentPick % @numberOfUsers%>
+									 	<%= next_pick.number % @numberOfUsers%>
 								<% end %>
 		<br>
-		<b>Overall:</b> <%= @currentPick %><br>
-		<% @currentPick=@currentPick+1 %>
+		<b>Overall:</b> <%= next_pick.number %><br>
+		
 	</div>
 </div>

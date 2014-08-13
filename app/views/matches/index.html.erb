@@ -23,7 +23,7 @@
 				<td><%= match.date %></td>
 
 				<% if match.local_goals > match.away_goals %>
-					<td><b><p class="text-info"><%= @users.find(match.local_user_id).name %></p></b>	</td>
+					<td><b><p class="text-info"><%= @users.find(match.local_user_id).display_name %></p></b>	</td>
 					<td><b><p class="text-info"><%= @teams.find(match.local_team_id).name %></p> </b></td>
 					<td><b><p class="text-info"><%= match.local_goals %></p></b></td>
 					<td><%= match.away_goals %></td>
@@ -36,7 +36,7 @@
 						<td><%= match.local_goals %></td>
 						<td><b><p class="text-info"><%= match.away_goals %></p></b></td>
 						<td><b><p class="text-info"><%= @teams.find(match.away_team_id).name %></p></b></td>
-						<td><b><p class="text-info"><%= @users.find(match.away_user_id).name %></p></b></td>
+						<td><b><p class="text-info"><%= @users.find(match.away_user_id).display_name %></p></b></td>
 					<% else %>
 						<td><%= @users.find(match.local_user_id).name %>	</td>
 						<td><%= @teams.find(match.local_team_id).name %> </td>

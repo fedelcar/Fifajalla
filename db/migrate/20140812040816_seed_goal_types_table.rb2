@@ -1,0 +1,9 @@
+class SeedGoalTypesTable < ActiveRecord::Migration
+  def change
+  	GoalType.create(id: "1", description: "On Play")
+    GoalType.create(id: "2", description: "Own Goal")
+	GoalType.create(id: "3", description: "Scored Penalty")
+    GoalType.create(id: "4", description: "Free Kick")
+    GoalType.create(id: "5", description: "Headed")
+  end
+end
