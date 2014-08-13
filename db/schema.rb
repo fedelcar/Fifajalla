@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140810072435) do
     t.datetime "updated_at"
     t.string   "league"
     t.boolean  "on_the_block"
+    t.integer  "user_id"
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id"
@@ -147,7 +148,6 @@ ActiveRecord::Schema.define(version: 20140810072435) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
-    t.string   "password_digest"
     t.integer  "gf"
     t.integer  "ga"
     t.integer  "wins"
@@ -156,6 +156,11 @@ ActiveRecord::Schema.define(version: 20140810072435) do
     t.integer  "pts"
     t.integer  "dg"
     t.integer  "eff"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.string   "display_name"
   end
 
 end

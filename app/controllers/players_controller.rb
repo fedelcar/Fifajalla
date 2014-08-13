@@ -4,22 +4,23 @@ class PlayersController < ApplicationController
 		
 			case params[:filter]
 				when "def"
-					@players = Player.where("primary_position='CB' or primary_position='RB' or primary_position='LB' or primary_position='RWB' or primary_position='LWB'").take(150)
+					@players = Player.where("primary_position='CB' or primary_position='RB' or primary_position='LB' or primary_position='RWB' or primary_position='LWB'")
 				when "med"
-					@players = Player.where("primary_position='CDM' or primary_position='CM' or primary_position='LM' or primary_position='RM' or primary_position='CAM'").take(150)
+					@players = Player.where("primary_position='CDM' or primary_position='CM' or primary_position='LM' or primary_position='RM' or primary_position='CAM'")
 				when "fw"
-					@players = Player.where("primary_position='CF' or primary_position='ST' or primary_position='LW' or primary_position='RW'").take(150)
+					@players = Player.where("primary_position='CF' or primary_position='ST' or primary_position='LW' or primary_position='RW'")
 				when "all"
-					@players = Player.take(1000)
+					@players = Player
 				when "drafted"
-					@players=Player.where("user_id<>1").take(1000)
+					@players=Player.where("user_id<>1")
 				when "undrafted"
-					@players=Player.where("user_id=1").take(1000)
+					@players=Player.where("user_id=1")
 				when "GK", "RB", "RWB","CB","LB","LWB","CM","CDM","CAM","LM","RM","RW","LW","CF","ST"
-					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter]).take(150)
+					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter])
 				else					
 					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
 			end	
+			@players=@players.take(150)
 
 	end
 

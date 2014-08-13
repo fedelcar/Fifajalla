@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
 
+
+
+  
+  get 'users/cPanel'
+
+  get 'welcome/faqs'
+
+
+  patch 'users', to: 'users#update'
+  
+  resources :users
+
   get 'players/stats'
+
+  get 'players/search'
 
   get 'players/download'
 
@@ -12,11 +26,16 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   
+  get 'players/addToTradeBlock', to: 'players#TradeBlock'
+
+  get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
+
+  get 'draft/draftPlayer', to: 'draft#draftPlayer'
+
   resources :draft
 
   resources :trades
 
-  resources :users
 
   resources :players
 
@@ -27,6 +46,18 @@ Rails.application.routes.draw do
   resources :matches
   
   resources :teams
+
+
+  #Everything below is for facebook OAuth
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout', to: 'sessions#destroy', as: 'signout'
+
+  resources :sessions, only: [:create, :destroy]
+  resource :welcome, only: [:index]
+
+  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
