@@ -34,7 +34,7 @@
   			<td><%= user.ga%></td>
   			<td><%= user.dg%></td>
   			<td><%= user.pts%></td>
-  			<td><%= (user.eff * 100) %> %</td>
+  			<td><%= number_to_percentage(user.eff*100, precision: 2) %></td>
   		</tr></tbody>	
 	<% end %>
 </table>

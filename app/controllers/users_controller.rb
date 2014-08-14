@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
 
 	def index
+
 		@users = User.where("id>1").order(sort_column + ' ' + sort_direction)
-		
+		@users.each do |user|
+			user.eff=user.pts.to_f/((user.wins+user.draws+user.loses)*3)
+			user.save
+		end
 
 	end
 
