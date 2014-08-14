@@ -4,15 +4,7 @@
  <h3> Filters </h3>
  <div class="btn-toolbar">
 
-      <form class="navbar-form navbar-left" role="search">
-            <%= form_tag('/search', class: "navbar-form", id: "search-form") do %>
-              <div class="container">
-                <%= text_field_tag :filter, "", class: "span", placeholder: "Search" %>
-                <button class="btn btn-success" type="submit">Search</button>
-              </div>
-            <% end %>
-           </form>
-           <br>
+  
       <div class="btn-group">
         <br>
         <a href="players?filter=all"><button type="button" class="btn btn-default btn-sm">All</button></a> &nbsp;
@@ -39,9 +31,16 @@
       
       <br>
       <div class="btn-group">
+        <form role="search">
         <br>
         <a href="players?filter=drafted"><button type="button" class="btn btn-default btn-sm">Drafted</button></a> &nbsp;
-        <a href="players?filter=undrafted"><button type="button" class="btn btn-default btn-sm">Undrafted</button></a>
+        <a href="players?filter=undrafted"><button type="button" class="btn btn-default btn-sm">Undrafted</button></a>&nbsp;&nbsp;
+        
+          <%= form_tag('/search', id: "search-form") do %>    
+                <%= text_field_tag :filter, "", placeholder: "Search" %>
+                <button class="btn btn-sm btn-success" type="submit">Search</button>
+          <% end %>
+        </form>
         
 
       </div>

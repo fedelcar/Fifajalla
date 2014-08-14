@@ -32,7 +32,7 @@
   			<td><%= team.ga%></td>
   			<td><%= team.dg%></td>
   			<td><%= team.pts%></td>
-  			<td><%= team.eff%></td>
+  			<td><%= number_to_percentage(team.eff*100, precision: 2) %></td>
   		</tr></tbody>	
 	<% end %>
 </table>

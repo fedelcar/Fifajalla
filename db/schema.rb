@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814040746) do
+ActiveRecord::Schema.define(version: 20140814064946) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20140814040746) do
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
   create_table "goal_types", force: true do |t|
-    t.string  "description"
+    t.integer  "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20140814040746) do
     t.datetime "updated_at"
     t.integer  "pts"
     t.integer  "dg"
-    t.integer  "eff"
+    t.float    "eff"
   end
 
   add_index "teams", ["user_id"], name: "index_teams_on_user_id"

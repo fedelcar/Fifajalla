@@ -2,6 +2,12 @@ class TeamsController < ApplicationController
   def index
   		@teams = Team.where("id>1").order(sort_column + ' ' + sort_direction)
   		@users = User.all
+      @teams.each do |team|
+        team.dg=team.gf-team.ga
+        team.pts=team.wins*3+team.draws
+        team.save
+      end
+
 
   end
 
