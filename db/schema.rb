@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813221744) do
+ActiveRecord::Schema.define(version: 20140814025619) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20140813221744) do
     t.integer  "loses"
     t.integer  "pts"
     t.integer  "dg"
-    t.integer  "eff"
+    t.float    "eff"
     t.string   "provider"
     t.string   "uid"
     t.string   "oauth_token"

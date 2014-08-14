@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 	def index
-		@users = User.where("id>1")
+		@users = User.where("id>1").order(sort_column + ' ' + sort_direction)
 		
 
 	end

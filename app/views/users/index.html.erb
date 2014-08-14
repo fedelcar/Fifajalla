@@ -7,9 +7,11 @@
 	<thead><tr>
 		
 		<th>Name</th>
+		<th>PJ</th> 
 		<th><%= link_to "Wins", :sort => "wins" %></th>  
 		<th><%= link_to "Draws", :sort => "draws" %></th>  
 		<th><%= link_to "Loses", :sort => "loses" %></th>  
+		
 		<th><%= link_to "GF", :sort => "gf" %></th>  
 		<th><%= link_to "GA", :sort => "ga" %></th>  
 		<th><%= link_to "DG", :sort => "dg" %></th>  
@@ -23,14 +25,16 @@
 
 
 			<td><%= link_to "", user_path(user.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= user.display_name %>
+			<td><%= user.loses + user.wins + user.draws%></td>
   			<td><%= user.wins%></td>
   			<td><%= user.draws%></td>
   			<td><%= user.loses%></td>
+
   			<td><%= user.gf%></td>
   			<td><%= user.ga%></td>
   			<td><%= user.dg%></td>
   			<td><%= user.pts%></td>
-  			<td><%= user.eff%></td>
+  			<td><%= (user.eff * 100) %> %</td>
   		</tr></tbody>	
 	<% end %>
 </table>
