@@ -1,6 +1,6 @@
 class TradesController < ApplicationController
   def new
-    current_user = User.find(19)
+    
     @players_user1 = Player.where("user_id=? or id=?", current_user.id, "62302")
     @grouped_players1 = @players_user1.inject({}) do |options, player| 
         (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
@@ -43,8 +43,122 @@ class TradesController < ApplicationController
   end
 
 	def create
-		@trade = Trade.new(trade_params)
- 
+		@trade = Trade.new
+    
+    @approvalA = Approval.new
+    @approvalA.trade_id=@trade.id
+    @approvalA.user_id=params[:user_id_A]
+    @approvalA.approved=false
+    @approvalA.save
+
+    @approvalB = Approval.new
+    @approvalB.trade_id=@trade.id
+    @approvalB.user_id=params[:user_id_B]
+    @approvalB.approved=false
+    @approvalB.save
+
+    if params[:player_id_A1] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_A1]
+      @pm.first_user_id=params[:user_id_A]
+      @pm.second_user_id=params[:user_id_B]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.save
+    end 
+
+    if params[:player_id_A2] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_A2]
+      @pm.first_user_id=params[:user_id_A]
+      @pm.second_user_id=params[:user_id_B]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.save
+    end
+
+    if params[:player_id_A3] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_A3]
+      @pm.first_user_id=params[:user_id_A]
+      @pm.second_user_id=params[:user_id_B]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.save
+    end
+
+    if params[:player_id_A4] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_A4]
+      @pm.first_user_id=params[:user_id_A]
+      @pm.second_user_id=params[:user_id_B]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.save
+    end
+
+    if params[:player_id_A5] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_A5]
+      @pm.first_user_id=params[:user_id_A]
+      @pm.second_user_id=params[:user_id_B]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.save
+    end
+
+    if params[:player_id_B1] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_B1]
+      @pm.first_user_id=params[:user_id_B]
+      @pm.second_user_id=params[:user_id_A]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.save
+    end 
+
+    if params[:player_id_B2] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_B2]
+      @pm.first_user_id=params[:user_id_B]
+      @pm.second_user_id=params[:user_id_A]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.save
+    end
+
+    if params[:player_id_B3] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_B3]
+      @pm.first_user_id=params[:user_id_B]
+      @pm.second_user_id=params[:user_id_A]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.save
+    end
+
+    if params[:player_id_B4] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_B4]
+      @pm.first_user_id=params[:user_id_B]
+      @pm.second_user_id=params[:user_id_A]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.save
+    end
+
+    if params[:player_id_B5] != 62302
+      @pm=Player_movement.new
+      @pm.player_id=params[:player_id_B5]
+      @pm.first_user_id=params[:user_id_B]
+      @pm.second_user_id=params[:user_id_A]
+      @pm.first_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm.second_team_id=(Team.find_by user_id: params[:user_id_A]).id
+      @pm.save
+    end
+
+
+
 		@trade.save
 		redirect_to trades_path
 	end
