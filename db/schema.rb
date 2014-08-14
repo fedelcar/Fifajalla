@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140810072435) do
+ActiveRecord::Schema.define(version: 20140813221744) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -138,9 +138,23 @@ ActiveRecord::Schema.define(version: 20140810072435) do
 
   add_index "teams", ["user_id"], name: "index_teams_on_user_id"
 
+  create_table "trade_approvals", force: true do |t|
+    t.integer  "trade_id"
+    t.integer  "user_id"
+    t.boolean  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "trade_approvals", ["trade_id"], name: "index_trade_approvals_on_trade_id"
+  add_index "trade_approvals", ["user_id"], name: "index_trade_approvals_on_user_id"
+
   create_table "trades", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.integer  "users"
+    t.integer  "approvals"
   end
 
   create_table "users", force: true do |t|

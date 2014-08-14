@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
-
-
-
-  
+ 
   get 'users/cPanel'
 
   get 'welcome/faqs'
-
 
   patch 'users', to: 'users#update'
   
@@ -32,10 +28,11 @@ Rails.application.routes.draw do
 
   get 'draft/draftPlayer', to: 'draft#draftPlayer'
 
+  get 'trades/new2'
+
   resources :draft
 
   resources :trades
-
 
   resources :players
 
