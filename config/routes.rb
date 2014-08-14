@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   get 'draft/draftPlayer', to: 'draft#draftPlayer'
 
-  get 'trades/new2'
+  post 'matches', to: 'matches#newMatch'
+
+  post 'matches#createEvent', to: 'matches#createEvent'
 
   resources :draft
 

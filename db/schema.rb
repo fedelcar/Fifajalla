@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20140814040746) do
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
 
   create_table "goal_types", force: true do |t|
-    t.integer  "description"
+    t.string  "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

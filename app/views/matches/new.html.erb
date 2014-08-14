@@ -1,0 +1,35 @@
+<div class="container">
+	<h1>Create Match</h1>
+	<br>
+<form class="form-horizontal row-sm-7" action="/matches" method="post">
+
+
+<div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="post" /></div>
+			 <fieldset>
+			    <div class="form-group col-sm-8">
+					<div class="col-sm-1"><label for="name" class="control-label">Local:</label> </div>
+						<div class="col-sm-4"><select class="form-control" input id="userL" name="userL"></div>
+							<% @users.each do |u| %>
+							   	<option><%= u.display_name %></option>
+						    <% end %>
+						</select>
+					</div>
+
+					<div class="col-sm-1"><label for="name" class="control-label">Visitante:</label> </div>
+						<div class="col-sm-4"><select class="form-control" input id="userV" name="userV"></div>
+							<% @users.each do |u| %>
+							   	<option><%= u.display_name %></option>
+						    <% end %>
+						</select>
+					</div>
+			    </div>
+			    <div class="row">
+			      	<div class="col-sm-8">
+			      		<br>
+			        	<button class="btn btn-default">Cancel</button>
+			        	<button class="btn btn-success" type="submit" name="commit" value="New Match">Submit</button>
+			      	</div>
+			      	</div>
+			</fieldset>
+		</form>
+</div>

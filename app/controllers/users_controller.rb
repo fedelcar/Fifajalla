@@ -5,6 +5,8 @@ class UsersController < ApplicationController
 		@users = User.where("id>1").order(sort_column + ' ' + sort_direction)
 		@users.each do |user|
 			user.eff=user.pts.to_f/((user.wins+user.draws+user.loses)*3)
+			user.dg=user.gf-user.ga
+			user.pts=user.wins*3+user.draws
 			user.save
 		end
 

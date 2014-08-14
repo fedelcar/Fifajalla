@@ -50,6 +50,13 @@
 						</p></center></font>
 					<% end %>
 				<% end %>
+				<% @ownGoals.each do |goal| %>
+					<% if @players_visitante.where("id=?",goal.player_id).exists? %>
+						<font color="black"><center><p>
+							<%= link_to @players_visitante.find(goal.player_id).last_name + "(EC)", player_path(@players_visitante.find(goal.player_id)), :method => "get", class:"h4" %>
+						</p></center></font>
+					<% end %>
+				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
@@ -58,6 +65,13 @@
 							<%= link_to @players_visitante.find(goal.player_id).last_name, player_path(@players_visitante.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<%end%>
+				<% end %>
+				<% @ownGoals.each do |goal| %>
+					<% if @players_local.where("id=?",goal.player_id).exists? %>
+						<font color="black"><center><p>
+							<%= link_to @players_local.find(goal.player_id).last_name + "(EC)", player_path(@players_local.find(goal.player_id)), :method => "get", class:"h4" %>
+						</p></center></font>
+					<% end %>
 				<% end %>
 			</div>
 		</div>

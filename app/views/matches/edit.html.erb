@@ -30,7 +30,7 @@
 		<br>
 		<h2>Nuevo Evento</h2>
 		<br>
-		<%= form_for :new_event, url: {action: "create", :match_id => @match.id} do |f| %>	
+		<%= form_for :new_event, url: {action: "createEvent", :match_id => @match.id} do |f| %>	
 			<%= f.select :player_id, grouped_options_for_select(@grouped_players), {}, {:class => "form-control"} %>
 			<br>
 			<%= f.submit "De Jugada", :class => "btn btn-success" %>
