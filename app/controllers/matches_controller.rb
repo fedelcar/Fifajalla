@@ -37,12 +37,12 @@ class MatchesController < ApplicationController
 
 def update
 	@match = Match.find(params[:id])
-	@match.finished = "1"
+	@match.finished = true
 	@teamA = Team.find(@match.local_team_id)
 	@teamB = Team.find(@match.away_team_id)
-	@userA = User.find(@match.local_user.id)
+	@userA = User.find(@match.local_user_id)
 	@userB = User.find(@match.away_user_id)
-	if @match.local_goals==@match.aqay_goals
+	if @match.local_goals==@match.away_goals
 		@teamA.draws=@teamA.draws+1
 		@teamB.draws=@teamB.draws+1
 		@userA.draws=@userA.draws+1
