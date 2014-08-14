@@ -1,95 +1,87 @@
 <div class="container">
-	<h1>New Trade</h1>
-	<div class="row">
-		<a class="btn btn-default btn-lg" href="/trades" role="button">Volver</a>
-	</div>
-	<%= form_for :trade, url: trades_path do |t| %>
-		<p>
-			<%= t.label :player_id %>
-			<%= t.text_field :player_id %><br>
-			<%= t.label :usuario_origen %>
-			<%= t.text_field :first_user_id %><br>
-			<%= t.label :equipo_origen %>
-			<%= t.text_field :first_team_id %><br>
-			<%= t.label :second_user_id %>
-			<%= t.text_field :second_user_id %><br>
-			<%= t.label :second_team_id %>
-			<%= t.text_field :second_team_id %><br>
-		</p>
-
-		<p>
-			<%= t.submit %>
-		</p>
-	<% end %>
-
-
-
-	<div class="col-md-4">
-		<h3>Team A gets</h3>
+	<center>
 		<%= form_for :trade, url: trades_path do |t| %>
-		<p>
-			<%= t.label :user_id %><br>
-			<%= t.collection_select :user_id, @users.order(:name),:id,:name %>
+			<h1>Propose Simple Trade</h1>
 			<br>
+			<div class="col-sm-5">
+				<% @current_user_array = User.where("id=19") %>
 
-			<%= t.label :team_id %><br>
-			
-			<%= t.collection_select :team_id, @teams.order(:name),:id,:name %>
-			<br>
+				<%= t.label "Usuario" %>
+				<%= t.select :user_id, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
+				<br>
+				<% if (params[:id] == "1") %>
+					<% style = {:disabled => true, :class => "form-control"} %>
+				<% else %>
+					<% style = {:class => "form-control"} %>
+				<% end %>
+				
+				<%= t.label :"Jugador 1" %>
+				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<br>
+				<%= t.label :"Jugador 2" %>
+				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<br>
+				<%= t.label :"Jugador 3" %>
+				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<br>
+				<%= t.label :"Jugador 4" %>
+				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<br>
+				<%= t.label :"Jugador 5" %>
+				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<br>
+			</div>
 
-			<%= t.label :player_id %><br>
-			<%= t.text_field :player_id %>
-		</p>
+			<div class="col-sm-2">
+			</div>
 
-		<p>
-			<%= t.submit %>
-		</p>
-	<% end %>
-	</div>
-	<div class="col-md-4">
-		<h3>Team B gets</h3>
-		<%= form_for :trade, url: trades_path do |t| %>
-		<p>
-			<%= t.label :user_id %><br>
-			<%= t.collection_select :user_id, @users.order(:name),:id,:name %>
-			<br>
+			<div class="col-sm-5">
+				<% if (params[:id] == "1") %>
+					<%= t.label "Usuario" %>
+					<%= t.select :user_id, options_from_collection_for_select(@users, "id", "display_name"), {}, {:class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 1" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 2" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 3" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 4" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 5" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
+				<% else %>
+					<%= t.label "Usuario" %>
+					<%= t.select :user_id, options_from_collection_for_select(@users, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 1" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 2" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 3" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 4" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
+					<br>
+					<%= t.label :"Jugador 5" %>
+					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
+				<% end %>
+				<br>
+			</div>
 
-			<%= t.label :team_id %><br>
-			
-			<%= t.collection_select :team_id, @teams.order(:name),:id,:name %>
-			<br>
+			<div class="col-sm-12">
+				<br>
+				<%= t.submit "Propose", :class => "btn btn-primary" %>
+			</div>
 
-			<%= t.label :player_id %><br>
-			<%= t.text_field :player_id %>
-		</p>
-
-		<p>
-			<%= t.submit %>
-		</p>
-	<% end %>
-	</div>
-	<div class="col-md-4">
-		<h3>Team C gets</h3>
-		<%= form_for :trade, url: trades_path do |t| %>
-		<p>
-			<%= t.label :user_id %><br>
-			<%= t.collection_select :user_id, @users.order(:name),:id,:name %>
-			<br>
-
-			<%= t.label :team_id %><br>
-			
-			<%= t.collection_select :team_id, @teams.order(:name),:id,:name %>
-			<br>
-
-			<%= t.label :player_id %><br>
-			<%= t.text_field :player_id %>
-		</p>
-
-		<p>
-			<%= t.submit %>
-		</p>
-	<% end %>
-	</div>
-	<br>
-	
+		<% end %>
+	</center>
 </div>
+<br><br><br><br>
