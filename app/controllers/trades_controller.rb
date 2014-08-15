@@ -158,7 +158,9 @@ class TradesController < ApplicationController
     end
 
 
-
+    @trade.status="Created"
+    @trade.users=2
+    @tarde.approvals=0
 		@trade.save
 		redirect_to trades_path
 	end
