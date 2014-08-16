@@ -30,13 +30,13 @@ class TradesController < ApplicationController
     
   end
 
-  def addToTradeBlock
+  def proposedTrades
     
   end
 
 
   def index
-    @trades=Trade.all
+    @trades=Trade.where("users=approvals")
     @players = Player.all
     @teams = Team.all
     @users = User.all

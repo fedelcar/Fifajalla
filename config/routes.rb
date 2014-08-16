@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   post 'matches#createEvent', to: 'matches#createEvent'
 
+  get 'trades/proposedTrades', to: 'trades#proposedTrades'
+
   resources :draft
 
   resources :trades
