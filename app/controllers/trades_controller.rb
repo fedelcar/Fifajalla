@@ -43,6 +43,7 @@ class TradesController < ApplicationController
   end
 
 	def create
+<<<<<<< HEAD
 
 		@trade = Trade.new
     
@@ -166,6 +167,10 @@ class TradesController < ApplicationController
 		@trade = Trade.new(trade_params)
  
 
+=======
+		@trade = Trade.new(trade_params)
+ 
+>>>>>>> FETCH_HEAD
 		@trade.save
 		redirect_to trades_path
 	end
