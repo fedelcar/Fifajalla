@@ -7,28 +7,29 @@
 				<% @current_user_array = User.where("id=19") %>
 
 				<%= t.label "Usuario" %>
-				<%= t.select :user_id, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
+				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
 				<br>
+
 				<% if (params[:id] == "1") %>
 					<% style = {:disabled => true, :class => "form-control"} %>
 				<% else %>
 					<% style = {:class => "form-control"} %>
 				<% end %>
-				
+
 				<%= t.label :"Jugador 1" %>
-				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<%= t.select :player_id_a1, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
 				<br>
 				<%= t.label :"Jugador 2" %>
-				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<%= t.select :player_id_a2, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
 				<br>
 				<%= t.label :"Jugador 3" %>
-				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<%= t.select :player_id_a3, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
 				<br>
 				<%= t.label :"Jugador 4" %>
-				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<%= t.select :player_id_a4, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
 				<br>
 				<%= t.label :"Jugador 5" %>
-				<%= t.select :player_id, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
+				<%= t.select :player_id_a5, grouped_options_for_select(@grouped_players1, "62302"), {}, style %>
 				<br>
 			</div>
 
@@ -37,42 +38,30 @@
 
 			<div class="col-sm-5">
 				<% if (params[:id] == "1") %>
-					<%= t.label "Usuario" %>
-					<%= t.select :user_id, options_from_collection_for_select(@users, "id", "display_name"), {}, {:class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 1" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 2" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 3" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 4" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 5" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:disabled => true, :class => "form-control"} %>
+					<% user_style = {:class => "form-control"} %>
+					<% player_style = {:disabled => true, :class => "form-control"} %>
 				<% else %>
-					<%= t.label "Usuario" %>
-					<%= t.select :user_id, options_from_collection_for_select(@users, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 1" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 2" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 3" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 4" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
-					<br>
-					<%= t.label :"Jugador 5" %>
-					<%= t.select :player_id, grouped_options_for_select(@grouped_players2, "62302"), {}, {:class => "form-control"} %>
+					<% user_style = {:disabled => true, :class => "form-control"} %>
+					<% player_style = {:class => "form-control"} %>
 				<% end %>
+
+				<%= t.label "Usuario" %>
+				<%= t.select :user_id_b, options_from_collection_for_select(@users, "id", "display_name"), {}, user_style %>
+				<br>
+				<%= t.label :"Jugador 1" %>
+				<%= t.select :player_id_b1, grouped_options_for_select(@grouped_players2, "62302"), {}, player_style %>
+				<br>
+				<%= t.label :"Jugador 2" %>
+				<%= t.select :player_id_b2, grouped_options_for_select(@grouped_players2, "62302"), {}, player_style %>
+				<br>
+				<%= t.label :"Jugador 3" %>
+				<%= t.select :player_id_b3, grouped_options_for_select(@grouped_players2, "62302"), {}, player_style %>
+				<br>
+				<%= t.label :"Jugador 4" %>
+				<%= t.select :player_id_b4, grouped_options_for_select(@grouped_players2, "62302"), {}, player_style %>
+				<br>
+				<%= t.label :"Jugador 5" %>
+				<%= t.select :player_id_b5, grouped_options_for_select(@grouped_players2, "62302"), {}, player_style %>
 				<br>
 			</div>
 
