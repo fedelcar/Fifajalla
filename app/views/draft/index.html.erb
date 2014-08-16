@@ -13,26 +13,50 @@
 		</tr></thead>
 
 		<% @picks.each do |pick| %>
-			<tbody><tr>
-				<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
-				<td>
-					<% if pick.number % @numberOfUsers == 0 %>
-										<%= @numberOfUsers%>
-								<% else %>
-									 	<%= pick.number % @numberOfUsers%>
-								<% end %></td>
+			<% if pick.number==next_pick.number%>
+				<tbody><tr class="info">
+					<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
+					<td>
+						<% if pick.number % @numberOfUsers == 0 %>
+											<%= @numberOfUsers%>
+									<% else %>
+										 	<%= pick.number % @numberOfUsers%>
+									<% end %></td>
 
-				<td><%= pick.number %></td>
-				<td><%= @users.find(pick.user_id).display_name %></td>
-				
-				<% @player=@players.find(pick.player_id) %>
-				
-				<td><%= @player.first_name %> <%= @player.last_name %></td>
-				<td><%= @player.overall %></td>
-				<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>
+					<td><%= pick.number %></td>
+					<td><%= @users.find(pick.user_id).display_name %></td>
+					
+					<% @player=@players.find(pick.player_id) %>
+					
+					<td><%= @player.first_name %> <%= @player.last_name %></td>
+					<td><%= @player.overall %></td>
+					<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>
 
-	  			
-			</tr></tbody>
+		  			
+				</tr></tbody>
+			<% else %>
+				<tbody><tr>
+					<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
+					<td>
+						<% if pick.number % @numberOfUsers == 0 %>
+											<%= @numberOfUsers%>
+									<% else %>
+										 	<%= pick.number % @numberOfUsers%>
+									<% end %></td>
+
+					<td><%= pick.number %></td>
+					<td><%= @users.find(pick.user_id).display_name %></td>
+					
+					<% @player=@players.find(pick.player_id) %>
+					
+					<td><%= @player.first_name %> <%= @player.last_name %></td>
+					<td><%= @player.overall %></td>
+					<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>
+
+		  			
+				</tr></tbody>
+			<% end %>
+			
 		<% end %>
 		</table>
 	</div>
