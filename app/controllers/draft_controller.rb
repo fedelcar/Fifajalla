@@ -1,7 +1,7 @@
 class DraftController < ApplicationController
   def index
   	@picks=Pick.all
-  	@numberOfUsers=User.count-1
+  	@numberOfUsers=User.count-2
   	
   	@users=User.all
   	@players=Player.all

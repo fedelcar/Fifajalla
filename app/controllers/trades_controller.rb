@@ -58,12 +58,12 @@ class TradesController < ApplicationController
     @approvalB.save
 
     if params[:player_id_A1] != 62302
-      @pm=Player_movement.new
-      @pm.player_id=params[:player_id_A1]
-      @pm.first_user_id=params[:user_id_A]
-      @pm.second_user_id=params[:user_id_B]
-      @pm.first_team_id=(Team.find_by user_id: params[:user_id_A]).id
-      @pm.second_team_id=(Team.find_by user_id: params[:user_id_B]).id
+      @pm=Player_Movement.new
+      @pm.player_id=params[:player_idA1]
+      @pm.first_user_id=(Player.find(params[:trade][:player_idA1])).user_id
+      @pm.second_user_id=(Player.find(params[:trade][:player_idB1]).user_id)
+      @pm.first_team_id=Player.find(params[:trade][:player_idA1]).team_id
+      @pm.second_team_id=(Player.find params[:trade][:player_idB1]).team_id
       @pm.save
     end 
 
