@@ -28,11 +28,17 @@ Rails.application.routes.draw do
 
   get 'draft/draftPlayer', to: 'draft#draftPlayer'
 
+
+
   post 'matches', to: 'matches#newMatch'
 
   post 'matches#createEvent', to: 'matches#createEvent'
 
   get 'trades/proposedTrades', to: 'trades#proposedTrades'
+
+  get 'trades/approveTrade', to: 'trades#approveTrade'
+
+  get 'trades/rejectTrade', to: 'trades#rejectTrade'
 
   resources :draft
 

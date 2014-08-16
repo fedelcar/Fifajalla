@@ -26,20 +26,47 @@ class TradesController < ApplicationController
     @teams = Team.all
   end
   
-  def onTheBlock
-    
+  def rejectTrade
+    @app=Trade_Approval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
+    @trade=Trade.find(@app.trade_id)
+    @trade.approvals=@trade.users
+    @trade.status="Rejected"
+    @trade.save
+    redirect_to '/trades/'  
+  end
+
+
+  def approveTrade
+    @app=Trade_Approval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
+    @app.approved=true
+    @app.save
+    @trade=Trade.find(@app.trade_id)
+    @trade.approvals=@trade.approvals+1
+    @trade.status="Completed"
+    @trade.save
+    if @trade.approvals=@trade.users
+      @pms=Player_Movement.where("trade_id=?",@trade.id)
+      @pms.each do |pm|
+        @player=Player.find(pm.player_id)
+        @player.user_id=pm.second_user_id
+        @player.team_id=(Team.find_by user_id: pm.second_user_id).id  
+        @player.save
+      end 
+    else
+    end
+    redirect_to '/trades/'  
   end
 
   def proposedTrades
-    
+    @approvals=Trade_Approval.where("user_id=? and approved='f'",current_user.id)
+
+
   end
 
 
   def index
-    @trades=Trade.where("users=approvals")
-    @players = Player.all
-    @teams = Team.all
-    @users = User.all
+    @trades=Trade.where("Status='Completed'")
+
   end
 
   def create
