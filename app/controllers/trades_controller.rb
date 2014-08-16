@@ -1,6 +1,6 @@
 class TradesController < ApplicationController
   def new
-    
+    current_user = User.find(19)
     @players_user1 = Player.where("user_id=? or id=?", current_user.id, "62302")
     @grouped_players1 = @players_user1.inject({}) do |options, player| 
         (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
@@ -43,6 +43,7 @@ class TradesController < ApplicationController
   end
 
 	def create
+
 		@trade = Trade.new
     
     @approvalA = Approval.new
@@ -161,6 +162,10 @@ class TradesController < ApplicationController
     @trade.status="Created"
     @trade.users=2
     @tarde.approvals=0
+
+		@trade = Trade.new(trade_params)
+ 
+
 		@trade.save
 		redirect_to trades_path
 	end

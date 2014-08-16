@@ -15,7 +15,7 @@ class MatchesController < ApplicationController
 	@team_local = Team.find(@match.local_team_id)
 	@team_visitante = Team.find(@match.away_team_id)
 
-	@goals = Event.where("match_id=? and event_type_id=2 and goal_type_id<>2", @match.id)
+	@goals = Event.where("match_id=? and event_type_id=2", @match.id)
 	@ownGoals = Event.where("match_id=? and event_type_id=2 and goal_type_id=2", @match.id)
 	@assists = Event.where("match_id=? and event_type_id=3", @match.id)
 	@yellow_cards = Event.where("match_id=? and event_type_id=12", @match.id)
@@ -60,16 +60,6 @@ def update
 			@userA.loses=@userA.loses+1
 		end
 	end 
-	@playersA=Player.where("team_id=?",@teamA.id)
-	@playersB=Player.where("team_id=?",@teamB.id)
-	@playersA.each do |player|
-		player.games_played=player.games_played+1
-		player.save
-	end
-	@playersB.each do |player|
-		player.games_played=player.games_played+1
-		player.save
-	end
 
 	@match.save
 	@teamA.save
@@ -137,10 +127,10 @@ def createEvent
 			@event.event_type_id=2
 			@event.goal_type_id=2
 			@player.own_goals=@player.own_goals+1
-			@otherTeam.gf = @otherTeam.gf+1
-			@otherUser.gf = @otherUser.gf+1
-			@team.ga = @team.ga+1
-			@user.ga = @user.ga+1
+			@otherTeam.gf = @team.gf+1
+			@otherUser.gf = @user.gf+1
+			@team.ga = @otherTeam.ga+1
+			@user.ga = @otherUser.ga+1
 			if @match.local_user_id == @user.id
 				@match.away_goals=@match.away_goals+1
 			else
@@ -170,7 +160,7 @@ def createEvent
 			@event.event_type_id=15
 	end
 
-	if (@event.event_type_id==2) and (@event.goal_type_id != 2)
+	if @event.event_type_id==2 and @event.goal_type_id != 2
 		@team.gf = @team.gf+1
 		@user.gf = @user.gf+1
 		@player.goals=@player.goals+1

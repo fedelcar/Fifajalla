@@ -8,7 +8,6 @@
 		
 		<th>Name</th>
 		<th>User</th>
-		<th>PJ</th>
 		<th><%= link_to "Wins", :sort => "wins" %></th>  
 		<th><%= link_to "Draws", :sort => "draws" %></th>  
 		<th><%= link_to "Loses", :sort => "loses" %></th>  
@@ -26,7 +25,6 @@
 
 			<td><%= link_to "", team_path(team.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= team.name %>
   			<td><%= link_to "", user_path((User.find(team.user_id)).id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= User.find(team.user_id).display_name %>
-  			<td><%= team.wins + team.draws + team.loses%></td>	
   			<td><%= team.wins%></td>
   			<td><%= team.draws%></td>
   			<td><%= team.loses%></td>
