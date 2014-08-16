@@ -7,11 +7,11 @@
 				<% @current_user_array = User.where("id=?",current_user.id) %>
 
 				<%= t.label "Usuario" %>
-				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
+				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => false, :class => "form-control"} %>
 				<br>
 
 				<% if (params[:id] == "1") %>
-					<% style = {:disabled => true, :class => "form-control"} %>
+					<% style = {:disabled => false, :class => "form-control"} %>
 				<% else %>
 					<% style = {:class => "form-control"} %>
 				<% end %>
@@ -39,9 +39,9 @@
 			<div class="col-sm-5">
 				<% if (params[:id] == "1") %>
 					<% user_style = {:class => "form-control"} %>
-					<% player_style = {:disabled => true, :class => "form-control"} %>
+					<% player_style = {:disabled => false, :class => "form-control"} %>
 				<% else %>
-					<% user_style = {:disabled => true, :class => "form-control"} %>
+					<% user_style = {:disabled => false, :class => "form-control"} %>
 					<% player_style = {:class => "form-control"} %>
 				<% end %>
 

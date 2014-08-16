@@ -15,11 +15,7 @@
     	
   		<% @trades.each do |trade| %>
   		<tbody><tr>
-  			<td><%= @players.find(trade.player_id).first_name %> <%= @players.find(trade.player_id).last_name %> </td>
-  			<td><%= @users.find(trade.first_user_id).name %></td>
-  			<td><%= @teams.find(trade.first_team_id).name %></td>
-  			<td><%= @users.find(trade.second_user_id).name %></td>
-  			<td><%= @teams.find(trade.second_team_id).name %></td>
+
   			<td><%= trade.created_at.to_date %></td>
   		</tr></tbody>
   		<% end %>
