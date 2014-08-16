@@ -18,7 +18,7 @@
   		<tbody><tr>
 
         <% @trade=Trade.find(app.trade_id) %>
-        <% if @trade.status!="Rejected" %>
+        <% if @trade.status=="Created" %>
           <% @pm = Player_Movement.where("trade_id=?",app.trade_id) %>
           <td><%= @trade.created_at.to_date %></td>
           <td><%= User.find(@pm.first.second_user_id).display_name %></td>
