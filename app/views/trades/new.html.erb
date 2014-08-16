@@ -8,7 +8,7 @@
 				<% @current_user_array = User.where("id=19") %>
 
 				<%= t.label "Usuario" %>
-				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => true, :class => "form-control"} %>
+				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:class => "form-control"} %>
 				<br>
 
 				<% if (params[:id] == "1") %>
@@ -42,7 +42,7 @@
 					<% user_style = {:class => "form-control", :onchange => "window.location.replace('/trades/new/?id='+this.value);"} %>
 					<% player_style = {:disabled => true, :class => "form-control"} %>
 				<% else %>
-					<% user_style = {:disabled => true, :class => "form-control", :onchange => "window.location.replace('/Teamleader/'+this.value);"} %>
+					<% user_style = {:class => "form-control"} %>
 					<% player_style = {:class => "form-control"} %>
 				<% end %>
 
