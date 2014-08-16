@@ -4,14 +4,15 @@
 			<h1>Propose Simple Trade</h1>
 			<br>
 			<div class="col-sm-5">
-				<% @current_user_array = User.where("id=?",current_user.id) %>
+
+				<% @current_user_array = User.where("id=19") %>
 
 				<%= t.label "Usuario" %>
-				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:disabled => false, :class => "form-control"} %>
+				<%= t.select :user_id_a, options_from_collection_for_select(@current_user_array, "id", "display_name"), {}, {:class => "form-control"} %>
 				<br>
 
 				<% if (params[:id] == "1") %>
-					<% style = {:disabled => false, :class => "form-control"} %>
+					<% style = {:disabled => true, :class => "form-control"} %>
 				<% else %>
 					<% style = {:class => "form-control"} %>
 				<% end %>
@@ -38,10 +39,10 @@
 
 			<div class="col-sm-5">
 				<% if (params[:id] == "1") %>
-					<% user_style = {:class => "form-control"} %>
-					<% player_style = {:disabled => false, :class => "form-control"} %>
+					<% user_style = {:class => "form-control", :onchange => "window.location.replace('/trades/new/?id='+this.value);"} %>
+					<% player_style = {:disabled => true, :class => "form-control"} %>
 				<% else %>
-					<% user_style = {:disabled => false, :class => "form-control"} %>
+					<% user_style = {:class => "form-control"} %>
 					<% player_style = {:class => "form-control"} %>
 				<% end %>
 

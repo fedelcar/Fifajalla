@@ -9,8 +9,5 @@ class WelcomeController < ApplicationController
   	@matches = Match.order(date: :desc).take(5)
   	
   	@teams = Team.all
-
- 
-
   end
 end
