@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get 'draft/draftPlayer', to: 'draft#draftPlayer'
 
-
+  get 'trades/my', to: 'trades#my'
 
   post 'matches', to: 'matches#newMatch'
 

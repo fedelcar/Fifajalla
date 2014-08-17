@@ -41,8 +41,12 @@ class UsersController < ApplicationController
 	  
 		@user = User.find(current_user.id)
 		
-		@user.display_name = params[:display_name]
-		@user.email = params[:email]
+		if params[:display_name] != ""
+			@user.display_name = params[:display_name]
+		end
+		if params[:email] !=""
+			@user.email = params[:email]
+		end
 
 		@user.save
 		redirect_to users_path

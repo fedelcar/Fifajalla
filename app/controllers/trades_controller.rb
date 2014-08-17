@@ -8,7 +8,7 @@ class TradesController < ApplicationController
     end
 
     if (params[:id] == "1")
-      @users = User.all
+      @users = User.where("id<>?",current_user.id)
       @grouped_players2 = @grouped_players1
     else
       @users = User.where("id=?", params[:id])
@@ -34,6 +34,12 @@ class TradesController < ApplicationController
     @trade.save
     redirect_to '/trades/'  
   end
+
+  def my
+    @apps=Trade_Approval.where("user_id=?",current_user.id)
+
+  end
+
 
 
   def approveTrade
@@ -83,6 +89,7 @@ class TradesController < ApplicationController
 
 
  def create
+
 
     @trade = Trade.new
     @trade.status="Created"
