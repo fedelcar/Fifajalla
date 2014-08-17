@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   post 'matches#createEvent', to: 'matches#createEvent'
 
+  get 'welcome/history'
 
   get 'trades/proposedTrades', to: 'trades#proposedTrades'
 
