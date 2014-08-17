@@ -1,0 +1,55 @@
+<div class="container">
+
+  <div class="row">
+    <h1>My Trades</h1>
+  </div>
+  
+  <table class="table table-striped table-hover ">
+      <thead><tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>User 1</th>
+        <th>User 2</th>
+        <th>Jugadores a User 1</th>
+        <th>Jugadores a User 2</th>
+        <th>Status</th>
+
+      </tr></thead>
+      
+      <% @apps.each do |app| %>
+      <tbody><tr>
+
+
+        
+          <% @trade = Trade.find(app.trade_id) %>
+          <% @pm = Player_Movement.where("trade_id=?",app.trade_id) %>
+          
+          <td><%= @trade.id %></td>
+          <td><%= @trade.created_at.to_date %></td>
+          
+          <td><%= User.find(@pm.first.second_user_id).display_name %></td>
+          <td><%= User.find(@pm.first.first_user_id).display_name %></td>
+          <td> <% @pm1= Player_Movement.where("trade_id=? and first_user_id=?",@trade.id,@pm.first.first_user_id) %>
+              <table class="table">
+                <% @pm1.each do |pm1| %>
+                  <tr><td><%= Player.find(pm1.player_id).last_name %></td></tr>
+                <%end%>
+              </table>
+          </td>
+          <td> <% @pm2= Player_Movement.where("trade_id=? and first_user_id=?",@trade.id,@pm.first.second_user_id) %>
+              <table class="table">
+                <% @pm2.each do |pm2| %>
+                  <tr><td><%= Player.find(pm2.player_id).last_name %></td></tr>
+                <%end%>
+              </table>
+          </td>
+          <td><%= @trade.status %> </td>
+        
+      </tr></tbody>
+      <% end %>
+    </table>
+
+
+  
+  
+</div>

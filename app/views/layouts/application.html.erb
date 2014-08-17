@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<title>FIFAjalla</title>
-	<link rel="stylesheet" href="app/assets/stylesheets/custom.css.scss">
-	<%= favicon_link_tag '/favicon.ico' %>
-  	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  	<%= csrf_meta_tags %>
+
+    <title>FIFAjalla</title>
+  <link rel="stylesheet" href="app/assets/stylesheets/custom.css.scss">
+  <%= favicon_link_tag '/favicon.ico' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
     
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
-		
-	<div class="container-fluid">
-    	<!-- Brand and toggle get grouped for better mobile display -->
-    	<div class="navbar-header">
-    		 <a class="navbar-brand" href="/">FIFAjalla</a>
+  <nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+    
+  <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a class="navbar-brand" href="/">FIFAjalla</a>
          
-    		 
+         
       </div>
 
       <div class="collapse navbar-collapse">    
         <% if  (current_user != nil) %>
           <ul class="nav navbar-nav">
-      			<li><a href="/users">Users</a></li>
+            <li><a href="/users">Users</a></li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Teams <span class="caret"></span></a>
@@ -41,7 +43,7 @@
                 </ul>
             </li>
 
-      			<li class="dropdown">
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Matches <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="/matches">Match List</a></li>
@@ -53,15 +55,23 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Trades <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="/trades/new?id=1">Propose New Trade</a></li>
+<<<<<<< HEAD
+=======
+                    <li><a href="/trades/my">My Trades</a></li>
+>>>>>>> dev
                     <li><a href="/trades">Trade List</a></li>
                     <li><a href="/trades/proposedTrades">Proposed Trades</a></li>
                     <li><a href="/trades/onTheBlock">Trade Block</a></li>
                     <li><a href="/trades/addToTradeBlock">My Players For Trade</a></li>
+<<<<<<< HEAD
                    
+=======
+                    
+>>>>>>> dev
                 </ul>
             </li>
 
-      			<li><a href="/draft">Draft</a></li>
+            <li><a href="/draft">Draft</a></li>
             
             <li><a href="/league">League</a></li>
           
@@ -82,8 +92,8 @@
              
          </ul>  
          
-    		
-    	
+        
+      
    </div>
  </div>
 </nav>
@@ -92,11 +102,11 @@
 
 
 <nav class="navbar navbar-inverse navbar-fixed-bottom " role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
       <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p>
-		</div>
+    </div>
     <div class="navbar-header navbar-right">
       <div class="container-fluid">
       <a class="btn btn-social-icon btn-lg btn-facebook" href="https://www.facebook.com/groups/fifajalla/" target="_blank">
@@ -108,7 +118,7 @@
    </div>
     </div>
      
-	</div>	
+  </div>  
 </nav>
 
 </body>
