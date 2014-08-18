@@ -76,7 +76,7 @@ class UsersController < ApplicationController
 
  		end
 		
-		redirect_to users_path
+		redirect_to 'teams/new'
 	end
 
 	def destroy

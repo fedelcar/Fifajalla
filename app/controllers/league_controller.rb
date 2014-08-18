@@ -1,6 +1,6 @@
 class LeagueController < ApplicationController
   def index
-  	@teams = Team.where("id>1")
+  	@teams = Team.where("id>1 and id<> 35 and id<>37 and id <>34").order(pts: :desc)
   	  @teams.each do |team|
         team.dg=team.gf-team.ga
         team.pts=team.wins*3+team.draws

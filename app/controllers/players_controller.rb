@@ -37,7 +37,7 @@ class PlayersController < ApplicationController
 
 	def stats
 
-		@players = Player.where("goals>0 or assists>0").order(sort_column + ' ' + sort_direction).take(1000)
+		@players = Player.where("games_played>0 and user_id>1").order(sort_column + ' ' + sort_direction).take(1000)
 		
 	end
 	

@@ -71,11 +71,9 @@
   			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
   			<td><%= player.team.name %></td>
   			<td><%= player.team.user.display_name %></td>
-<<<<<<< HEAD
-        <% if (next_pick.user_id == current_user.id and player.team_id==1) or (current_user.id ==10 or current_user.ig==7) %>
-=======
-        <% if (next_pick.user_id == current_user.id and player.team_id==1) or current_user.id==10 %>
->>>>>>> dev
+
+        <% if (next_pick.user_id == current_user.id and player.team_id==1) or (current_user.id ==10 or current_user.id==7) %>
+
             <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
             <td><%= link_to "Draft", @link%></td>
         <% else %>

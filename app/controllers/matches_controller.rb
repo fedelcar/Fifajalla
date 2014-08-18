@@ -5,6 +5,28 @@ class MatchesController < ApplicationController
   	@matches = Match.all
   	@users = User.all
   	@teams = Team.all
+
+  #	for i in 2..9
+  #		for x in i+1..10
+  #			if x==6 or i==6 or x==5 or i==5
+  #			else
+	#  			@match=Match.new
+	 # 			@match.local_user_id=x
+	  #			@match.away_user_id=i
+	  #			@match.local_team_id=(Team.find_by user_id: x).id
+	  #			@match.away_team_id=(Team.find_by user_id: i).id
+	  #			@match.local_goals=0
+	 	#		@match.away_goals=0
+	  	#		@match.elimination=0
+	  	#		@match.golden_goal=0
+	  	#		@match.local_penalties=0
+	  	#		@match.away_penalties=0
+	  	#		@match.finished=false
+	  	#		@match.save
+  		#	end
+  		#end
+  #	end
+
   end
 
   def show
@@ -42,6 +64,16 @@ def update
 	@teamB = Team.find(@match.away_team_id)
 	@userA = User.find(@match.local_user_id)
 	@userB = User.find(@match.away_user_id)
+	@playersa = Player.where("team_id=?",@teamA.id)
+	@playersb = Player.where("team_id=?",@teamB.id)
+	@playersa.each do |p|
+		p.games_played=p.games_played+1
+		p.save
+	end
+	@playersb.each do |p|
+		p.games_played=p.games_played+1
+		p.save
+	end
 	if @match.local_goals==@match.away_goals
 		@teamA.draws=@teamA.draws+1
 		@teamB.draws=@teamB.draws+1
@@ -60,7 +92,8 @@ def update
 			@userA.loses=@userA.loses+1
 		end
 	end 
-
+	@match.date= Time.now.strftime("%Y/%m/%d")
+	@match.time= Time.now.strftime("%H:%M:%S")
 	@match.save
 	@teamA.save
 	@teamB.save

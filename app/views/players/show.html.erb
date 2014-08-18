@@ -41,6 +41,19 @@
 							<% else %>
 								 	<%= number_with_precision(@player.goals.to_f / @player.games_played.to_f, precision: 2)%><br>
 							<% end %>
+		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7",@player.id).count %>
+		<b>Penales Atajados:</b> <%= @penalesAtajados %><br>
+		<h3>Goal Types</h3>
+
+		<% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1",@player.id).count %>
+		<% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3",@player.id).count %>
+		<% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4",@player.id).count %>
+		<% @deCabeza=Event.where("player_id=? and event_type_id=2 and goal_type_id=5",@player.id).count %>
+
+		<b>De Jugada:</b> <%= @deJugada %>
+		<br><b>De Cabeza:</b> <%= @deCabeza %>
+		<br><b>De Tiro Libre:</b> <%= @deTiroLibre %>
+		<br><b>De Penal:</b> <%= @dePenal %>
 		
 	</div>
 
