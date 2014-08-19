@@ -12,7 +12,9 @@
     		<th><%= link_to "GF", :sort => "gf" %></th>  
     		<th><%= link_to "GA", :sort => "ga" %></th>  
     		<th><%= link_to "DG", :sort => "dg" %></th>  
-    		<th><%= link_to "Pts", :sort => "pts" %></th>  
+    		<th><%= link_to "Pts", :sort => "pts" %></th>
+        <th>Amarillas</th>  
+        <th>Rojas</th>  
 
     	</tr></thead>
     	
@@ -28,6 +30,15 @@
   			<td><%= team.ga %></td>
   			<td><%= team.gf-team.ga %></td>
   			<td><%= team.wins*3+team.draws	 %></td>
+        <% @amarillas=0 %>
+        <% @rojas=0 %>
+        <% @players = Player.where("team_id=?",team.id) %>
+        <% @players.each do |p| %>  
+          <% @amarillas=@amarillas+p.yellow_cards%>
+          <% @rojas=@rojas+p.red_cards %>
+        <% end %>
+        <td><%= @amarillas%></td>
+        <td><%= @rojas%></td>
   		</tr></tbody>
   		<% end %>
   	</table>
