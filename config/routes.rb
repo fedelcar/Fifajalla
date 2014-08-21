@@ -44,6 +44,12 @@ Rails.application.routes.draw do
 
   get 'trades/cancelTrade', to: 'trades#cancelTrade'
 
+  get 'players/protectPlayer', to: 'players#protectPlayer'
+
+  get 'players/releasePlayer', to: 'players#releasePlayer'
+
+  get 'draft/released'
+
   resources :draft
 
   resources :trades

@@ -14,27 +14,22 @@
 		<b>Goles en contra:</b> <%= @team.ga%><br>
 		<b>Diferencia de goles:</b> <%= @dg %><br>
 
-	
-		
-		
-		
-		
-		
-	</div>
+		<br>
 
-	<div class="col-md-3">
 		<h2> Promedios</h2>
 		<b>Promedio Goles a Favor:</b> <%= number_with_precision(@gfpp, precision: 2)%><br>
 		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gapp, precision: 2)%><br>
 		<b>Promedio Diferencia de gol:</b> <%= number_with_precision(@dgpp, precision: 2)%><br>
 		<b>Efectividad:</b> <%= number_to_percentage(@efectividad*100, precision: 2)     %><br>
-		
+
 	</div>
 
 
+
+
 		
 		
-<div class="col-md-6">
+<div class="col-md-9">
 		
 			<h2> Jugadores</h2>
 			<table class="table table-striped table-hover ">
@@ -45,6 +40,12 @@
   					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
   					<th><%= link_to "Goles", :sort => "goals" %></th> 
   					<th>Trade Block</th> 
+  					<th>Protected</th>
+  					<% if @team.user_id == current_user.id %>
+		  				<th>Release</th>
+		  			<% end %>
+  					
+
   					
   				</tr></thead>
 			
@@ -71,7 +72,25 @@
 		  					<% end %>
 		  			<% end %>
 
-		  				
+		  			<% if player.protected %>
+		  				<% @link = "/players/protectPlayer?id="+player.id.to_s+"&from=team" %>
+		  				<td> <font color="green"> <i class="fa fa-shield"></i> </span> &nbsp; 
+		  					<% if player.user_id == current_user.id %>
+		  						<%= link_to "Unprotect", @link %> </font></td>
+		  					<% end %>
+		  			<% else %>
+		  				<% @link = "/players/protectPlayer?id="+player.id.to_s+"&from=team" %>
+		  				<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+		  					<% if player.user_id == current_user.id %>
+		  						<%= link_to "Protect", @link %> </font></td>
+		  					<% end %>
+		  			<% end %>
+
+  					<% if player.user_id == current_user.id %>
+	  					<% @link = "/players/releasePlayer?id="+player.id.to_s+"&from=team" %>
+	  					<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span> &nbsp; 
+	  						<%= link_to "Release", @link %> </font></td>
+  					<% end %>	
 
 		  		
 

@@ -7,6 +7,7 @@
     	<thead><tr>
     			
     			<th> Name </th>
+    			<th>User</th>
 				<th> Overall </th>
 				<th> Position </th>
 				<th> Pace </th>
@@ -22,6 +23,8 @@
   		<tbody><tr>
   					
   					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp;<%= player.first_name %> <%= player.last_name %></td>
+  					<td><%= link_to " ", user_path(player.user_id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp; <%= User.find(player.user_id).display_name %></td>
+  					
 					<td><%= player.overall %></td>
 					<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
 					<td><%= player.pace ? player.pace : "N/A" %></td>

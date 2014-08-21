@@ -94,7 +94,7 @@ class TradesController < ApplicationController
 
   def index
 
-    @trades=Trade.where("Status='Completed'")
+    @trades=Trade.where("Status='Completed'").order(id: :desc)
 
 
   end

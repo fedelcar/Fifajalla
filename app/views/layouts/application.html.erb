@@ -49,8 +49,14 @@
                 </ul>
             </li>
 
-            <li><a href="/draft">Draft</a></li>
-            
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Draft<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/draft">Draft</a></li>
+                    <li><a href="/draft/released">Released Players</a></li>
+                </ul>
+            </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Stats<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -68,7 +74,7 @@
         <% end %>
           
          <ul class="nav navbar-nav navbar-right">
-          <% if next_pick.user_id != 1 %>
+          <% if next_pick != nil and next_pick.user_id != 1 %>
             <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
           <% end %>
           <% if current_user %>

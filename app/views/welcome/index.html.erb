@@ -18,11 +18,13 @@
 			<div class="container-fluid jumbotron">
 				
 				<h2>Novedades</h2>
-				<p>19/08/2014 Version 1.1.1 <a href="/welcome/history">Ver Cambios </a></p>
+				<p>21/08/2014 Version 1.2 <a href="/welcome/history">Ver Cambios </a></p>
+				19/08/2014 Version 1.1.1 <a href="/welcome/history">Ver Cambios </a><br>
 				17/08/2014 19hs: Torneo Inaugural<br>
 				17/08/2014 Version 1.1 <a href="/welcome/history">Ver Cambios </a><br>
 				16/08/2014 Version 1.0 Terminada: Ya se puede tradear!<br>
 				15/08/2014: Lanzamiento oficial
+
 
 			</div>
 		</div>
@@ -109,10 +111,15 @@
 							<th>Rating</th>
 							<th>Position</th>
 						</tr></thead>
-						<% @picksa = Pick.where("number > ? and number < ?", next_pick.number-4,next_pick.number+4) %>
+						<% if next_pick != nil %>
+							<% @np = next_pick.number %>
+						<% else %>
+							<% @np = Pick.count %>
+						<% end %>
+						<% @picksa = Pick.where("number > ? and number < ?", @np-4,@np+4) %>
 						<% @picksa.each do |pick| %>
 							
-							<% if pick.number==next_pick.number%>
+							<% if pick.number==@np%>
 								<tbody><tr class="info"> 
 									<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
 								<td>

@@ -6,7 +6,7 @@
   
   <table class="table table-striped table-hover ">
       <thead><tr>
-        <th>ID</th>
+        
         <th>Fecha</th>
         <th>User 1</th>
         <th>User 2</th>
@@ -22,7 +22,7 @@
         
         
           <% @pm = Player_Movement.where("trade_id=?",trade.id) %>
-          <td><%= trade.id %></td>
+          
           <td><%= trade.created_at.to_date %></td>
           <td><%= User.find(@pm.first.second_user_id).display_name %></td>
           <td><%= User.find(@pm.first.first_user_id).display_name %></td>
