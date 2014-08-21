@@ -42,6 +42,8 @@ Rails.application.routes.draw do
 
   get 'trades/rejectTrade', to: 'trades#rejectTrade'
 
+  get 'trades/cancelTrade', to: 'trades#cancelTrade'
+
   resources :draft
 
   resources :trades

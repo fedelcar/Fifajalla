@@ -1,12 +1,12 @@
 class WelcomeController < ApplicationController
   def index
 
-  	@numberOfUsers=User.count-2
+  	@numberOfUsers=User.count-1
   	
   	@users=User.all
   	@players=Player.all
 
-  	@matches = Match.where("finished='t'").order(date: :desc).take(5)
+  	@matches = Match.where("finished='t'").order(updated_at: :desc).take(5)
   	
   	@teams = Team.all
     if current_user

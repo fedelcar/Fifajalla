@@ -28,16 +28,26 @@ class TradesController < ApplicationController
   
   def rejectTrade
     @app=Trade_Approval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
+    @user2=((Trade_Approval.where("trade_id=? and user_id<>?",params[:trade_id],current_user.id)).first).user_id
     @trade=Trade.find(@app.trade_id)
     @trade.approvals=@trade.users
     @trade.status="Rejected"
     @trade.save
+    UserMailer.trade_rejected(User.find(@user2)).deliver
     redirect_to '/trades/'  
   end
 
   def my
-    @apps=Trade_Approval.where("user_id=?",current_user.id)
+    @apps=Trade_Approval.where("user_id=?",current_user.id).order(updated_at: :desc)
 
+  end
+
+  def cancelTrade
+    @trade=Trade.find(params[:id])
+    @trade.status="Canceled"
+    @trade.save
+
+    redirect_to '/trades/my'  
   end
 
 
@@ -46,10 +56,12 @@ class TradesController < ApplicationController
     @app=Trade_Approval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
     @app.approved=true
     @app.save
+    @user2=((Trade_Approval.where("trade_id=? and user_id<>?",params[:trade_id],current_user.id)).first).user_id
     @trade=Trade.find(@app.trade_id)
     @trade.approvals=@trade.approvals+1
     @trade.status="Completed"
     @trade.save
+    UserMailer.trade_complete(User.find(@user2)).deliver
     if @trade.approvals=@trade.users
       @pms=Player_Movement.where("trade_id=?",@trade.id)
       @pms.each do |pm|
@@ -220,7 +232,9 @@ class TradesController < ApplicationController
     @approvalB.user_id=params[:trade][:user_id_b]
     @approvalB.approved=false
     @approvalB.save
- 
+    
+    UserMailer.trade_offer(User.find(params[:trade][:user_id_b])).deliver
+
     redirect_to trades_path
 
 

@@ -1,7 +1,7 @@
 class DraftController < ApplicationController
   def index
   	@picks=Pick.all
-  	@numberOfUsers=User.count-2
+  	@numberOfUsers=User.count-1
   	
   	@users=User.all
   	@players=Player.all
@@ -10,7 +10,7 @@ class DraftController < ApplicationController
 
   def draftPlayer
   		@player=Player.find(params[:id])
-      if @player.user_id=1
+      if @player.user_id==1 or current_user.id==10
     		@team=Team.find_by user_id: next_pick.user_id
     		@player.user_id=next_pick.user_id
     		@player.team_id=@team.id
@@ -19,6 +19,9 @@ class DraftController < ApplicationController
     		@pick.player_id=@player.id
     		@pick.save
       end
+
+      UserMailer.next_pick(User.find(next_pick.user_id)).deliver
+      
   		redirect_to '/draft'
 
   end

@@ -12,6 +12,7 @@
         <th><%= link_to "Yellow Cards", :sort => "yellow_cards" %></th>
         <th><%= link_to "Red Cards", :sort => "red_cards" %></th>
         <th><%= link_to "En Contra", :sort => "own_goals" %></th>
+        <th>Player of the Match</th>  
         <th>De Jugada</th>  
         <th>De Cabeza</th>  
         <th>De Tiro Libre</th>  
@@ -31,6 +32,7 @@
         <td><%= player.red_cards %></td>
         <td><%= player.own_goals %></td>
         
+        <% @POM=Event.where("player_id=? and event_type_id=9",player.id).count %>
         <% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1",player.id).count %>
         <% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3",player.id).count %>
         <% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4",player.id).count %>
@@ -38,7 +40,7 @@
         <% @penalesAtajados=Event.where("player_id=? and event_type_id=7",player.id).count %>
 
 
-
+        <td><%= @POM %></td>
         <td><%= @deJugada %></td>
         <td><%= @deCabeza %></td>
         <td><%= @deTiroLibre %></td>

@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 			user.pts=user.wins*3+user.draws
 			user.save
 		end
+		
 
 	end
 
@@ -60,17 +61,19 @@ class UsersController < ApplicationController
  		if User.where(name:@user.name).exists? or User.where(email:@user.email).exists?
 
  		else
- 			if @user.display_name=""
+ 			if @user.display_name == ""
  				@user.display_name = @user.name.split(" ").first
+ 				@user.gf=0
+		 		@user.ga=0
+		 		@user.wins=0
+		 		@user.loses=0
+		 		@user.draws=0
+		 		@user.dg=0
+		 		@user.pts=0
+		 		@user.eff=0	
  			end
-	 		@user.gf=0
-	 		@user.ga=0
-	 		@user.wins=0
-	 		@user.loses=0
-	 		@user.draws=0
-	 		@user.dg=0
-	 		@user.pts=0
-	 		@user.eff=0	
+
+	 	
  			@user.save
  			UserMailer.welcome_email(@user).deliver
 
@@ -92,7 +95,7 @@ class UsersController < ApplicationController
 		end
 
 		def sort_column
-			params[:sort] || "wins"
+			params[:sort] || "eff"
 		end
 		  
 		def sort_direction

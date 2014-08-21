@@ -13,6 +13,7 @@
         <th>Jugadores a User 1</th>
         <th>Jugadores a User 2</th>
         <th>Status</th>
+        <th>Cancel</th>
 
       </tr></thead>
       
@@ -44,7 +45,13 @@
               </table>
           </td>
           <td><%= @trade.status %> </td>
+          <% if @trade.status == "Created"  %>
+
+            <% @link = "/trades/cancelTrade?id="+@trade.id.to_s %>
+            <td><%= link_to "Cancel", @link%></td>
         
+           
+          <% end %>
       </tr></tbody>
       <% end %>
     </table>
