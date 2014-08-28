@@ -41,6 +41,9 @@ Rails.application.routes.draw do
 
   get 'trades/rejectTrade', to: 'trades#rejectTrade'
 
+
+  get 'league/new', to: 'league#new'
+
   resources :draft
 
   resources :trades

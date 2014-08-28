@@ -9,6 +9,11 @@ class LeagueController < ApplicationController
       end
   end
 
+  def new
+    @users = User.where("id>1")
+    @teams = Team.where("id>1")
+  end
+
   private
 
 

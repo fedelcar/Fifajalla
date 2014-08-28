@@ -1,2 +1,19 @@
-<h1>League#new</h1>
-<p>Find me in app/views/league/new.html.erb</p>
+<div class="container">
+		<%= form_for :league, url: new_league_path do |t| %>
+			<h1>New League</h1>
+			<br>
+			<div class="col-sm-5">
+
+				<% @current_user_array = User.where("id=?",current_user.id) %>
+
+				<% @teams.all.each do |team| %>
+	  				<%= check_box_tag :teams, team.id, team.id, :name => 'book[pubhouse_ids][]' %> 
+  					<%= team.name + " (" + User.find(team.user_id).display_name + ")" %><br>
+				<% end %>
+
+				<%= t.check_box :team, {}, "admin", "user" %>
+				<br>
+
+		<% end %>
+</div>
+<br><br><br><br>
