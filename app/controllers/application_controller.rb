@@ -8,11 +8,17 @@ class ApplicationController < ActionController::Base
  
 
   def next_pick
-  	@next_pick = Pick.where("player_id=62302").first
+  	if Pick.where("player_id=62302").count>0
+      @next_pick = Pick.where("player_id=62302").first
+    else
+     
+    end
   end
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    if User.exists?(session[:user_id])
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    end
   end
 
 end

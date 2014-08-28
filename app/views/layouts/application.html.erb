@@ -1,68 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<title>DEV FIFAjalla DEV</title>
-	<link rel="stylesheet" href="app/assets/stylesheets/custom.css.scss">
-	<%= favicon_link_tag '/favicon.ico' %>
-  	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  	<%= csrf_meta_tags %>
+
+    <title>FIFAjalla</title>
+  
+    <%= favicon_link_tag '/favicon.ico' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
     
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
-		
-	<div class="container-fluid">
-    	<!-- Brand and toggle get grouped for better mobile display -->
-    	<div class="navbar-header">
-    		 <a class="navbar-brand" href="/">FIFAjalla</a>
+  <nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+    
+  <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a class="navbar-brand" href="/">FIFAjalla</a>
          
-    		 
+         
       </div>
 
       <div class="collapse navbar-collapse">    
         <% if  (current_user != nil) %>
-          <ul class="nav navbar-nav">
-      			<li><a href="/users">Users</a></li>
-
+          <ul class="nav navbar-nav">    
+            <li><a href="/players?filter=all">Players</a></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Teams <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="/teams">Team List</a></li>
-                    <li><a href="/teams/new">Register Team</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Players <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="/players?filter=all">Player List</a></li>
-                    <li><a href="/players/stats?sort=goals">Stats</a></li>
-                </ul>
-            </li>
-
-      			<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Matches <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="/matches">Match List</a></li>
                     <li><a href="/matches/new">Play Match</a></li>
                 </ul>
-            </li>
+            </li>            
+            
+            <li><a href="/league">Leagues</a></li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Trades <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                    <li><a href="/trades/new?id=1">Propose New Trade</a></li>
+                    <li><a href="/trades/my">My Trades</a></li>
                     <li><a href="/trades">Trade List</a></li>
                     <li><a href="/trades/proposedTrades">Proposed Trades</a></li>
                     <li><a href="/trades/onTheBlock">Trade Block</a></li>
                     <li><a href="/trades/addToTradeBlock">My Players For Trade</a></li>
-                    <li><a href="/trades/new?id=1">Propose New Trade</a></li>
+
                 </ul>
             </li>
 
-      			<li><a href="/draft">Draft</a></li>
-            
-            <li><a href="/league">League</a></li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Draft<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/draft">Draft</a></li>
+                    <li><a href="/draft/released">Released Players</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Stats<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/users?sort=elo">User</a></li>
+                    <li><a href="/teams">Team</a></li>
+                    <li><a href="/players/stats?sort=goals">Player</a></li>
+                    <% #<li><a href="/stats">Global</a></li> %>
+                </ul>
+            </li>
+
           
           
 
@@ -70,8 +74,9 @@
         <% end %>
           
          <ul class="nav navbar-nav navbar-right">
-          <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
-
+          <% if next_pick != nil and next_pick.user_id != 1 %>
+            <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
+          <% end %>
           <% if current_user %>
                 <li><%= link_to current_user.display_name, "/users/cPanel" %></li>
                 <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
@@ -81,21 +86,22 @@
              
          </ul>  
          
-    		
-    	
+        
+      
    </div>
  </div>
 </nav>
 
 <%= yield %>
-
-
+<br>
+<br>
 <nav class="navbar navbar-inverse navbar-fixed-bottom " role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
       <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p>
-		</div>
+      <p class="navbar-text"><a href="/welcome/history"> <font color="white">Version History </font></a></p>
+    </div>
     <div class="navbar-header navbar-right">
       <div class="container-fluid">
       <a class="btn btn-social-icon btn-lg btn-facebook" href="https://www.facebook.com/groups/fifajalla/" target="_blank">
@@ -107,7 +113,7 @@
    </div>
     </div>
      
-	</div>	
+  </div>  
 </nav>
 
 </body>

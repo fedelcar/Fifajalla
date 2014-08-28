@@ -8,6 +8,7 @@
 		
 		<th>Name</th>
 		<th>PJ</th> 
+		<th><%= link_to "ELO", :sort => "elo" %></th>  
 		<th><%= link_to "Wins", :sort => "wins" %></th>  
 		<th><%= link_to "Draws", :sort => "draws" %></th>  
 		<th><%= link_to "Loses", :sort => "loses" %></th>  
@@ -16,7 +17,9 @@
 		<th><%= link_to "GA", :sort => "ga" %></th>  
 		<th><%= link_to "DG", :sort => "dg" %></th>  
 		<th><%= link_to "Pts", :sort => "pts" %></th>  
-		<th><%= link_to "Eff", :sort => "eff" %></th>  
+		<th><%= link_to "Eff", :sort => "eff" %></th>
+		<th>Amarillas</th>  
+		<th>Rojas</th>
 		
 	</tr></thead>
 
@@ -26,6 +29,7 @@
 
 			<td><%= link_to "", user_path(user.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= user.display_name %>
 			<td><%= user.loses + user.wins + user.draws%></td>
+			<td><%= user.elo.to_i %></td>
   			<td><%= user.wins%></td>
   			<td><%= user.draws%></td>
   			<td><%= user.loses%></td>
@@ -35,6 +39,16 @@
   			<td><%= user.dg%></td>
   			<td><%= user.pts%></td>
   			<td><%= number_to_percentage(user.eff*100, precision: 2) %></td>
+  			<% @amarillas=0 %>
+  			<% @rojas=0 %>
+  			<% @players = Player.where("user_id=?",user.id) %>
+  			<% @players.each do |p| %>	
+  				<% @amarillas=@amarillas+p.yellow_cards%>
+  				<% @rojas=@rojas+p.red_cards %>
+  			<% end %>
+  			<td><%= @amarillas%></td>
+  			<td><%= @rojas%></td>
+  			
   		</tr></tbody>	
 	<% end %>
 </table>

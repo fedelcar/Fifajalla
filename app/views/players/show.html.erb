@@ -11,7 +11,7 @@
 		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Position:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
 		<b>On the Trade Block?</b>
-		<% if @player.on_the_block %>
+		<% if @player.on_the_block %>&nbsp;
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
 			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp;  </font>
 
@@ -25,7 +25,34 @@
 				<%= link_to "Add", @link %>
 			<% end %>
 		<% end %>
+		<br>
+
+		<b>Protected?</b>&nbsp;
+		<% if @player.protected %>
+			<% @link = "/players/protectPlayer?id="+@player.id.to_s+"&from=players" %>
+			<font color="green"> <i class="fa fa-shield"></i></span> &nbsp;  </font>
+				<% if @player.user_id == current_user.id %>
+		  			<%= link_to "Unprotect", @link %> </font></td>
+		  		<% end %>
+		<% else %>
+			<% @link = "/players/protectPlayer?id="+@player.id.to_s+"&from=players" %>
+			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp;  </font>
+			<% if @player.user_id == current_user.id %>
+				<%= link_to "Protect", @link %>
+			<% end %>
+		<% end %>
+		<br>
+		<% if @player.user_id == current_user.id %>
+		<% @link = "/players/releasePlayer?id="+@player.id.to_s+"&from=team" %>
+		<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span> &nbsp; 
+			<%= link_to "Release", @link %> </font></td>
+	<% end %>
 	</div>
+
+
+
+
+		
 
 	<div class="col-md-4">
 		<h2> Stats</h2>
@@ -41,6 +68,19 @@
 							<% else %>
 								 	<%= number_with_precision(@player.goals.to_f / @player.games_played.to_f, precision: 2)%><br>
 							<% end %>
+		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7",@player.id).count %>
+		<br><b>Penales Atajados:</b> <%= @penalesAtajados %><br>
+		<h3>Goal Types</h3>
+
+		<% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1",@player.id).count %>
+		<% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3",@player.id).count %>
+		<% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4",@player.id).count %>
+		<% @deCabeza=Event.where("player_id=? and event_type_id=2 and goal_type_id=5",@player.id).count %>
+
+		<b>De Jugada:</b> <%= @deJugada %>
+		<br><b>De Cabeza:</b> <%= @deCabeza %>
+		<br><b>De Tiro Libre:</b> <%= @deTiroLibre %>
+		<br><b>De Penal:</b> <%= @dePenal %>
 		
 	</div>
 

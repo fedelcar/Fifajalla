@@ -20,7 +20,12 @@ class PlayersController < ApplicationController
 				else					
 					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
 			end	
-			@players=@players.take(150)
+			if params[:filter] != "all" and params[:filter] != "drafted"
+				@players=@players.where("user_id>=1").take(150)
+			else
+				@players=@players.take(150)
+			end
+
 
 	end
 
@@ -34,10 +39,69 @@ class PlayersController < ApplicationController
 		
 	end
 
+	def releasePlayer
+		@rel = Release.new
+		@rel.player_id=params[:id]
+		@player=Player.find(params[:id])
+		@rel.user_id=@player.user_id
+		@rel.save
+
+		@teamid=@player.team_id
+
+		@pick=Pick.new
+		@pick.user_id=@player.user_id
+		@pick.player_id=62302
+		@pick.number=Pick.count+1
+		@pick.save
+		
+		@next_pick = Pick.where("player_id=62302").first
+		next_pick = Pick.where("player_id=62302").first
+
+		@player.user_id=1
+		@player.team_id=1
+		@player.on_the_block=false
+		@player.protected=false
+		@player.save
+
+		if params[:from] == "players"
+			redirect_to player_path(@player.id)
+		else
+			if params[:from] == "trades"	
+				redirect_to '/trades/addToTradeBlock'
+			else
+				redirect_to team_path(@teamid)
+			end
+		end
+
+	end
+
+	def protectPlayer
+		@player=Player.find(params[:id])
+
+		if @player.protected
+			@player.protected=false
+			@player.save
+		else
+			if Player.where("team_id=? and protected='t'",@player.team_id).count < 11
+				@player.protected=true
+				@player.save
+			end
+		end
+		if params[:from] == "players"
+			redirect_to player_path(@player.id)
+		else
+			if params[:from] == "trades"	
+				redirect_to '/trades/addToTradeBlock'
+			else
+				redirect_to team_path(@player.team_id)
+			end
+		end
+
+	end
 
 	def stats
 
-		@players = Player.where("goals>0 or assists>0").order(sort_column + ' ' + sort_direction).take(1000)
+		@players = Player.where("games_played>0 and user_id>1").order(sort_column + ' ' + sort_direction).take(1000)
 		
 	end
 	

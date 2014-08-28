@@ -24,15 +24,17 @@ class User < ActiveRecord::Base
 
 		      user.oauth_token = auth.credentials.token
 		      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-		      user.gf=0
-		      user.ga=0
-		      user.wins=0
-		      user.draws=0
-		      user.loses=0
-		      user.pts=0
-		      user.dg=0
-		      user.eff=0
-		      user.save!
+		      if user.display_name==""
+			      user.gf=0
+			      user.ga=0
+			      user.wins=0
+			      user.draws=0
+			      user.loses=0
+			      user.pts=0
+			      user.dg=0
+			      user.eff=0
+			      user.save!
+			  end
 	    end
   	end
 

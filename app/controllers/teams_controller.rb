@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def index
-  		@teams = Team.where("id>1").order(sort_column + ' ' + sort_direction)
+  		@teams = Team.where("id>1").order(sort_column2 + ' ' + sort_direction)
   		@users = User.all
       @teams.each do |team|
         team.dg=team.gf-team.ga
@@ -57,7 +57,11 @@ private
   end
   
   def sort_column
-    params[:sort] || "id"
+    params[:sort] || "overall"
+  end
+
+  def sort_column2
+    params[:sort] || "pts"
   end
   
   def sort_direction

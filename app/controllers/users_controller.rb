@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 			user.pts=user.wins*3+user.draws
 			user.save
 		end
+		
 
 	end
 
@@ -41,8 +42,12 @@ class UsersController < ApplicationController
 	  
 		@user = User.find(current_user.id)
 		
-		@user.display_name = params[:display_name]
-		@user.email = params[:email]
+		if params[:display_name] != ""
+			@user.display_name = params[:display_name]
+		end
+		if params[:email] !=""
+			@user.email = params[:email]
+		end
 
 		@user.save
 		redirect_to users_path
@@ -56,23 +61,25 @@ class UsersController < ApplicationController
  		if User.where(name:@user.name).exists? or User.where(email:@user.email).exists?
 
  		else
- 			if @user.display_name=""
+ 			if @user.display_name == ""
  				@user.display_name = @user.name.split(" ").first
+ 				@user.gf=0
+		 		@user.ga=0
+		 		@user.wins=0
+		 		@user.loses=0
+		 		@user.draws=0
+		 		@user.dg=0
+		 		@user.pts=0
+		 		@user.eff=0	
  			end
-	 		@user.gf=0
-	 		@user.ga=0
-	 		@user.wins=0
-	 		@user.loses=0
-	 		@user.draws=0
-	 		@user.dg=0
-	 		@user.pts=0
-	 		@user.eff=0	
+
+	 	
  			@user.save
  			UserMailer.welcome_email(@user).deliver
 
  		end
 		
-		redirect_to users_path
+		redirect_to 'teams/new'
 	end
 
 	def destroy
@@ -88,7 +95,7 @@ class UsersController < ApplicationController
 		end
 
 		def sort_column
-			params[:sort] || "wins"
+			params[:sort] || "eff"
 		end
 		  
 		def sort_direction

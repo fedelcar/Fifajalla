@@ -28,12 +28,13 @@ Rails.application.routes.draw do
 
   get 'draft/draftPlayer', to: 'draft#draftPlayer'
 
-
+  get 'trades/my', to: 'trades#my'
 
   post 'matches', to: 'matches#newMatch'
 
   post 'matches#createEvent', to: 'matches#createEvent'
 
+  get 'welcome/history'
 
   get 'trades/proposedTrades', to: 'trades#proposedTrades'
 
@@ -41,8 +42,17 @@ Rails.application.routes.draw do
 
   get 'trades/rejectTrade', to: 'trades#rejectTrade'
 
-
   get 'league/new', to: 'league#new'
+
+  get 'trades/cancelTrade', to: 'trades#cancelTrade'
+
+  get 'players/protectPlayer', to: 'players#protectPlayer'
+
+  get 'players/releasePlayer', to: 'players#releasePlayer'
+
+  get 'draft/released'
+
+  get 'matches/schedule', to: 'matches#schedule'
 
   resources :draft
 
