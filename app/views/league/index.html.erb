@@ -26,15 +26,15 @@
 
 			<td><%= link_to "", team_path(team.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= team.name %>
   			<td><%= link_to "", user_path((User.find(team.user_id)).id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= User.find(team.user_id).display_name %>
-  			<td><%= team.wins + team.draws+team.loses %></td>	
-  			<td><%= team.wins%></td>
-  			<td><%= team.draws%></td>
-  			<td><%= team.loses%></td>
-  			<td><%= team.gf%></td>
-  			<td><%= team.ga%></td>
-  			<td><%= team.dg%></td>
-  			<td><%= team.pts%></td>
-  			<td><%= number_to_percentage(team.eff*100, precision: 2) %></td>
+  			<td><%= @pj[team.id] %></td>	
+  			<td><%= @wins[team.id] %></td>
+  			<td><%= @draws[team.id]%></td>
+  			<td><%= @loses[team.id] %></td>
+  			<td><%= @gf[team.id] %></td>
+  			<td><%= @ga[team.id] %></td>
+  			<td><%= @dg[team.id] %></td>
+  			<td><%= @pts[team.id] %></td>
+  			<td><%= number_to_percentage(@eff[team.id]*100, precision: 2) %></td>
   		</tr></tbody>	
 	<% end %>
 </table>

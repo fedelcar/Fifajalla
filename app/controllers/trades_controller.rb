@@ -62,19 +62,27 @@ class TradesController < ApplicationController
     @trade.status="Completed"
     @trade.save
     UserMailer.trade_complete(User.find(@user2)).deliver
-    if @trade.approvals=@trade.users
+    if @trade.approvals==@trade.users
       @pms=Player_Movement.where("trade_id=?",@trade.id)
       @pms.each do |pm|
         @player=Player.find(pm.player_id)
         @player.user_id=pm.second_user_id
         @player.team_id=(Team.find_by user_id: pm.second_user_id).id  
+        @player.on_the_block=false
+        @player.protected=false
         @player.save
+        @pms2=Player_Movement.where("player_id=? and trade_id<>?",@player.id,@trade.id)
+        @pm2.each do |pm2|
+          @trades=Trade.where("trade_id=? and status='Created'",pm2.trade_id)
+          @trades.each do |trade|
+            trade.status="Canceled"
+            trade.save
+          end
+        end
       end 
-      @app2=Trade_Approval.where("player_id=?",@player.id)
-      @app2.each do |app|
-        @trade=Trade.find(app.trade_id)
-        @trade.status="Canceled"
-      end
+      @pms2=Player_Movement.where("player_id=?",@player.id)
+
+    
     
     end
     redirect_to '/trades/'  

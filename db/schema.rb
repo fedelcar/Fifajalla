@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821223008) do
+ActiveRecord::Schema.define(version: 20140827022023) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20140821223008) do
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
     t.string   "display_name"
+    t.integer  "elo"
   end
 
 end

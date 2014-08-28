@@ -19,7 +19,7 @@
 				
     	</tr></thead>
     	
-  		<% Player.where("on_the_block='t' and user_id<>?",current_user.id).each do |player| %>
+  		<% Player.where("on_the_block='t' and user_id<>? and team_id>1",current_user.id).each do |player| %>
   		<tbody><tr>
   					
   					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp;<%= player.first_name %> <%= player.last_name %></td>

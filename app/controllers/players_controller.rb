@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
 					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
 			end	
 			if params[:filter] != "all" and params[:filter] != "drafted"
-				@players=@players.where("user_id=1").take(150)
+				@players=@players.where("user_id>=1").take(150)
 			else
 				@players=@players.take(150)
 			end
@@ -59,6 +59,8 @@ class PlayersController < ApplicationController
 
 		@player.user_id=1
 		@player.team_id=1
+		@player.on_the_block=false
+		@player.protected=false
 		@player.save
 
 		if params[:from] == "players"

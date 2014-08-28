@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   get 'draft/released'
 
+  get 'matches/schedule', to: 'matches#schedule'
+
   resources :draft
 
   resources :trades

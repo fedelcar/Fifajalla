@@ -6,27 +6,46 @@ class MatchesController < ApplicationController
   	@users = User.all
   	@teams = Team.all
 
-  #	for i in 2..9
-  #		for x in i+1..10
-  #			if x==6 or i==6 or x==5 or i==5
-  #			else
-	#  			@match=Match.new
-	 # 			@match.local_user_id=x
-	  #			@match.away_user_id=i
-	  #			@match.local_team_id=(Team.find_by user_id: x).id
-	  #			@match.away_team_id=(Team.find_by user_id: i).id
-	  #			@match.local_goals=0
-	 	#		@match.away_goals=0
-	  	#		@match.elimination=0
-	  	#		@match.golden_goal=0
-	  	#		@match.local_penalties=0
-	  	#		@match.away_penalties=0
-	  	#		@match.finished=false
-	  	#		@match.save
-  		#	end
-  		#end
-  #	end
+ 
 
+  end
+
+  def schedule
+
+  		# 2 Germo
+  		# 3 Piñe
+  		# 4 Tito 
+  		# 5 Sene
+  		# 6 Laucha
+  		# 7 Facu
+  		# 8 Ema
+  		# 9 Rocka
+  		# 10 Fede
+  		# 11 Santi
+  		# 12 Picco
+  		# 13 Chris
+
+	 	for i in 2..12
+	  		for x in i+1..13
+	  			if !(x==3 or i==3 or x==4 or i==4 or x==5 or i==5 or x==11 or i==11)
+		  			@match=Match.new
+		  			@match.local_user_id=i
+		  			@match.away_user_id=x
+		  			@match.local_team_id=(Team.find_by user_id: i).id
+		  			@match.away_team_id=(Team.find_by user_id: x).id
+		  			@match.local_goals=0
+		 			@match.away_goals=0
+		  			@match.elimination=0
+		  			@match.golden_goal=0
+		  			@match.local_penalties=0
+		  			@match.away_penalties=0
+		  			@match.finished=false
+		  			@match.save
+	  			end
+	  		end
+	  	end
+
+	  redirect_to '/matches'
   end
 
   def show
@@ -57,6 +76,8 @@ class MatchesController < ApplicationController
 
   end
 
+
+
 def update
 	@match = Match.find(params[:id])
 	@match.finished = true
@@ -75,17 +96,23 @@ def update
 		p.save
 	end
 	if @match.local_goals==@match.away_goals
+		@scoreA=0.5
+		@scoreB=0.5
 		@teamA.draws=@teamA.draws+1
 		@teamB.draws=@teamB.draws+1
 		@userA.draws=@userA.draws+1
 		@userB.draws=@userB.draws+1
 	else
 		if @match.local_goals > @match.away_goals
+			@scoreA=1
+			@scoreB=0
 			@teamA.wins=@teamA.wins+1
 			@teamB.loses=@teamB.loses+1
 			@userA.wins=@userA.wins+1
 			@userB.loses=@userB.loses+1
 		else
+			@scoreA=0
+			@scoreB=1
 			@teamB.wins=@teamB.wins+1
 			@teamA.loses=@teamA.loses+1
 			@userB.wins=@userB.wins+1
@@ -97,6 +124,28 @@ def update
 	@match.save
 	@teamA.save
 	@teamB.save
+
+	case @userA.elo
+		when ">2400"
+			@kA=16
+		when ">2100 and <=2400"
+			@kA=24
+		else
+			@kA=32
+	end
+	case @userB.elo
+		when ">2400"
+			@kB=16
+		when ">2100 and <=2400"
+			@kB=24
+		else
+			@kB=32
+	end
+	@probA=1.0/(1.0+10.0**-((@userA.elo-@userB.elo)/400.0))
+	@probB=1.0/(1.0+10.0**-((@userB.elo-@userA.elo)/400.0))
+	@userA.elo=@userA.elo+(@kA*(@scoreA-@probA)).to_i
+	@userB.elo=@userB.elo+(@kB*(@scoreB-@probB)).to_i
+
 	@userA.save
 	@userB.save
 

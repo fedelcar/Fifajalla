@@ -7,11 +7,13 @@
         
     		<th>Name</th>
         <th>Team</th>
+
     		<th><%= link_to "Goals", :sort => "goals" %></th>  
     		<th><%= link_to "Assists", :sort => "assists" %></th>
         <th><%= link_to "Yellow Cards", :sort => "yellow_cards" %></th>
         <th><%= link_to "Red Cards", :sort => "red_cards" %></th>
         <th><%= link_to "En Contra", :sort => "own_goals" %></th>
+
         <th>Player of the Match</th>  
         <th>De Jugada</th>  
         <th>De Cabeza</th>  
@@ -25,21 +27,26 @@
   		<tbody><tr>
         
   			<td><%= link_to "", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= player.first_name %> <%= player.last_name %></td>
-        <td><%= player.team.name %></td>
-  			<td><%= player.goals %></td>
-  			<td><%= player.assists %></td>
-        <td><%= player.yellow_cards %></td>
-        <td><%= player.red_cards %></td>
-        <td><%= player.own_goals %></td>
+        <td><%= link_to "", team_path(player.team_id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= Team.find(player.team_id).name %> </td>
         
+        <% @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2",player.id).count %>
+        <% @assists=Event.where("player_id=? and event_type_id=3",player.id).count %>
+        <% @yellow=Event.where("player_id=? and event_type_id=12",player.id).count %>
+        <% @red=Event.where("player_id=? and event_type_id=14",player.id).count %>
+        <% @own=Event.where("player_id=? and event_type_id=2 and goal_type_id=2",player.id).count %>
+
         <% @POM=Event.where("player_id=? and event_type_id=9",player.id).count %>
         <% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1",player.id).count %>
         <% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3",player.id).count %>
-        <% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4",player.id).count %>
+        <% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4" ,player.id).count %>
         <% @deCabeza=Event.where("player_id=? and event_type_id=2 and goal_type_id=5",player.id).count %>
         <% @penalesAtajados=Event.where("player_id=? and event_type_id=7",player.id).count %>
 
-
+        <td><%= @goals %></td>
+        <td><%= @assists %></td>
+        <td><%= @yellow %></td>
+        <td><%= @red %></td>
+        <td><%= @own %></td>
         <td><%= @POM %></td>
         <td><%= @deJugada %></td>
         <td><%= @deCabeza %></td>

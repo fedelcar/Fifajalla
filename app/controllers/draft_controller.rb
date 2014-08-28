@@ -9,7 +9,7 @@ class DraftController < ApplicationController
   end
 
   def released
-    @released = Release.all
+    @released = Release.all.order(created_at: :desc)
   end
 
   def draftPlayer
