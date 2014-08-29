@@ -1,18 +1,5 @@
 class LeagueController < ApplicationController
   def index
-    # 2 Germo
-    # 3 Piñe
-    # 4 Tito 
-    # 5 Sene
-    # 6 Laucha
-    # 7 Facu
-    # 8 Ema
-    # 9 Rocka
-    # 10 Fede
-    # 11 Santi
-    # 12 Picco
-    # 13 Chris
-
   	@gf=Array.new(50,0)
     @ga=Array.new(50,0)
     @dg=Array.new(50,0)
@@ -68,9 +55,81 @@ class LeagueController < ApplicationController
     @teams = Team.where("id>1")
   end
 
+  def create
+
+    @teams = Team.where("id>1")
+
+    # Creo un array donde solo almaceno los equipos elegidos
+    teams = Array.new
+    @teams.all.each do |team|
+      # Si está entre los elegidos.
+      if params[:league][team.id.to_s] == "1"
+        # Lo agrego al array.
+        teams.push team.id
+      end
+    end
+    taken = 1
+
+    if (teams.count < 3) or (params[:league][:name] == "")
+      redirect_to '/league/new' and return
+    end
+
+    @league = League.new
+    @league.name = params[:league][:name]
+    if teams.count < 6
+      @league.importance = 1
+    else
+      if teams.count < 11
+        @league.importance = 2
+      else
+        @league.importance = 3
+      end
+    end
+    if params[:league][:rounds] == "ida"
+      @league.round1_matches = 1
+    else
+      @league.round1_matches = 2
+    end
+    @league.finished = false
+    @league.save
+    
+    # Toma todos los equipos menos el último
+    for i in teams.take(teams.count - 1)
+        # Tomo todos a partir del anterior
+        for j in teams.drop(taken)
+          create_matches(i, j, @league.id)
+          # Si es de ida y vuelta los repito pero invirtiendo localia.
+          if params[:league][:rounds] == "idavuelta"
+            create_matches(j, i, @league.id)
+          end
+        end
+      # Cuento los equipos que ya tienen todos sus partidos
+      taken = taken + 1
+    end
+
+    redirect_to '/league/new'
+  end
+
+  def create_matches(home, away, league)
+    @match = Match.new
+    @match.local_user_id = (Team.find_by id: home).user_id
+    @match.away_user_id = (Team.find_by id: away).user_id
+    @match.local_team_id = home
+    @match.away_team_id = away
+    @match.local_goals = 0
+    @match.away_goals = 0
+    @match.elimination = 0
+    @match.golden_goal = 0
+    @match.local_penalties = 0
+    @match.away_penalties = 0
+    @match.finished = false
+    @match.date = Time.now.strftime("%Y/%m/%d")
+    @match.time = Time.now.strftime("%H:%M:%S")
+    @match.league_id = league
+    @match.save
+  end
+
   private
-
-
 		def sort_column
 			params[:sort] || "pts"
 		end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827022023) do
+ActiveRecord::Schema.define(version: 20140829184722) do
 
   create_table "event_types", force: true do |t|
     t.string "description"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20140827022023) do
     t.datetime "updated_at"
   end
 
+  create_table "leagues", force: true do |t|
+    t.string   "name"
+    t.integer  "importance"
+    t.integer  "round1_matches"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "finished"
+  end
+
   create_table "matches", force: true do |t|
     t.integer  "local_goals"
     t.integer  "away_goals"
@@ -48,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140827022023) do
     t.integer  "local_team_id"
     t.integer  "away_team_id"
     t.boolean  "finished"
+    t.integer  "league_id"
   end
 
   add_index "matches", ["away_team_id"], name: "index_matches_on_away_team_id"

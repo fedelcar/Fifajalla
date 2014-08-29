@@ -12,6 +12,9 @@
  *
 
  */
+
+//= require bootstrap3-switch
+
 // Import Flatly theme variables
  @import "bootswatch/yeti/variables";
 
@@ -28,6 +31,4 @@ body { padding-top: 60px; }
 @import "font-awesome.scss";
 @import "bootstrap-social.scss";
 
-
-
-
+//= require "bootstrap3-switch";

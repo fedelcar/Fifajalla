@@ -1,19 +1,45 @@
 <div class="container">
-		<%= form_for :league, url: new_league_path do |t| %>
+		<center>
 			<h1>New League</h1>
-			<br>
+		</center>
+			
+		<br>
+
+		<%= form_for :league, url: new_league_path do |t| %>
+			<div class="col-sm-7" align="right">
+				<% @users.all.each do |user| %>				
+					<div class="col-sm-12" align="left">
+		  				<h4><%= user.display_name %></h4>
+					</div>
+					<% @teams.where("user_id =?", user.id).each do |team| %>
+						<div class="col-sm-8" align="left">
+		  					<%= team.name %>
+		  				</div>
+		  				<div class="col-sm-4" align="right">
+			  				<%= t.check_box team.id, data: { "size" => "small", "on-color" => "success", "off-color" => "danger", "on-text" => "<span class='glyphicon glyphicon-ok'></span>".html_safe, "off-text" => "<span class='glyphicon glyphicon-remove'></span>".html_safe } %>
+			  				<%# team.id, false, %>
+						</div>
+						<br>
+	  				<% end %>
+	  			<% end %>
+	  			
+			</div>
+
 			<div class="col-sm-5">
-
-				<% @current_user_array = User.where("id=?",current_user.id) %>
-
-				<% @teams.all.each do |team| %>
-	  				<%= check_box_tag :teams, team.id, team.id, :name => 'book[pubhouse_ids][]' %> 
-  					<%= team.name + " (" + User.find(team.user_id).display_name + ")" %><br>
-				<% end %>
-
-				<%= t.check_box :team, {}, "admin", "user" %>
-				<br>
-
+				<center>
+					<br>
+					<%= t.text_field('name', placeholder: "League Name") %>
+					<br><br>
+					<div class="btn-group" data-toggle="buttons">
+						<label class="btn btn-default active">
+							<%= t.radio_button("rounds", "ida") %> Ida
+						</label>
+						<label class="btn btn-default">
+							<%= t.radio_button("rounds", "idavuelta") %> Ida y Vuelta
+						</label>
+					</div>
+					<br><br><br>
+					<%= t.submit "Create", :class => "btn btn-success" %>
+				</center>
+			</div>
 		<% end %>
-</div>
-<br><br><br><br>

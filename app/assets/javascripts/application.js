@@ -18,3 +18,8 @@
 //= require bootstrap
 //= require bootstrap-hover-dropdown
 
+//= require bootstrap-switch
+
+$(function() {
+  $('input:checkbox').bootstrapSwitch();
+});
