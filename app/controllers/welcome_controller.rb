@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   def index
 
   	@numberOfUsers=User.count-1
-  	
+  	@trades=Trade.where("Status='Completed'").order(id: :desc).take(5)
   	@users=User.all
   	@players=Player.all
 

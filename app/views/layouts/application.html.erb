@@ -79,6 +79,10 @@
           <% end %>
           <% if current_user %>
                 <li><%= link_to current_user.display_name, "/users/cPanel" %></li>
+                <% @teams = Team.where(user_id: current_user.id) %>
+                <% @teams.each do |team| %>
+                  <li><%= link_to team.name, team_path(team.id) %></li>
+                <% end %>
                 <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
           <% else %>
                 <li><%= link_to "Sign in", "/auth/facebook", id: "sign_in" %></li>
