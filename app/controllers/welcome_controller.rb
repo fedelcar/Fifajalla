@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   	
   	@users=User.all
   	@players=Player.all
-
+    @teamsUser=Team.where("user_id=?",current_user.id)
   	@matches = Match.where("finished='t'").order(updated_at: :desc).take(5)
   	
   	@teams = Team.all

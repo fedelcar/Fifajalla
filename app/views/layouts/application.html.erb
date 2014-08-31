@@ -85,6 +85,13 @@
           <% end %>
           <% if current_user %>
                 <li><%= link_to current_user.display_name, "/users/cPanel" %></li>
+                <ul>
+                
+                <% @teamsUser.each do |team| %>
+                    <li><a href="/draft"><%= team.name %></a></li>
+                <% end %>
+
+                </ul>
                 <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
           <% else %>
                 <li><%= link_to "Sign in", "/auth/facebook", id: "sign_in" %></li>
@@ -99,6 +106,8 @@
 </nav>
 
 <%= yield %>
+
+<br>
 <br>
 <br>
 <nav class="navbar navbar-inverse navbar-fixed-bottom " role="navigation">
