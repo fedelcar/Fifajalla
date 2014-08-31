@@ -4,8 +4,8 @@
 		<br>
 
 		<%= form_for :league, url: new_league_path do |t| %>
-			<div class="col-sm-7" align="right">
-				<% @users.all.each do |user| %>				
+			<div class="col-sm-4" align="right">
+				<% @users_column_a.each do |user| %>				
 					<div class="col-sm-12" align="left">
 		  				<h4><%= user.display_name %></h4>
 					</div>
@@ -15,15 +15,30 @@
 		  				</div>
 		  				<div class="col-sm-4" align="right">
 			  				<%= t.check_box team.id, data: { "size" => "small", "on-color" => "success", "off-color" => "danger", "on-text" => "<span class='glyphicon glyphicon-ok'></span>".html_safe, "off-text" => "<span class='glyphicon glyphicon-remove'></span>".html_safe } %>
-			  				<%# team.id, false, %>
 						</div>
 						<br>
 	  				<% end %>
 	  			<% end %>
-	  			
 			</div>
 
-			<div class="col-sm-5">
+			<div class="col-sm-4" align="right">
+				<% @users_column_b.each do |user| %>				
+					<div class="col-sm-12" align="left">
+		  				<h4><%= user.display_name %></h4>
+					</div>
+					<% @teams.where("user_id =?", user.id).each do |team| %>
+						<div class="col-sm-8" align="left">
+		  					<%= team.name %>
+		  				</div>
+		  				<div class="col-sm-4" align="right">
+			  				<%= t.check_box team.id, data: { "size" => "small", "on-color" => "success", "off-color" => "danger", "on-text" => "<span class='glyphicon glyphicon-ok'></span>".html_safe, "off-text" => "<span class='glyphicon glyphicon-remove'></span>".html_safe } %>
+						</div>
+						<br>
+	  				<% end %>
+	  			<% end %>
+			</div>
+
+			<div class="col-sm-4">
 				<center>
 					<br>
 					<%= t.text_field('name', placeholder: "League Name") %>
@@ -41,3 +56,5 @@
 				</center>
 			</div>
 		<% end %>
+</div>
+<br><br>

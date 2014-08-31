@@ -16,12 +16,11 @@ class LeagueController < ApplicationController
     @loses = Array.new(50, 0)
     @pj = Array.new(50, 0)
 
-#    @matches = Match.where("league_id = ?", params[:id])
-#    @teams = @matches.local_user_id
-    @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + params[:id]).group(:id)
-      @teams.each do |team|
-    puts(team.name)
+    order = Array.new
 
+    @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + params[:id]).group(:id)
+    @teams.each do |team|
+    
         # Analizo todos los partidos de local de cada equipo
         @matches1 = Match.where("local_user_id = ? and finished = 't' and league_id = ?", team.user_id, params[:id])
         @matches1.each do |match|
@@ -59,12 +58,39 @@ class LeagueController < ApplicationController
         @dg[team.id] = @gf[team.id] - @ga[team.id]
         @pts[team.id] = @wins[team.id] * 3 + @draws[team.id]
         @eff[team.id] = @pts[team.id] / ((@pj[team.id]) * 3.0)
-      end
+    end
+
+#    @teams.each do |team|
+#      order[team.id] = team
+#    end
+
+
+ #   puts(order)
+
+ #   taken = 1
+
+    # Toma todos los equipos menos el último
+  #  for i in order.take(order.count - 1)
+   #     # Tomo todos a partir del anterior
+    #    for j in order.drop(taken)
+     #     if (@pts[i.id] > @pts[j.id]) or (@pts[i.id] == @pts[j.id] and @dg[i.id] > @dg[j.id])
+      #      pija = order[j]
+       #     order[j] = order[i]
+        #    order[i] = order[j]
+         # end
+        #end
+      #taken = taken + 1
+    #end
+
+
   end
 
   def new
     @users = User.where("id>1")
     @teams = Team.where("id>1")
+
+    @users_column_a = @users.take(@users.count / 2)
+    @users_column_b = @users.drop(@users.count / 2)
   end
 
   def create
