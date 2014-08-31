@@ -1,41 +1,54 @@
 <div class="container">
-<h1> League</h1>
+	<h1>League List</h1>
+	
+	<table class="table table-striped table-hover ">
+		<thead>
+			<tr>
+				<th width="8px"></th>
+				<th>Name</th>
+				<th width="180px">Created</th>
+				<th width="50px">Teams</th>
+				<th width="50px">Matches</th>
+				<th width="50px">Finished</th>
+			</tr>
+		</thead>
 
+		<% @leagues.each do |league| %>
+			<tr>
+				<center>
+  					<td>
+  						<%= link_to "", league_path(league.id), :method => "get" , class: "glyphicon glyphicon-info-sign center"%>
+  					</td>
 
+					<td>
+						<%= league.name %>
+					</td>
 
-<table class="table table-striped table-hover ">
-	<thead><tr>
-		
-		<th>Name</th>
-		<th>User</th>
-		<th>PJ</th>
-		<th><%= link_to "Wins", :sort => "wins" %></th>  
-		<th><%= link_to "Draws", :sort => "draws" %></th>  
-		<th><%= link_to "Loses", :sort => "loses" %></th>  
-		<th><%= link_to "GF", :sort => "gf" %></th>  
-		<th><%= link_to "GA", :sort => "ga" %></th>  
-		<th><%= link_to "DG", :sort => "dg" %></th>  
-		<th><%= link_to "Pts", :sort => "pts" %></th>  
-		<th><%= link_to "Eff", :sort => "eff" %></th>  
-		
-	</tr></thead>
+					<td>
+						<%= league.created_at.strftime("%a %d/%m/%Y %H:%M:%S") %>
+					</td>
 
-	<% @teams.each do |team| %>
-		<tbody><tr>
+					<td>
+						&emsp;&ensp;<%= @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + league.id.to_s).group("teams.id").count.count %>
+					</td>
 
+					<td>
+						<center>
+							<%= @league_matches = Match.where("league_id = ?", league.id).count %>
+						</center>
+					</td>
 
-			<td><%= link_to "", team_path(team.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= team.name %>
-  			<td><%= link_to "", user_path((User.find(team.user_id)).id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= User.find(team.user_id).display_name %>
-  			<td><%= @pj[team.id] %></td>	
-  			<td><%= @wins[team.id] %></td>
-  			<td><%= @draws[team.id]%></td>
-  			<td><%= @loses[team.id] %></td>
-  			<td><%= @gf[team.id] %></td>
-  			<td><%= @ga[team.id] %></td>
-  			<td><%= @dg[team.id] %></td>
-  			<td><%= @pts[team.id] %></td>
-  			<td><%= number_to_percentage(@eff[team.id]*100, precision: 2) %></td>
-  		</tr></tbody>	
-	<% end %>
-</table>
+					<td>
+						<center>
+							<% if league.finished %>
+								<span class="glyphicon glyphicon-ok"%></span>
+							<% else %>
+								<span class="glyphicon glyphicon-remove"%></span>
+							<% end %>
+						</center>
+					</td>				
+
+			</tr>
+		<% end %>
+	</table>
 </div>

@@ -1,52 +1,64 @@
 class LeagueController < ApplicationController
   def index
-  	@gf=Array.new(50,0)
-    @ga=Array.new(50,0)
-    @dg=Array.new(50,0)
-    @pts=Array.new(50,0)
-    @eff=Array.new(50,0)
-    @wins=Array.new(50,0)
-    @draws=Array.new(50,0)
-    @loses=Array.new(50,0)
-    @pj=Array.new(50,0)
+    @leagues = League.all.order("id DESC")
+  end
 
-    @teams = Team.where("user_id<>1 and user_id<> 3 and user_id<>4 and user_id <>5 and user_id <> 7 and user_id <> 11").order(pts: :desc)
-  	  @teams.each do |team|
-        @matches1= Match.where("local_user_id=? and id>=227 and id <= 254 and finished='t'",team.user_id)
+  def show
+    @league = League.find(params[:id])
+
+    @gf = Array.new(50, 0)
+    @ga = Array.new(50, 0)
+    @dg = Array.new(50, 0)
+    @pts = Array.new(50, 0)
+    @eff = Array.new(50, 0)
+    @wins = Array.new(50, 0)
+    @draws = Array.new(50, 0)
+    @loses = Array.new(50, 0)
+    @pj = Array.new(50, 0)
+
+#    @matches = Match.where("league_id = ?", params[:id])
+#    @teams = @matches.local_user_id
+    @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + params[:id]).group(:id)
+      @teams.each do |team|
+    puts(team.name)
+
+        # Analizo todos los partidos de local de cada equipo
+        @matches1 = Match.where("local_user_id = ? and finished = 't' and league_id = ?", team.user_id, params[:id])
         @matches1.each do |match|
-          @gf[team.id]=@gf[team.id]+match.local_goals
-          @ga[team.id]=@ga[team.id]+match.away_goals
-          @pj[team.id]=@pj[team.id]+1
+          @gf[team.id] = @gf[team.id] + match.local_goals
+          @ga[team.id] = @ga[team.id] + match.away_goals
+          @pj[team.id] = @pj[team.id] + 1
           if match.local_goals == match.away_goals
-            @draws[team.id]=@draws[team.id]+1
+            @draws[team.id] = @draws[team.id] + 1
           else 
             if match.local_goals > match.away_goals
-              @wins[team.id]=@wins[team.id]+1
+              @wins[team.id] = @wins[team.id] + 1
             else
-              @loses[team.id]=@loses[team.id]+1
-            end
-          end
-        end
-        @matches2= Match.where("away_user_id=? and id>225 and id <=254 and finished='t'",team.user_id)
-        @matches2.each do |match|
-          @ga[team.id]=@ga[team.id]+match.local_goals
-          @gf[team.id]=@gf[team.id]+match.away_goals
-          @pj[team.id]=@pj[team.id]+1
-          if match.local_goals == match.away_goals
-            @draws[team.id]=@draws[team.id]+1
-          else 
-            if match.local_goals > match.away_goals
-              @loses[team.id]=@loses[team.id]+1
-            else
-              @wins[team.id]=@wins[team.id]+1
+              @loses[team.id] = @loses[team.id] + 1
             end
           end
         end
 
-        @dg[team.id]=@gf[team.id]-@ga[team.id]
-        @pts[team.id]=@wins[team.id]*3+@draws[team.id]
-        @eff[team.id]=@pts[team.id]/((@pj[team.id])*3.0)
-        
+        # Analizo todos los partidos de visitante de cada equipo
+        @matches2 = Match.where("away_user_id = ? and finished = 't' and league_id = ?", team.user_id, params[:id])
+        @matches2.each do |match|
+          @ga[team.id] = @ga[team.id] + match.local_goals
+          @gf[team.id] = @gf[team.id] + match.away_goals
+          @pj[team.id] = @pj[team.id] + 1
+          if match.local_goals == match.away_goals
+            @draws[team.id] = @draws[team.id] + 1
+          else 
+            if match.local_goals > match.away_goals
+              @loses[team.id] = @loses[team.id] + 1
+            else
+              @wins[team.id] = @wins[team.id] + 1
+            end
+          end
+        end
+
+        @dg[team.id] = @gf[team.id] - @ga[team.id]
+        @pts[team.id] = @wins[team.id] * 3 + @draws[team.id]
+        @eff[team.id] = @pts[team.id] / ((@pj[team.id]) * 3.0)
       end
   end
 
@@ -107,7 +119,7 @@ class LeagueController < ApplicationController
       taken = taken + 1
     end
 
-    redirect_to '/league/new'
+    redirect_to '/league'
   end
 
   def create_matches(home, away, league)

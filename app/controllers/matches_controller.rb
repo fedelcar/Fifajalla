@@ -2,12 +2,9 @@ class MatchesController < ApplicationController
 
 
   def index
-  	@matches = Match.all.order(updated_at: :desc)
+  	@matches = Match.all.order(finished: :asc).order(updated_at: :desc)
   	@users = User.all
   	@teams = Team.all
-
- 
-
   end
 
   def show
