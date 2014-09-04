@@ -6,6 +6,7 @@
 			<tr>
 				<th></th>
 				<th>Fecha</th>
+				<th>Torneo</th>
 				<th>User L.</th>
 				<th>Equipo L.</th>
 				<th>Goles L.</th>
@@ -21,6 +22,7 @@
   			<td><right><%= link_to "", match_path(match.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%></right></td>
 
 				<td><%= match.date %></td>
+				<td><%= League.find(match.league_id).name %></td>
 
 				<% if match.local_goals > match.away_goals %>
 					<td><b><p class="text-info"><%= @users.find(match.local_user_id).display_name %></p></b>	</td>

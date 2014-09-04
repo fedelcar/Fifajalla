@@ -2,50 +2,9 @@ class MatchesController < ApplicationController
 
 
   def index
-  	@matches = Match.all.order(updated_at: :desc)
+  	@matches = Match.all.order(finished: :asc).order(updated_at: :desc)
   	@users = User.all
   	@teams = Team.all
-
- 
-
-  end
-
-  def schedule
-
-  		# 2 Germo
-  		# 3 Piñe
-  		# 4 Tito 
-  		# 5 Sene
-  		# 6 Laucha
-  		# 7 Facu
-  		# 8 Ema
-  		# 9 Rocka
-  		# 10 Fede
-  		# 11 Santi
-  		# 12 Picco
-  		# 13 Chris
-
-	 	for i in 2..12
-	  		for x in i+1..13
-	  			if !(x==3 or i==3 or x==4 or i==4 or x==5 or i==5 or x==11 or i==11)
-		  			@match=Match.new
-		  			@match.local_user_id=i
-		  			@match.away_user_id=x
-		  			@match.local_team_id=(Team.find_by user_id: i).id
-		  			@match.away_team_id=(Team.find_by user_id: x).id
-		  			@match.local_goals=0
-		 			@match.away_goals=0
-		  			@match.elimination=0
-		  			@match.golden_goal=0
-		  			@match.local_penalties=0
-		  			@match.away_penalties=0
-		  			@match.finished=false
-		  			@match.save
-	  			end
-	  		end
-	  	end
-
-	  redirect_to '/matches'
   end
 
   def show
@@ -156,23 +115,24 @@ end
 def newMatch
 	if params[:userL] != params[:userV]
 		@match = Match.new
-		@localUser=User.find_by display_name: params[:userL]
-		@awayUser=User.find_by display_name: params[:userV]
-		@match.local_user_id=@localUser.id
-		@match.away_user_id=@awayUser.id
-		@match.local_goals=0
-		@match.away_goals=0
-		@match.local_team_id=(Team.find_by user_id: @localUser.id).id
-		@match.away_team_id=(Team.find_by user_id: @awayUser.id).id
-		@match.finished=false
-		
-		@match.date= Time.now.strftime("%Y/%m/%d")
-		@match.time= Time.now.strftime("%H:%M:%S")
-		@match.elimination=0
-		@match.golden_goal=0
-		@match.local_penalties=0
-		@match.away_penalties=0
+		@localUser = User.find_by display_name: params[:userL]
+		@awayUser = User.find_by display_name: params[:userV]
+		@match.local_user_id = @localUser.id
+		@match.away_user_id = @awayUser.id
+		@match.local_goals = 0
+		@match.away_goals = 0
+		@match.local_team_id = (Team.find_by user_id: @localUser.id).id
+		@match.away_team_id = (Team.find_by user_id: @awayUser.id).id
+		@match.finished = false
+		@match.date = Time.now.strftime("%Y/%m/%d")
+		@match.time = Time.now.strftime("%H:%M:%S")
+		@match.elimination = 0
+		@match.golden_goal = 0
+		@match.local_penalties = 0
+		@match.away_penalties = 0
+		@match.league_id = (League.find_by name: params[:torneo]).id
 		@match.save
+
 		redirect_to edit_match_path(@match.id)
 	else
 		redirect_to '/matches/new'
@@ -226,6 +186,8 @@ def createEvent
 			@player.assists=@player.assists+1
 		when "Penal Atajado"
 			@event.event_type_id=7
+		when "Penal Errado"
+			@event.event_type_id=16
 		when "Amarilla"
 			if Event.where("match_id=? and player_id=? and event_type_id=12",@match.id,@player.id).count<=1
 				@event.event_type_id=12

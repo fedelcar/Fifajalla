@@ -22,6 +22,7 @@ class TeamsController < ApplicationController
 		@dgpp = @gfpp.to_f-@gapp.to_f
 		@user = User.find(@team.user_id)
 		@players = Player.where("team_id=?", params[:id]).order(sort_column + ' ' + sort_direction)
+    
 
   end
 

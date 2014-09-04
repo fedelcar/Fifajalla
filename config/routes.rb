@@ -42,6 +42,10 @@ Rails.application.routes.draw do
 
   get 'trades/rejectTrade', to: 'trades#rejectTrade'
 
+  get 'league/new', to: 'league#new'
+
+  post 'league/new', to: 'league#create'
+
   get 'trades/cancelTrade', to: 'trades#cancelTrade'
 
   get 'players/protectPlayer', to: 'players#protectPlayer'

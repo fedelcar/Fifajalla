@@ -54,6 +54,9 @@ gem 'omniauth-facebook'
 #for Font awesome
 gem 'font-awesome-sass'
 
+#for Switch
+gem 'bootstrap-switch-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

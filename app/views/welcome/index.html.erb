@@ -89,126 +89,80 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-6">
-			 <div class="row">
-			    <h1>Last Completed Trades</h1>
-			  </div>
-			  
-			  <table class="table table-striped table-hover ">
-			      <thead><tr>
-			        
-			        <th>Fecha</th>
-			        <th>User 1</th>
-			        <th>User 2</th>
-			        <th>Jugadores a User 1</th>
-			        <th>Jugadores a User 2</th>
+			<div class="container-fluid jumbotron">
+				<h2><a href="/welcome/faqs"> Recién entrás? hacé click acá </a></h2>
+				
+		         <br>
+				<blockquote>
+				  	<p>Quebro. Gambar.</p>
+				  	<small>Nahuel Palumbo <cite title="Source Title">Ultimas palabras antes de la desaparicion en vida</cite></small>
+				</blockquote>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="container-fluid jumbotron">	
+					<h2>Draft</h2>
+						<table class="table table-striped table-hover ">
+						<thead><tr>
+							<th>Round</th>
+							<th>Pick</th>
+							<th>Overall</th>
+							<th>User</th>
+							<th>Player</th>
+							<th>Rating</th>
+							<th>Position</th>
+						</tr></thead>
+						<% if next_pick != nil %>
+							<% @np = next_pick.number %>
+						<% else %>
+							<% @np = Pick.count %>
+						<% end %>
+						<% @picksa = Pick.where("number > ? and number < ?", @np-4,@np+4) %>
+						<% @picksa.each do |pick| %>
+							
+							<% if pick.number==@np%>
+								<tbody><tr class="info"> 
+									<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
+								<td>
+									<% if pick.number % @numberOfUsers == 0 %>
+														<%= @numberOfUsers%>
+												<% else %>
+													 	<%= pick.number % @numberOfUsers%>
+												<% end %></td>
 
-			      </tr></thead>
-			      
-			      <% @trades.each do |trade| %>
-			      <tbody><tr>
+								<td><%= pick.number %></td>
+								<td><%= @users.find(pick.user_id).display_name %></td>
+								<% @player=@players.find(pick.player_id) %>
+								<td><%= @player.last_name %></td>
+								<td><%= @player.overall %></td>
+								<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>	
+							</tr></tbody>
+							<% else %>
+								<tbody><tr>
+									<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
+								<td>
+									<% if pick.number % @numberOfUsers == 0 %>
+														<%= @numberOfUsers%>
+												<% else %>
+													 	<%= pick.number % @numberOfUsers%>
+												<% end %></td>
 
+								<td><%= pick.number %></td>
+								<td><%= @users.find(pick.user_id).display_name %></td>
+								<% @player=@players.find(pick.player_id) %>
+								<td><%= @player.last_name %></td>
+								<td><%= @player.overall %></td>
+								<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>	
+							</tr></tbody>
+							<% end %>
 
-			        
-			        
-			          <% @pm = Player_Movement.where("trade_id=?",trade.id) %>
-			          
-			          <td><%= trade.created_at.to_date %></td>
-			          <td><%= User.find(@pm.first.second_user_id).display_name %></td>
-			          <td><%= User.find(@pm.first.first_user_id).display_name %></td>
-			          <td> <% @pm1= Player_Movement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.first_user_id) %>
-			              <table class="table">
-			                <% @pm1.each do |pm1| %>
-			                  <tr><td><%= Player.find(pm1.player_id).last_name %></td></tr>
-			                <%end%>
-			              </table>
-			          </td>
-			          <td> <% @pm2= Player_Movement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.second_user_id) %>
-			              <table class="table">
-			                <% @pm2.each do |pm2| %>
-			                  <tr><td><%= Player.find(pm2.player_id).last_name %></td></tr>
-			                <%end%>
-			              </table>
-			          </td>
-			        
-			      </tr></tbody>
-			      <% end %>
-			    </table>
-
-					</div>
-					<div class="col-lg-6">
-						<div class="container-fluid jumbotron">	
-								<h2>Draft</h2>
-									<table class="table table-striped table-hover ">
-									<thead><tr>
-										<th>Round</th>
-										<th>Pick</th>
-										<th>Overall</th>
-										<th>User</th>
-										<th>Player</th>
-										<th>Rating</th>
-										<th>Position</th>
-									</tr></thead>
-									<% if next_pick != nil %>
-										<% @np = next_pick.number %>
-									<% else %>
-										<% @np = Pick.count %>
-									<% end %>
-									<% @picksa = Pick.where("number > ? and number < ?", @np-4,@np+4) %>
-									<% @picksa.each do |pick| %>
-										
-										<% if pick.number==@np%>
-											<tbody><tr class="info"> 
-												<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
-											<td>
-												<% if pick.number % @numberOfUsers == 0 %>
-																	<%= @numberOfUsers%>
-															<% else %>
-																 	<%= pick.number % @numberOfUsers%>
-															<% end %></td>
-
-											<td><%= pick.number %></td>
-											<td><%= @users.find(pick.user_id).display_name %></td>
-											<% @player=@players.find(pick.player_id) %>
-											<td><%= @player.last_name %></td>
-											<td><%= @player.overall %></td>
-											<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>	
-										</tr></tbody>
-										<% else %>
-											<tbody><tr>
-												<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
-											<td>
-												<% if pick.number % @numberOfUsers == 0 %>
-																	<%= @numberOfUsers%>
-															<% else %>
-																 	<%= pick.number % @numberOfUsers%>
-															<% end %></td>
-
-											<td><%= pick.number %></td>
-											<td><%= @users.find(pick.user_id).display_name %></td>
-											<% @player=@players.find(pick.player_id) %>
-											<td><%= @player.last_name %></td>
-											<td><%= @player.overall %></td>
-											<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>	
-										</tr></tbody>
-										<% end %>
-
-											
-									<% end %>
-									</table>
 								
-							</div>
+						<% end %>
+						</table>
+					
+				</div>
 		</div>
 	</div>
-
-
-
-
-
-
-	
-	
 	<br>
 	<br>
-	
-
 </div>

@@ -80,7 +80,7 @@
             <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
             <td><%= link_to "Draft", @link%></td>
         <% else %>
-            <% if player.team_id!=1 and @nextID == current_user.id %>
+            <% if player.team_id!=1 and next_pick.user_id == current_user.id %>
               <td>Drafted</td>
             <% end %>
         <% end %>

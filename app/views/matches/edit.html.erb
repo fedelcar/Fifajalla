@@ -12,6 +12,8 @@
 		<div class="row">
 			<br>
 			<h1><font size= "7"><center><%= @match.local_goals %>   -    <%=  @match.away_goals %></center></font></h1>
+			<br>
+			<h3><center><%= link_to "Ver Partido", match_path(@match.id) %></center></h3>
 		</div>
 	</div>
 
@@ -48,6 +50,7 @@
 			<%= f.submit "Jugador del Partido", :class => "btn btn-default" %>
 			<%= f.submit "Lesión", :class => "btn btn-default" %>
 			<%= f.submit "Penal Atajado", :class => "btn btn-default" %>
+			<%= f.submit "Penal Errado", :class => "btn btn-default" %>
 		<% end %>
 		<br>
 		<br>
@@ -56,6 +59,9 @@
 			<%= f.submit "Finalizar Partido", :class => "btn btn-primary" %>
 		<% end %>
 	</center>
+		<br>
+
+
 </div>
 
 <br><br><br><br><br>

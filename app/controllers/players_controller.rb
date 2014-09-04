@@ -85,6 +85,8 @@ class PlayersController < ApplicationController
 			if Player.where("team_id=? and protected='t'",@player.team_id).count < 11
 				@player.protected=true
 				@player.save
+			else
+			
 			end
 		end
 		if params[:from] == "players"
