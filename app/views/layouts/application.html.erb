@@ -84,7 +84,7 @@
             <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
           <% end %>
           <% if current_user %>
-                <li><%= link_to current_user.display_name, "/users/cPanel" %></li>
+                <li><%= link_to current_user.display_name, user_path(current_user.id) %></li>
                 <% @teams = Team.where(user_id: current_user.id) %>
                 <% @teams.each do |team| %>
                   <li><%= link_to team.name, team_path(team.id) %></li>
@@ -111,6 +111,7 @@
       <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
       <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p>
       <p class="navbar-text"><a href="/welcome/history"> <font color="white">Version History </font></a></p>
+      <p class="navbar-text"><a href="/users/cPanel"> <font color="white">My Settings </font></a></p>
     </div>
     <div class="navbar-header navbar-right">
       <div class="container-fluid">
