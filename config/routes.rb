@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   post 'matches', to: 'matches#newMatch'
 
+  post 'matches/new', to: 'matches#newMatch'
+
   post 'matches#createEvent', to: 'matches#createEvent'
 
   get 'welcome/history'

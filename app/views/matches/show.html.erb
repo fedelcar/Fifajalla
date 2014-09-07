@@ -22,8 +22,10 @@
 			<br>
 			<br>
 			<br>
-			<h3>Fecha: <%= @match.date%></h3>
+			<h3><%= League.find(@match.league_id).name %></h3>
+			<h3>Fecha: <%= @match.updated_at.strftime("%d/%m %H:%M")%></h3>
 			<h3>MVP: <%= @pom%></h3>
+
 		</div>
 
 

@@ -4,7 +4,7 @@
 	<table class="table table-striped table-hover ">
 		<thead>
 			<tr>
-				<th></th>
+				
 				<th>Nombre</th>
 				<th>Fecha</th>
 				<th>Equipos</th>
@@ -17,11 +17,10 @@
 		<% @leagues.each do |league| %>
 			<tr>
 				<center>
-  					<td>
-  						<%= link_to "", league_path(league.id), :method => "get" , class: "glyphicon glyphicon-info-sign center"%>
-  					</td>
+  				
 
 					<td>
+						<%= link_to "", league_path(league.id), :method => "get" , class: "glyphicon glyphicon-info-sign center"%> &nbsp;
 						<%= league.name %>
 					</td>
 

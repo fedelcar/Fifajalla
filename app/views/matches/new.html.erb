@@ -1,49 +1,32 @@
 <div class="container">
 	<h1>Create Match</h1>
 	<br>
-<form class="form-horizontal row-sm-7" action="/matches" method="post">
 
 
-<div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="post" /></div>
-			 <fieldset>
-			    <div class="form-group col-sm-8">
-			    	<div class="row">
-						<div class="col-sm-1"><label for="name" class="control-label">Local:</label> </div>
-							<div class="col-sm-4"><select class="form-control" input id="teamL" name="teamL"></div>
-								<% Team.where("id>1").each do |u| %>
-								   	<option><%= u.name %></option>
-							    <% end %>
-							</select>
-						</div>
-
-						<div class="col-sm-1"><label for="name" class="control-label">Visitante:</label> </div>
-							<div class="col-sm-4"><select class="form-control" input id="teamV" name="teamV"></div>
-								<% Team.where("id>1").each do |u| %>
-								   	<option><%= u.name %></option>
-							    <% end %>
-							</select>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-				      	<div class="col-sm-1"><label for="name" class="control-label">Torneo:</label> </div>
-							<div class="col-sm-4"><select class="form-control" input id="torneo" name="torneo"></div>
-								<% League.order(id: :asc).each do |u| %>
-								   	<option><%= u.name %></option>
-							    <% end %>
-							</select>
-						</div>
-			    	</div>
-			    </div>
-			    
-			    <div class="row">
-			      	<div class="col-sm-8">
-			      		<br>
-			        	<button class="btn btn-default">Cancel</button>
-			        	<button class="btn btn-success" type="submit" name="commit" value="New Match">Submit</button>
-			      	</div>
-			    </div>
-			</fieldset>
+<%= form_for :match do |f| %>
+	<div class="row">
+		<div class="col-md-4">
+			<%= f.label "Local" %>
+			<%= f.select :teamL, grouped_options_for_select(@groupedTeams), {}, {:class => "form-control"} %>
 		</div>
-		</form>
+		<div class="col-md-4">	
+			<%= f.label "Visitante" %>
+			<%= f.select :teamV, grouped_options_for_select(@groupedTeams), {}, {:class => "form-control"} %>
+		</div>
+
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-3">	
+			<% @ligas = League.order(id: :asc) %>
+			<%= f.select :torneo, options_from_collection_for_select(@ligas, "id", "name"), {}, {:class => "form-control"} %>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		&nbsp;&nbsp;&nbsp;&nbsp;<%= f.submit "Jugar!", :class => "btn btn-primary" %>
+	</div>
+
+<% end %>
+	
 </div>

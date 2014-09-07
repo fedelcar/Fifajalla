@@ -13,7 +13,9 @@
 			<br>
 			<h1><font size= "7"><center><%= @match.local_goals %>   -    <%=  @match.away_goals %></center></font></h1>
 			<br>
+			<h3><center><%= League.find(@match.league_id).name %></center></h3>
 			<h3><center><%= link_to "Ver Partido", match_path(@match.id) %></center></h3>
+
 		</div>
 	</div>
 
