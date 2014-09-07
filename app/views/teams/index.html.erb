@@ -6,6 +6,7 @@
         
     		<th>Name</th>
     		<th>User</th>
+        <th>PJ</th>
     		<th><%= link_to "Wins", :sort => "wins" %></th>  
     		<th><%= link_to "Draws", :sort => "draws" %></th>  
     		<th><%= link_to "Loses", :sort => "loses" %></th>  
@@ -13,6 +14,7 @@
     		<th><%= link_to "GA", :sort => "ga" %></th>  
     		<th><%= link_to "DG", :sort => "dg" %></th>  
     		<th><%= link_to "Pts", :sort => "pts" %></th>
+        <th>Eff</th>
         <th>Amarillas</th>  
         <th>Rojas</th>  
 
@@ -23,13 +25,19 @@
         
         <td><%= link_to "", team_path(team.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp;<%= team.name %></td>
   			<td><%= link_to "", user_path((User.find(team.user_id)).id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= User.find(team.user_id).display_name %>
-  			<td><%= team.wins %></td>
+  			<td><%= team.wins + team.loses + team.draws %></td>
+        <td><%= team.wins %></td>
   			<td><%= team.draws %></td>
   			<td><%= team.loses %></td>
   			<td><%= team.gf %></td>
   			<td><%= team.ga %></td>
   			<td><%= team.gf-team.ga %></td>
   			<td><%= team.wins*3+team.draws	 %></td>
+        <% if team.wins + team.loses + team.draws >0 %>
+          <td><%= number_to_percentage((team.wins*3.0+team.draws)  / ((team.wins + team.loses + team.draws)*3.0)*100,precision:2) %></td>
+        <% else %>
+          <td>0.00%</td>
+        <% end %>
         <% @amarillas=0 %>
         <% @rojas=0 %>
         <% @players = Player.where("team_id=?",team.id) %>

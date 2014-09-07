@@ -56,6 +56,8 @@ Rails.application.routes.draw do
 
   get 'matches/schedule', to: 'matches#schedule'
 
+  post 'players/movePlayer', to: 'players#movePlayer'
+
   resources :draft
 
   resources :trades

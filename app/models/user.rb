@@ -18,13 +18,8 @@ class User < ActiveRecord::Base
 		      user.provider = auth.provider
 		      user.uid = auth.uid
 		      user.name = auth.info.name
-		  	  if !(User.exists?(user.id))
-		  	  	user.display_name = user.name.split(" ").first
-		  	  end
-
-		      user.oauth_token = auth.credentials.token
-		      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-		      if user.display_name==""
+		      user.email = auth.info.email
+		      if user.display_name == ""
 			      user.gf=0
 			      user.ga=0
 			      user.wins=0
@@ -33,8 +28,16 @@ class User < ActiveRecord::Base
 			      user.pts=0
 			      user.dg=0
 			      user.eff=0
-			      user.save!
+			      user.elo=1500 
 			  end
+		  	  if !(User.exists?(user.id))
+		  	  	user.display_name = user.name.split(" ").first
+		  	  end
+
+		      user.oauth_token = auth.credentials.token
+		      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+
+			  user.save
 	    end
   	end
 

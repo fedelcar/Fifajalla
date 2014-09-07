@@ -13,14 +13,13 @@
 		<b>On the Trade Block?</b>
 		<% if @player.on_the_block %>&nbsp;
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
-			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp;  </font>
-
+			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> </font>
 				<% if @player.user_id == current_user.id %>
 		  			<%= link_to "Remove", @link %> </font></td>
 		  		<% end %>
 		<% else %>
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
-			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp;  </font>
+			<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
 			<% if @player.user_id == current_user.id %>
 				<%= link_to "Add", @link %>
 			<% end %>
@@ -30,23 +29,43 @@
 		<b>Protected?</b>&nbsp;
 		<% if @player.protected %>
 			<% @link = "/players/protectPlayer?id="+@player.id.to_s+"&from=players" %>
-			<font color="green"> <i class="fa fa-shield"></i></span> &nbsp;  </font>
+			<font color="green"> <i class="fa fa-shield"></i></span></font>
 				<% if @player.user_id == current_user.id %>
 		  			<%= link_to "Unprotect", @link %> </font></td>
 		  		<% end %>
 		<% else %>
 			<% @link = "/players/protectPlayer?id="+@player.id.to_s+"&from=players" %>
-			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp;  </font>
+			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> </font>
 			<% if @player.user_id == current_user.id %>
 				<%= link_to "Protect", @link %>
 			<% end %>
 		<% end %>
+
 		<br>
+
 		<% if @player.user_id == current_user.id %>
-		<% @link = "/players/releasePlayer?id="+@player.id.to_s+"&from=team" %>
-		<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span> &nbsp; 
-			<%= link_to "Release", @link %> </font></td>
-	<% end %>
+			<b> Release Player? </b>
+			<% @link = "/players/releasePlayer?id="+@player.id.to_s+"&from=team" %>
+			<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span>
+				<%= link_to "Release", @link %> </font></td>
+		<% end %>
+
+		<br>
+
+		<% if @player.user_id == current_user.id %>
+			<%= form_for :movePlayer, url: "movePlayer?id="+@player.id.to_s do |t| %>
+			<b> Move Player? </b> <br>
+			<% @teams = Team.where("user_id=? and id<>?",@player.user_id,@player.team_id) %>
+			<div class="col-md-8">
+				<%= t.select :team, options_from_collection_for_select(@teams, "id", "name"), {}, {:class => "form-control"} %>
+			</div>	
+			<%= t.submit "Move", :class => "btn btn-sm btn-primary" %>
+
+			<% end %>
+			
+				
+		<% end %>
+
 	</div>
 
 

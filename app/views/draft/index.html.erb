@@ -1,97 +1,46 @@
 <div class="container">
-	<h1>Draft</h1>
-	<h3>Draft Progress:</h3>
-	<% if next_pick != nil %>
-		<% @np = next_pick.number %>
-	<% else %>
-		<% @np = Pick.count %>
-	<% end %>
-	<% @total=Pick.count.to_f %>
-	<% @pc = @np/@total%>
-	<% @pc= number_to_percentage(@pc*100, precision: 0) %>
-	<% @pc2= "width: " + @pc %>
+	<h1>Draft List</h1>
 	
-	<div class="progress progress-striped active">
-		
-
-  		<div class="progress-bar" style= "<%= @pc2 %>" > <%= @pc %></div>
-	</div>
-
-	<div class="col-md-8">
-		<table class="table table-striped table-hover ">
-		<thead><tr>
-			<th>Round</th>
-			<th>Pick</th>
-			<th>Overall</th>
-			<th>User</th>
-			<th>Player</th>
-			<th>Rating</th>
-			<th>Position</th>
-		</tr></thead>
-
-		<% @picks.each do |pick| %>
-			
-			<% if pick.number==@np%>
-				<tbody><tr class="info">
-					<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
-					<td>
-						<% if pick.number % @numberOfUsers == 0 %>
-											<%= @numberOfUsers%>
-									<% else %>
-										 	<%= pick.number % @numberOfUsers%>
-									<% end %></td>
-
-					<td><%= pick.number %></td>
-					<td><%= @users.find(pick.user_id).display_name %></td>
-					
-					<% @player=@players.find(pick.player_id) %>
-					
-					<td><%= @player.first_name %> <%= @player.last_name %></td>
-					<td><%= @player.overall %></td>
-					<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>
-
-		  			
-				</tr></tbody>
-			<% else %>
-				<tbody><tr>
-					<td><%= (pick.number-1)/@numberOfUsers+1 %></td>
-					<td>
-						<% if pick.number % @numberOfUsers == 0 %>
-											<%= @numberOfUsers%>
-									<% else %>
-										 	<%= pick.number % @numberOfUsers%>
-									<% end %></td>
-
-					<td><%= pick.number %></td>
-					<td><%= @users.find(pick.user_id).display_name %></td>
-					
-					<% @player=@players.find(pick.player_id) %>
-					
-					<td><%= @player.first_name %> <%= @player.last_name %></td>
-					<td><%= @player.overall %></td>
-					<td><%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %></td>
-
-		  			
-				</tr></tbody>
-			<% end %>
-			
-		<% end %>
-		</table>
-	</div>
-	<div class="col-md-4">
-		<% if next_pick != nil %>
+	<table class="table table-striped table-hover ">
+		<thead>
+			<tr>
 				
+				<th>Nombre</th>
+				<th>Fecha</th>
+				<th>Usuarios</th>
+				<th>Picks</th>
+				<th>Rondas</th>
+				
+			</tr>
+		</thead>
+
+		<% @drafts.each do |draft| %>
+			<tr>
+				<center>
+  					<td>
+						<%= link_to "", draft_path(draft.id), :method => "get" , class: "glyphicon glyphicon-info-sign center"%> &nbsp;
+  						<%= draft.name %>
+					</td>
+
+					<td>
+						<%= draft.created_at.strftime("%d/%m %H:%M") %>
+					</td>
+					
+					<td>
+						<%= Pick.where("draft_id=?",draft.id).distinct.count(:user_id) %>
+					</td>
+
+					<td>
+						<%= Pick.where("draft_id=?",draft.id).count %>
+					</td>
+
+					<td>
+						<%= draft.rounds %>						
+					</td>
+
 			
-			<h2>Next Pick</h2>
-			<b>User:</b> <%=@users.find(@picks.find(next_pick).user_id).display_name%><br>
-			<b>Round:</b> <%= (next_pick.number-1)/@numberOfUsers+1 %><br>
-			<b>Pick:</b> <% if next_pick.number % @numberOfUsers == 0 %>
-											<%= @numberOfUsers%>
-									<% else %>
-										 	<%= next_pick.number % @numberOfUsers%>
-									<% end %>
-			<br>
-			<b>Overall:</b> <%= next_pick.number %><br>
+
+			</tr>
 		<% end %>
-	</div>
+	</table>
 </div>

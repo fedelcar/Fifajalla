@@ -38,8 +38,11 @@ class TradesController < ApplicationController
   end
 
   def my
+  if current_user.id==10
+    @apps=Trade_Approval.all.order(updated_at: :desc)
+  else
     @apps=Trade_Approval.where("user_id=?",current_user.id).order(updated_at: :desc)
-
+  end
   end
 
   def cancelTrade

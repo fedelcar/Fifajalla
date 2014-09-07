@@ -8,7 +8,7 @@
 		
 		<th>Name</th>
 		<th>PJ</th> 
-		<th>Strength</th>
+			
 		<th><%= link_to "ELO", :sort => "elo" %></th> 
 		<th><%= link_to "Eff", :sort => "eff" %></th> 
 		<th><%= link_to "Wins", :sort => "wins" %></th>  
@@ -31,7 +31,7 @@
 
 			<td><%= link_to "", user_path(user.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= user.display_name %>
 			<td><%= user.loses + user.wins + user.draws%></td>
-			<td><%= (user.elo * user.eff/15).to_i %></td>
+			
 			<td><%= user.elo.to_i %></td>
 			<td><%= number_to_percentage(user.eff*100, precision: 2) %></td>
   			<td><%= user.wins%></td>

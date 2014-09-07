@@ -14,7 +14,7 @@ class PlayersController < ApplicationController
 				when "drafted"
 					@players=Player.where("user_id<>1")
 				when "undrafted"
-					@players=Player.where("user_id=1")
+					@players=Player.where("user_id=1 or team_id=48 or team_id=47")
 				when "GK", "RB", "RWB","CB","LB","LWB","CM","CDM","CAM","LM","RM","RW","LW","CF","ST"
 					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter])
 				else					
@@ -27,6 +27,23 @@ class PlayersController < ApplicationController
 			end
 
 
+	end
+
+	def movePlayer
+		@team = Team.find(params[:movePlayer][:team])
+		@pm = Player_Movement.new
+		@player=Player.find(params[:id])
+      	@pm.player_id=@player.id
+      	@pm.first_user_id=@player.user_id
+      	@pm.second_user_id=@player.user_id
+      	@pm.first_team_id=@player.team_id
+      	@pm.second_team_id=params[:movePlayer][:team]
+      	@pm.save
+
+      	@player.team_id=params[:movePlayer][:team]
+      	@player.save
+		
+		redirect_to player_path(params[:id])
 	end
 
 	def show
@@ -52,6 +69,7 @@ class PlayersController < ApplicationController
 		@pick.user_id=@player.user_id
 		@pick.player_id=62302
 		@pick.number=Pick.count+1
+		@pick.draft_id=4
 		@pick.save
 		
 		@next_pick = Pick.where("player_id=62302").first

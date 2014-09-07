@@ -113,16 +113,16 @@ def update
 end
 
 def newMatch
-	if params[:userL] != params[:userV]
+	if params[:teamL] != params[:teamV]
 		@match = Match.new
-		@localUser = User.find_by display_name: params[:userL]
-		@awayUser = User.find_by display_name: params[:userV]
-		@match.local_user_id = @localUser.id
-		@match.away_user_id = @awayUser.id
+		@match.local_team_id = (Team.find_by name: params[:teamL]).id
+		@match.away_team_id = (Team.find_by name: params[:teamV]).id
+		@localUser = User.find(Team.find(@match.local_team_id).user_id).id
+		@awayUser = User.find(Team.find(@match.away_team_id).user_id).id
+		@match.local_user_id = @localUser
+		@match.away_user_id = @awayUser
 		@match.local_goals = 0
 		@match.away_goals = 0
-		@match.local_team_id = (Team.find_by user_id: @localUser.id).id
-		@match.away_team_id = (Team.find_by user_id: @awayUser.id).id
 		@match.finished = false
 		@match.date = Time.now.strftime("%Y/%m/%d")
 		@match.time = Time.now.strftime("%H:%M:%S")

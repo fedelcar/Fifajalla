@@ -1,11 +1,21 @@
 class DraftController < ApplicationController
   def index
-  	@picks=Pick.all
-  	@numberOfUsers=User.count-1
   	
-  	@users=User.all
+  	
+  	@drafts=Draft.all.order(created_at: :desc)
+  	
+    @users=User.all
   	@players=Player.all
-  	@currentPick=1
+  	
+  end
+
+  def show
+    @picks=Pick.where("draft_id=?",params[:id])
+    @draft=Draft.find(params[:id])
+    @numberOfUsers=@draft.users
+    @users=User.all
+    @players=Player.all
+    @currentPick=1
   end
 
   def released
@@ -14,7 +24,7 @@ class DraftController < ApplicationController
 
   def draftPlayer
   		@player=Player.find(params[:id])
-      if @player.user_id==1 or current_user.id==10
+      if @player.user_id==1 or current_user.id==10 or @player.team_id==47 or @player.team_id==48
           @np = next_pick.user_id
           @team=Team.where("user_id=?",next_pick.user_id).first.id
       		@player.user_id=next_pick.user_id

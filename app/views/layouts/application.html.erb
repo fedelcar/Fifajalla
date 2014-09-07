@@ -59,7 +59,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Draft<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="/draft">Draft</a></li>
+                    <li><a href="/draft">Draft List</a></li>
                     <li><a href="/draft/released">Released Players</a></li>
                 </ul>
             </li>
@@ -111,7 +111,9 @@
       <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
       <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p>
       <p class="navbar-text"><a href="/welcome/history"> <font color="white">Version History </font></a></p>
-      <p class="navbar-text"><a href="/users/cPanel"> <font color="white">My Settings </font></a></p>
+      <% if current_user!= nil %> 
+        <p class="navbar-text"><a href="/users/cPanel"> <font color="white">My Settings </font></a></p>
+      <% end %>
     </div>
     <div class="navbar-header navbar-right">
       <div class="container-fluid">
