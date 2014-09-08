@@ -26,7 +26,7 @@ class DraftController < ApplicationController
   		@player=Player.find(params[:id])
       if @player.user_id==1 or current_user.id==10 or @player.team_id==47 or @player.team_id==48
           @np = next_pick.user_id
-          @team=Team.where("user_id=?",next_pick.user_id).first.id
+          @team=Team.where("user_id=?",next_pick.user_id).last.id
       		@player.user_id=next_pick.user_id
       		@player.team_id=@team
       		@player.save

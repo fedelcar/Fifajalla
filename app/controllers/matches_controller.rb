@@ -30,8 +30,8 @@ class MatchesController < ApplicationController
 		@pom = ""
 	end
 
-	@players_local = Player.where("team_id=?",@team_local.id)
-	@players_visitante = Player.where("team_id=?",@team_visitante.id)
+	@players_local = Player.where("user_id=?",@team_local.user_id)
+	@players_visitante = Player.where("user_id=?",@team_visitante.user_id)
 
   end
 
@@ -113,10 +113,10 @@ def update
 end
 
 def newMatch
-	if params[:teamL] != params[:teamV]
+	if params[:match][:teamL] != params[:match][:teamV]
 		@match = Match.new
-		@match.local_team_id = (Team.find_by name: params[:teamL]).id
-		@match.away_team_id = (Team.find_by name: params[:teamV]).id
+		@match.local_team_id = (Team.find(params[:match][:teamL])).id
+		@match.away_team_id = (Team.find(params[:match][:teamV])).id
 		@localUser = User.find(Team.find(@match.local_team_id).user_id).id
 		@awayUser = User.find(Team.find(@match.away_team_id).user_id).id
 		@match.local_user_id = @localUser
@@ -130,7 +130,7 @@ def newMatch
 		@match.golden_goal = 0
 		@match.local_penalties = 0
 		@match.away_penalties = 0
-		@match.league_id = (League.find_by name: params[:torneo]).id
+		@match.league_id = (League.find(params[:match][:torneo])).id
 		@match.save
 
 		redirect_to edit_match_path(@match.id)
@@ -255,6 +255,11 @@ end
 
 def new
 	@users=User.where("id>1")
+	@teams = Team.where("user_id>1").order(wins: :desc)
+	@groupedTeams = @teams.inject({}) do |options, team|
+		(options[User.find(team.user_id).display_name] ||= []) << [team.name, team.id]
+		options
+	end
 end
 
 

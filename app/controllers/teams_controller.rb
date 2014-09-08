@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
 
   def create
   	@users = User.where("id>1")
-    user_id = (@users.find_by display_name: params[:user]).id
+    user_id = current_user.id
 
     @team = Team.new
       @team.name= params[:name]

@@ -35,15 +35,18 @@
 		<div class="row">
 			<h2> Equipos</h2>
 			<% if @teams != "" %>
-			<% @teams.each do |team| %>
-  			<table>
-				<tbody><tr>
-		  			<td><%= link_to team.name, team_path(team.id), :method => "get" %></td>
-		  			
-  				</tr></tbody>
-  			</table>
-  		
-  		<% end %>
+				<% @teams.each do |team| %>
+		  			<table>
+						<tbody><tr>
+				  			<td><%= link_to team.name, team_path(team.id), :method => "get" %></td>
+				  			
+		  				</tr></tbody>
+		  			</table>
+	  			<% end %>
+  			<% end %>
+  		<% if @user.id == current_user.id %>
+	  			<br>
+				<a href="/teams/new"><button class="btn btn-sm btn-primary">Register New Team</button></a>			
   		<% end %>
 		</div>
 		

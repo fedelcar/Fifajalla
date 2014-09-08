@@ -91,6 +91,8 @@ class LeagueController < ApplicationController
 
     @users_column_a = @users.take(@users.count / 2)
     @users_column_b = @users.drop(@users.count / 2)
+    
+
   end
 
   def create
