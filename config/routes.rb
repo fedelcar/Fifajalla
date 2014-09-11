@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get 'trades/new'
 
+  get 'draft/givePicks', to: 'draft#givePicks'
+
   root 'welcome#index'
   
   get 'players/addToTradeBlock', to: 'players#TradeBlock'
