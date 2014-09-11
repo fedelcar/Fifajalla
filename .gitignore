@@ -27,3 +27,5 @@ config/secrets.yml
 
 # RubyMine files
 .idea
+
+db/development.sqlite3
