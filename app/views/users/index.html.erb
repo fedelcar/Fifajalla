@@ -22,6 +22,9 @@
 		
 		<th>Amarillas</th>  
 		<th>Rojas</th>
+		<% if next_pick != nil %>
+			<th>Tiempo Restate</th>
+		<% end %>
 		
 	</tr></thead>
 
@@ -52,7 +55,9 @@
   			<% end %>
   			<td><%= @amarillas%></td>
   			<td><%= @rojas%></td>
-  			
+  			<% if next_pick != nil %>
+				<td><%= user.minutes %></td>
+		<% end %>
   		</tr></tbody>	
 	<% end %>
 </table>
