@@ -30,8 +30,8 @@ class MatchesController < ApplicationController
 		@pom = ""
 	end
 
-	@players_local = Player.where("user_id=?",@team_local.user_id)
-	@players_visitante = Player.where("user_id=?",@team_visitante.user_id)
+	#@players_local = Player.where("user_id=?",@team_local.user_id)
+	#@players_visitante = Player.where("user_id=?",@team_visitante.user_id)
 
   end
 
@@ -147,6 +147,9 @@ def createEvent
 	@team = Team.find(@player.team_id)
 	@user= User.find(@player.user_id)
 	
+	@event.team_id=@team.id
+	@event.user_id=@user.id
+
 	if @match.local_user_id == @user.id
 		@otherUser = User.find(@match.away_user_id)
 		@otherTeam = Team.find(@match.away_team_id)
@@ -265,7 +268,7 @@ end
 
 private
 	def event_params
-		params.permit(:match_id, :player_id, :event_type_id, :goal_type_id)
+		params.permit(:match_id, :player_id, :event_type_id, :goal_type_id, :user_id, :team_id)
 	end
 
 end

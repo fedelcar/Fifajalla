@@ -46,32 +46,32 @@
 			
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
-					<% if @players_local.where("id=?",goal.player_id).exists? %>
+					<% if goal.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_local.find(goal.player_id).last_name, player_path(@players_local.find(goal.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(goal.player_id).last_name, player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
 				<% @ownGoals.each do |goal| %>
-					<% if @players_visitante.where("id=?",goal.player_id).exists? %>
+					<% if goal.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_visitante.find(goal.player_id).last_name + "(EC)", player_path(@players_visitante.find(goal.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(goal.player_id).last_name.last_name + "(EC)", player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
-					<% if @players_visitante.where("id=?",goal.player_id).exists? %>
+					<% if goal.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_visitante.find(goal.player_id).last_name, player_path(@players_visitante.find(goal.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(goal.player_id).last_name, player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<%end%>
 				<% end %>
 				<% @ownGoals.each do |goal| %>
-					<% if @players_local.where("id=?",goal.player_id).exists? %>
+					<% if goal.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_local.find(goal.player_id).last_name + "(EC)", player_path(@players_local.find(goal.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(goal.player_id).last_name + "(EC)", player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
@@ -82,19 +82,19 @@
 			<h2><center><p class="text-primary">Asistencias</p></center></h2>
 			<div class="col-sm-6">
 				<% @assists.each do |assist| %>
-					<% if @players_local.where("id=?",assist.player_id).exists? %>
+					<% if assist.team_id==@match.local_team_id %>
 						
 						<font color="black"><center><p>
-							<%= link_to @players_local.find(assist.player_id).last_name, player_path(@players_local.find(assist.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(assist.player_id).last_name, player_path(Player.find(assist.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<% @assists.each do |assist| %>
-					<% if @players_visitante.where("id=?",assist.player_id).exists? %>
+					<% if assist.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_visitante.find(assist.player_id).last_name, player_path(@players_visitante.find(assist.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(assist.player_id).last_name, player_path(Player.find(assist.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<%end%>
 				<% end %>
@@ -105,18 +105,18 @@
 			<h2><center><p class="text-primary">Amonestaciones</p></center></h2>
 			<div class="col-sm-6">
 				<% @yellow_cards.each do |yellow_card| %>
-					<% if @players_local.where("id=?",yellow_card.player_id).exists? %>
+					<% if yellow_card.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_local.find(yellow_card.player_id).last_name, player_path(@players_local.find(yellow_card.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(yellow_card.player_id).last_name, player_path(Player.find(yellow_card.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<% @yellow_cards.each do |yellow_card| %>
-					<% if @players_visitante.where("id=?",yellow_card.player_id).exists? %>
+					<% if yellow_card.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_visitante.find(yellow_card.player_id).last_name, player_path(@players_visitante.find(yellow_card.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(yellow_card.player_id).last_name, player_path(Player.find(yellow_card.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<%end%>
 				<% end %>
@@ -127,18 +127,18 @@
 			<h2><center><p class="text-primary">Expulsiones</p></center></h2>
 			<div class="col-sm-6">
 				<% @red_cards.each do |red_card| %>
-					<% if @players_local.where("id=?",red_card.player_id).exists? %>
+					<% if red_card.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_local.find(red_card.player_id).last_name, player_path(@players_local.find(red_card.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(red_card.player_id).last_name, player_path(Player.find(red_card.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<% @red_cards.each do |red_card| %>
-					<% if @players_visitante.where("id=?",red_card.player_id).exists? %>
+					<% if red_card.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
-							<%= link_to @players_visitante.find(red_card.player_id).last_name, player_path(@players_visitante.find(red_card.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(red_card.player_id).last_name, player_path(Player.find(red_card.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<%end%>
 				<% end %>

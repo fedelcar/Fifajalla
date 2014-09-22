@@ -75,7 +75,6 @@ class DraftController < ApplicationController
             @minutesForPick = (24 - @initial.hour)*60 + (60-@initial.min)
           end
 
-
           @user.minutes = @user.minutes - @minutesForPick
           @user.save
 

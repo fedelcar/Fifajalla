@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921231212) do
+ActiveRecord::Schema.define(version: 20140922002455) do
 
   create_table "drafts", force: true do |t|
     t.string   "name"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20140921231212) do
     t.integer "match_id"
     t.integer "event_type_id"
     t.integer "goal_type_id"
+    t.integer "team_id"
+    t.integer "user_id"
   end
 
   add_index "events", ["event_type_id"], name: "index_events_on_event_type_id"
