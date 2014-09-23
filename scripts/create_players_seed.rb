@@ -24,7 +24,9 @@ while page_number < 2
 		first_name = player_page.css('div div h1 a small > text()').text.strip
 		last_name = player_page.css('div div h1 a > text()').text.strip
 		#overall = player_page.css('div div h3 > text()')[0].text.strip
-		overall = player_page.css('div div playercard-rating > text()').text.strip
+		overall1 = player_page.css('title > text()').text.strip.split('-')
+		overall2 = overall1[0].split(' ')
+		overall = Integer(overall2[overall2.count-1])
 		positions = player_page.css('table tbody tr td > text()')[8].text.strip.split(',')
 		attributes = player_page.css('div div div div p > text()')
 		club = player_page.css('table tbody tr td a > text()')[1].text.strip
@@ -44,7 +46,7 @@ while page_number < 2
 		primary_position = positions[0]
 		secondary_position = positions[1]
 		
-		puts "Player ##{player_number}: #{last_name}. overall: #{overall}   crossing: #{Integer(attributes[2].text.strip)}  agility: #{Integer(attributes[18].text.strip)}  interceptions: #{Integer(attributes[27].text.strip)}"
+		#puts "Player ##{player_number}: #{last_name}. overall: #{overall}   crossing: #{Integer(attributes[2].text.strip)}  agility: #{Integer(attributes[18].text.strip)}  interceptions: #{Integer(attributes[27].text.strip)}"
 
 		if primary_position == "GK"
 			# Stats don't exist
