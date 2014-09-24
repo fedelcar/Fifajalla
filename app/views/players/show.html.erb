@@ -3,13 +3,33 @@
 	<h1> <%= @player.first_name %>
 	<%= @player.last_name %> </h1>
 	<br>
-	<div class="col-md-4">
-		<h2> Information</h2>
+	<div class="col-md-3">
+		<h2> Información</h2>
 		<b>Equipo:</b> <%= link_to @team.name, team_path(@team.id), :method => "get" %><br>
 		<b>User: </b><%= link_to @user.display_name, user_path(@team.user_id), :method => "get" %><br>
-		<b>League:</b> <%= @player.league %><br>
+		<b>Equipo Original:</b> <%= @player.club %><br>
+		<b>Liga:</b> <%= @player.league %><br>
 		<b>Overall:</b> <%= @player.overall %><br>
-		<b>Position:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
+		<b>Nacionalidad:</b> <%= @player.nation %><br>
+		<b>Edad:</b> <%= @player.age %><br>
+		<b>Posición:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
+		<b>Titular?</b>&nbsp;
+		<% if @player.starting %>
+			<% @link = "/players/hacerTitular?id="+@player.id.to_s+"&from=players" %>
+			<font color="green"> <span class="glyphicon glyphicon-ok"> </span> </font>
+				<% if @player.user_id == current_user.id %>
+		  			<%= link_to "Al Banco", @link %> </font></td>
+		  		<% end %>
+		<% else %>
+			<% @link = "/players/hacerTitular?id="+@player.id.to_s+"&from=players" %>
+			<font color="red"> <span class="glyphicon glyphicon-remove"> </span> </font>
+			<% if @player.user_id == current_user.id %>
+				<%= link_to "Poner de Titular", @link %>
+			<% end %>
+		<% end %>
+
+		<br>
+
 		<b>On the Trade Block?</b>
 		<% if @player.on_the_block %>&nbsp;
 			<% @link = "/players/addToTradeBlock?id="+@player.id.to_s+"&from=players" %>
@@ -26,7 +46,7 @@
 		<% end %>
 		<br>
 
-		<b>Protected?</b>&nbsp;
+		<b>Protegido?</b>&nbsp;
 		<% if @player.protected %>
 			<% @link = "/players/protectPlayer?id="+@player.id.to_s+"&from=players" %>
 			<font color="green"> <i class="fa fa-shield"></i></span></font>
@@ -44,7 +64,7 @@
 		<br>
 
 		<% if @player.user_id == current_user.id %>
-			<b> Release Player? </b>
+			<b> Liberar Jugador? </b>
 			<% @link = "/players/releasePlayer?id="+@player.id.to_s+"&from=team" %>
 			<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span>
 				<%= link_to "Release", @link %> </font></td>
@@ -69,19 +89,78 @@
 	</div>
 
 
+	<div class="col-md-6" align="center">
+		<h2> Ratings</h2>
+		<h3>Overall: <%= @player.overall %></h3><br>
+		<div class="col-md-6" align="center">
+			<% @attributeNames.each do |att| %>
+				<% if @attributeNames.index(att) %2 == 0 %>
+					<%=att%>: <b> 
+						<% @rating = @attributes.at(@attributeNames.index(att)) %>
+						<% if @rating >= 85 %>
+							<font color="27C43C">
+						<% else %>
+							<% if @rating >=70 %>
+								<font color="green">
+							<% else %>
+								<% if @rating >=50 %>
+									<font color="F0A028">
+								<% else %>
+									<font color="red">
+								<% end %>
+							<% end %>
+						<% end %>
+					<%= @rating %>
+					</font></b><br>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="col-md-6" align="center">
+			<% @attributeNames.each do |att| %>
+				<% if @attributeNames.index(att) %2 != 0 %>
+					<%=att%>: <b> 
+						<% @rating = @attributes.at(@attributeNames.index(att)) %>
+						<% if @rating >= 85 %>
+							<font color="27C43C">
+						<% else %>
+							<% if @rating >=70 %>
+								<font color="green">
+							<% else %>
+								<% if @rating >=50 %>
+									<font color="F0A028">
+								<% else %>
+									<font color="red">
+								<% end %>
+							<% end %>
+						<% end %>
+					<%= @rating %>
+					</font></b><br>
+				<% end %>
+			<% end %>
+		</div>
+			
 
+			
+
+	
+		
+		
+		
+
+	</div>
 
 		
 
-	<div class="col-md-4">
+	<div class="col-md-3" align="right">
 		<h2> Stats</h2>
-		<b>Games Played:</b> <%= @player.games_played %><br>
-		<b>Goals:</b> <%= @player.goals %><br>
-		<b>Assists:</b> <%= @player.assists %><br>
-		<b>Own Goals:</b> <%= @player.own_goals %><br>
-		<b>Yellow Cards:</b> <%= @player.yellow_cards %><br>
-		<b>Red Cards:</b> <%= @player.red_cards %><br>
-		<b>Goal Average:</b> 
+		<align="right">
+		<b>PJ:</b> <%= @player.games_played %><br>
+		<b>Goles:</b> <%= @player.goals %><br>
+		<b>Asistencis:</b> <%= @player.assists %><br>
+		<b>Goles en Contra:</b> <%= @player.own_goals %><br>
+		<b>Amarillas:</b> <%= @player.yellow_cards %><br>
+		<b>Rojas:</b> <%= @player.red_cards %><br>
+		<b>Promedio de Gol:</b> 
 							<% if @player.games_played == 0 %>
 									0
 							<% else %>
@@ -89,7 +168,8 @@
 							<% end %>
 		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7",@player.id).count %>
 		<br><b>Penales Atajados:</b> <%= @penalesAtajados %><br>
-		<h3>Goal Types</h3>
+		</align>
+		<h3>Tipos de Gol</h3>
 
 		<% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1",@player.id).count %>
 		<% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3",@player.id).count %>
@@ -100,25 +180,10 @@
 		<br><b>De Cabeza:</b> <%= @deCabeza %>
 		<br><b>De Tiro Libre:</b> <%= @deTiroLibre %>
 		<br><b>De Penal:</b> <%= @dePenal %>
-		
+		</right>
 	</div>
 
-	<div class="col-md-4">
-		<h2> Ratings</h2>
-		<b>Overall:</b> <%= @player.overall %><br>
-		<b>Pace:</b> <%= @player.pace %><br>
-		<b>Shooting:</b> <%= @player.shooting %><br>
-		<b>Dribbling:</b> <%= @player.dribbling %><br>
-		<b>Passing:</b> <%= @player.passing %><br>
-		<b>Defence:</b> <%= @player.defence %><br>
-		<b>Heading:</b> <%= @player.heading %><br>
-		<h3> Positional Ratings:</h3>
-		<b>Defender:</b> <%= (@player.defence*6 + @player.pace*2 + @player.heading*5 + @player.passing)/14 %><br>
-		<b>Midfielder:</b> <%= (@player.shooting*4 + @player.pace*4 + @player.dribbling*4 + @player.heading+ @player.defence*2 + @player.passing*6)/20 %><br>
-		<b>Winger:</b> <%= (@player.shooting*4 + @player.pace*6 + @player.dribbling*5 + @player.heading + @player.passing*4 + @player.defence)/21 %><br>
-		<b>Forward:</b> <%= (@player.shooting*6 + @player.pace*5 + @player.dribbling*3 + @player.heading*4 + @player.passing*2)/19%><br>
-
-	</div>
+	
 
 	
 	

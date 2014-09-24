@@ -54,6 +54,8 @@ Rails.application.routes.draw do
 
   get 'players/protectPlayer', to: 'players#protectPlayer'
 
+  get 'players/hacerTitular', to: 'players#hacerTitular'
+
   get 'players/releasePlayer', to: 'players#releasePlayer'
 
   get 'draft/released'

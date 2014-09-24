@@ -40,10 +40,11 @@
   					<th><%= link_to "Overall", :sort => "overall" %></th>  
   					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
   					<th><%= link_to "Goles", :sort => "goals" %></th> 
+  					<th>Titular</th>
   					<th>Trade Block</th> 
-  					<th>Protected</th>
+  					<th>Protegido</th>
   					<% if @team.user_id == current_user.id %>
-		  				<th>Release</th>
+		  				<th>Liberar</th>
 		  			<% end %>
   					
 
@@ -52,13 +53,27 @@
 			
   				<% @players.take(1000).each do |player| %>
 				<tbody><tr>
-					<% @name = player.first_name + " "+ player.last_name%>
+					<% @name = player.first_name.to_s + " "+ player.last_name%>
 		  			
 					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp; <%= @name %></td>
 		  			<td><%= player.overall %></td>
 		  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
 		  			<td><%= player.goals %></td>
 		  			
+		  			<% if player.starting %>
+		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
+		  				<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
+		  					<% if player.user_id == current_user.id %>
+		  						<%= link_to "Al Banco", @link %> </font></td>
+		  					<% end %>
+		  			<% else %>
+		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
+		  				<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+		  					<% if player.user_id == current_user.id %>
+		  						<%= link_to "Titular", @link %> </font></td>
+		  					<% end %>
+		  			<% end %>
+
 		  			<% if player.on_the_block %>
 		  				<% @link = "/players/addToTradeBlock?id="+player.id.to_s+"&from=team" %>
 		  				<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp; 

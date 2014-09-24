@@ -9,18 +9,27 @@ class DraftController < ApplicationController
   	
   end
 
+
   def givePicks
-    for i in 1..54
-      
+    for i in 1..0   
       @pick = Pick.new
-      @pick.user_id=9
-      @pick.number=458+i
-      @pick.draft_id=7
-      @pick.player_id=62302
+      @pick.user_id=10
+      @pick.number= (i-1) *26 + 13
+      @pick.id=@pick.number
+      @pick.draft_id=1
+      @pick.player_id=1
       @pick.save
+
+      @pick2 = Pick.new
+      @pick2.user_id=10
+      @pick2.number= i*26  - 12
+      @pick2.id=@pick2.number
+      @pick2.draft_id=1
+      @pick2.player_id=1
+      @pick2.save
     end
     
-    redirect_to '/draft/7'
+    redirect_to '/draft/1'
   end
 
   def show
@@ -42,7 +51,7 @@ class DraftController < ApplicationController
       
       if (@player.user_id==1 or current_user.id==10) #and (@player.league!='Primera Division')
           @np = next_pick.user_id
-          @initial=(Pick.find_by number: (next_pick.number-1)).updated_at
+          @initial=(Pick.find_by number: (next_pick.number-1)).updated_at.localtime
 
           @team=Team.where("user_id=?",next_pick.user_id).last.id
           @user=User.find(next_pick.user_id)
@@ -53,7 +62,7 @@ class DraftController < ApplicationController
       		@pick.player_id=@player.id
       		@pick.save
           
-          @final = @pick.updated_at
+          @final = @pick.updated_at.localtime
 
           if @initial.hour >=10 and @final.hour >=10 and @initial.day == @final.day
               @minutesForPick = @final.to_i/60 - @initial.to_i/60  
@@ -79,13 +88,13 @@ class DraftController < ApplicationController
           @user.save
 
           if next_pick != nil and next_pick.user_id!=10
-            #UserMailer.next_pick(User.find(next_pick.user_id)).deliver
+            UserMailer.next_pick(User.find(next_pick.user_id)).deliver
           end
 
           if next_pick != nil
              #si al proximo se le agotó el tiempo drafteo solo
             @nextUser = User.find(next_pick.user_id)
-            if @nextUser.minutes <= 0
+            if @nextUser.minutes <= 0 or @nextUser.id == 4
               #busco al libre de mayor ovr
               @playerToDraft = Player.where("user_id=1")  
               @link = "/draft/draftPlayer?id="+ @playerToDraft.first.id.to_s

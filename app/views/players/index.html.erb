@@ -1,6 +1,7 @@
 <div class="container">
  <h1> Player List</h1>
-
+ <h1>
+ <%= next_pick.user_id %> </h1>
  <h3> Filters </h3>
  <div class="btn-toolbar">
 
@@ -62,10 +63,12 @@
   		<% @players.each do |player| %>
       <% if player.user_id==1 %>
     		<tbody><tr>
-          <% if player.first_name == "" %>
-            <% @name = player.last_name %>
+          <% if player.first_name != "" %>
+            <% @name = player.first_name.to_s + " "+player.last_name.to_s %>
+
           <% else %>
-            <% @name = player.first_name + " "+player.last_name %>
+            <% @name = player.last_name %>
+
     			<% end %> 
           <td><%= link_to "", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;&nbsp;<%= @name %></td>
     			<td><%= player.overall %></td>
@@ -103,7 +106,7 @@
           <% else %>
             <% @nextID=next_pick.user_id %>
           <% end  %>
-          <% if (player.league == 'Primera Division' and @nextID == current_user.id and (player.team_id==1 or player.team_id==47 or player.team_id==48)) or (current_user.id ==10 or current_user.id==7) %>
+          <% if (@nextID == current_user.id and player.team_id==1 ) or (current_user.id ==110 or current_user.id==7) %>
               <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
               <td><%= link_to "Draft", @link%></td>
           <% else %>

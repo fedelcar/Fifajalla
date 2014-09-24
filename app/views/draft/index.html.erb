@@ -22,7 +22,7 @@
 					</td>
 
 					<td>
-						<%= draft.created_at.strftime("%d/%m %H:%M") %>
+						<%= draft.created_at.localtime.strftime("%d/%m %H:%M") %>
 					</td>
 					
 					<td>

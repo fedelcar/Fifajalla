@@ -37,6 +37,9 @@ class TeamsController < ApplicationController
 
     @team = Team.new
       @team.name= params[:name]
+      if !Team.exists?(user_id)
+        @team.id=user_id
+      end
       @team.user_id=user_id
  			@team.country=0
  			@team.gf=0

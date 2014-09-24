@@ -21,11 +21,11 @@ class PlayersController < ApplicationController
 					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
 			end	
 			if params[:filter] != "all" and params[:filter] != "drafted"
-				@players=@players.where("league<>'SPrimera Division'").take(150)
+				#@players=@players.where("league<>'SPrimera Division'")
 			else
-				@players=@players.take(150)
 			end
 
+			@players=@players.where("id>1").take(150)
 
 	end
 
@@ -47,9 +47,18 @@ class PlayersController < ApplicationController
 	end
 
 	def show
-		@player = Player.find_by id: params[:id]
+		@player = Player.find(params[:id])
 		@team = Team.find_by id:@player.team_id
 		@user = User.find_by id:@team.user_id
+		@attributeNames = Array.new
+		@attributes = Array.new
+		if @player.primary_position == "GK"
+			@attributeNames.push("Handling", "Kicking", "Diving", "Positioning", "Reflexes")
+			@attributes.push(@player.handling, @player.kicking, @player.diving, @player.positioning, @player.reflexes)
+		else
+			@attributeNames.push("Ball Control", "Crossing", "Curve", "Dribbling", "Finishing", "Free Kick Acc.", "Heading", "Long Pass", "Long Shots", "Marking", "Penalties", "Short Pass", "Shot Power", "Sliding Tackle", "Standing Tackle", "Volleys", "Acceleration", "Agility", "Balance", "Jumping", "Reactions", "Sprint Speed", "Stamina", "Strength", "Aggresion", "Positioning", "Interceptions", "Vision")
+			@attributes.push(@player.ball_control, @player.crossing, @player.curve, @player.dribbling_skill, @player.finishing, @player.free_kick_accuracy, @player.heading_accuracy, @player.long_passing, @player.long_shots, @player.marking, @player.penalties, @player.short_passing, @player.shot_power, @player.sliding_tackle, @player.standing_tackle, @player.volleys, @player.acceleration, @player.agility, @player.balance, @player.jumping, @player.reactions, @player.sprint_speed, @player.stamina, @player.strength, @player.aggression, @player.positioning, @player.interceptions, @player.vision)
+		end
 	end
 
 	def search
@@ -79,6 +88,7 @@ class PlayersController < ApplicationController
 		@player.team_id=1
 		@player.on_the_block=false
 		@player.protected=false
+		@player.starting=false
 		@player.save
 
 		if params[:from] == "players"
@@ -118,6 +128,33 @@ class PlayersController < ApplicationController
 		end
 
 	end
+
+	def hacerTitular
+		@player=Player.find(params[:id])
+
+		if @player.starting
+			@player.starting=false
+			@player.save
+		else
+			if Player.where("team_id=? and starting='t'",@player.team_id).count < 11
+				@player.starting=true
+				@player.save
+			else
+			
+			end
+		end
+		if params[:from] == "players"
+			redirect_to player_path(@player.id)
+		else
+			if params[:from] == "trades"	
+				redirect_to '/trades/addToTradeBlock'
+			else
+				redirect_to team_path(@player.team_id)
+			end
+		end
+
+	end
+
 
 	def stats
 
