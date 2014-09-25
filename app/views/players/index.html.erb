@@ -1,7 +1,6 @@
 <div class="container">
  <h1> Player List</h1>
- <h1>
- <%= next_pick.user_id %> </h1>
+
  <h3> Filters </h3>
  <div class="btn-toolbar">
 
@@ -80,7 +79,7 @@
           <% else %>
             <% @nextID=next_pick.user_id %>
           <% end  %>
-          <% if (player.league == 'Primera Division' and @nextID == current_user.id and (player.team_id==1 or player.team_id==47 or player.team_id==48)) or (current_user.id ==10 or current_user.id==7) %>
+         <% if (@nextID == current_user.id and player.team_id==1 ) or (current_user.id ==10 or current_user.id==7) %>
               <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
               <td><%= link_to "Draft", @link%></td>
           <% else %>
@@ -106,9 +105,10 @@
           <% else %>
             <% @nextID=next_pick.user_id %>
           <% end  %>
-          <% if (@nextID == current_user.id and player.team_id==1 ) or (current_user.id ==110 or current_user.id==7) %>
+          <% if (@nextID == current_user.id and player.team_id==1 ) or (current_user.id ==10 or current_user.id==7) %>
               <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
               <td><%= link_to "Draft", @link%></td>
+              
           <% else %>
               <% if player.team_id!=1 and @nextID == current_user.id %>
                 <td>Drafted</td>

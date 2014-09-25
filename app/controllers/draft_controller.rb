@@ -11,7 +11,7 @@ class DraftController < ApplicationController
 
 
   def givePicks
-    for i in 1..0   
+    for i in 1..9   
       @pick = Pick.new
       @pick.user_id=10
       @pick.number= (i-1) *26 + 13
@@ -69,19 +69,19 @@ class DraftController < ApplicationController
           end
 
           if @initial.hour >=10 and @final.hour >=10 and @initial.day != @final.day
-              @minutesForPick = (24 - @initial.hour)*60 + (60-@initial.min) + (@final.hour-10*60) + @final.min
+              @minutesForPick = (23 - @initial.hour)*60 + (60-@initial.min) + (@final.hour-10*60) + @final.min
           end
 
-          if @initial.hour <10 and @final.hour < 10
+          if @initial.hour <10 and @final.hour < 10 and @initial.day == @final.day
             @minutesForPick=0
           end
 
-          if @initial.hour<10 and @final.hour>=10
+          if @initial.hour<10 and @final.hour>=10 and @initial.day == @final.day
             @minutesForPick= (@final.hour-10*60) + @final.min
           end
 
-          if @initial.hour >=10 and @final.hour<10
-            @minutesForPick = (24 - @initial.hour)*60 + (60-@initial.min)
+          if @initial.hour >=10 and @final.hour<10 and @initial.day != @final.day
+            @minutesForPick = (23 - @initial.hour)*60 + (60-@initial.min)
           end
 
           @user.minutes = @user.minutes - @minutesForPick
@@ -94,7 +94,7 @@ class DraftController < ApplicationController
           if next_pick != nil
              #si al proximo se le agotó el tiempo drafteo solo
             @nextUser = User.find(next_pick.user_id)
-            if @nextUser.minutes <= 0 or @nextUser.id == 4
+            if @nextUser.minutes <= 0
               #busco al libre de mayor ovr
               @playerToDraft = Player.where("user_id=1")  
               @link = "/draft/draftPlayer?id="+ @playerToDraft.first.id.to_s

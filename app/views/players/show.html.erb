@@ -9,10 +9,8 @@
 		<b>User: </b><%= link_to @user.display_name, user_path(@team.user_id), :method => "get" %><br>
 		<b>Equipo Original:</b> <%= @player.club %><br>
 		<b>Liga:</b> <%= @player.league %><br>
-		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Nacionalidad:</b> <%= @player.nation %><br>
 		<b>Edad:</b> <%= @player.age %><br>
-		<b>Posición:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
 		<b>Titular?</b>&nbsp;
 		<% if @player.starting %>
 			<% @link = "/players/hacerTitular?id="+@player.id.to_s+"&from=players" %>
@@ -70,9 +68,10 @@
 				<%= link_to "Release", @link %> </font></td>
 		<% end %>
 
-		<br>
+		
 
 		<% if @player.user_id == current_user.id %>
+		<br>
 			<%= form_for :movePlayer, url: "movePlayer?id="+@player.id.to_s do |t| %>
 			<b> Move Player? </b> <br>
 			<% @teams = Team.where("user_id=? and id<>?",@player.user_id,@player.team_id) %>
@@ -86,6 +85,13 @@
 				
 		<% end %>
 
+		<h2>Características</h2>
+		<b>Overall:</b> <%= @player.overall %><br>
+		<b>Posición:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>
+		<b>Altura:</b> <%= @player.height %><br>
+		<b>Skill Moves:</b> <%= @player.skill_moves %>/5<br>
+		<b>Esfuerzo en Ataque:</b> <%= @player.attack_WR %><br>
+		<b>Esfuerzo en Defensa:</b> <%= @player.defend_WR%><br>
 	</div>
 
 
