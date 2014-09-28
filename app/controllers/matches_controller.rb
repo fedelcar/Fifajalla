@@ -47,12 +47,16 @@ def update
 	@playersa = Player.where("team_id=?",@teamA.id)
 	@playersb = Player.where("team_id=?",@teamB.id)
 	@playersa.each do |p|
-		p.games_played=p.games_played+1
-		p.save
+		if p.starting == 't'
+			p.games_played=p.games_played+1
+			p.save
+		end
 	end
 	@playersb.each do |p|
-		p.games_played=p.games_played+1
-		p.save
+		if p.starting == 't' 
+			p.games_played=p.games_played+1
+			p.save
+		end
 	end
 	if @match.local_goals==@match.away_goals
 		@scoreA=0.5
@@ -191,6 +195,11 @@ def createEvent
 			@event.event_type_id=7
 		when "Penal Errado"
 			@event.event_type_id=16
+		when "Cambio"
+			@event.event_type_id=17
+			if @player.starting == 'f'
+				@player.games_played = @player.games_played+1
+			end
 		when "Amarilla"
 			if Event.where("match_id=? and player_id=? and event_type_id=12",@match.id,@player.id).count<=1
 				@event.event_type_id=12

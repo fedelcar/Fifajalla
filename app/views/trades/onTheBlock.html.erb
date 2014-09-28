@@ -10,12 +10,7 @@
     			<th>User</th>
 				<th> Overall </th>
 				<th> Position </th>
-				<th> Pace </th>
-				<th> Shooting </th>
-				<th> Dribbling </th>
-				<th> Passing </th>
-				<th> Heading </th>
-				<th> Defence </th>
+				
 				
     	</tr></thead>
     	
@@ -27,13 +22,7 @@
   					
 					<td><%= player.overall %></td>
 					<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
-					<td><%= player.pace ? player.pace : "N/A" %></td>
-					<td><%= player.shooting ? player.shooting : "N/A" %></td>
-				  	<td><%= player.dribbling ? player.dribbling : "N/A" %></td>
-					<td><%= player.passing ? player.passing : "N/A" %></td>
-					<td><%= player.heading ? player.heading : "N/A" %></td>
-					<td><%= player.defence ? player.defence : "N/A" %></td>
-					
+				
   		</tr></tbody>
   		<% end %>
   	</table>
