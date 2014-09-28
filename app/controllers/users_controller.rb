@@ -71,6 +71,7 @@ class UsersController < ApplicationController
 		 		@user.dg=0
 		 		@user.pts=0
 		 		@user.eff=0	
+		 		@user.save
  			end
 
 	 	

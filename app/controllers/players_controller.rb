@@ -81,8 +81,8 @@ class PlayersController < ApplicationController
 		@pick.draft_id=4
 		@pick.save
 		
-		@next_pick = Pick.where("player_id=62302").first
-		next_pick = Pick.where("player_id=62302").first
+		@next_pick = Pick.where("player_id=1").first
+		next_pick = Pick.where("player_id=1").first
 
 		@player.user_id=1
 		@player.team_id=1

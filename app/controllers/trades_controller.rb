@@ -1,7 +1,7 @@
 class TradesController < ApplicationController
   def new
     
-    @players_user1 = Player.where("user_id=? or id=?", current_user.id, "62302")
+    @players_user1 = Player.where("user_id=? or id=?", current_user.id, "1")
     @grouped_players1 = @players_user1.inject({}) do |options, player| 
         (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
         options
@@ -14,7 +14,7 @@ class TradesController < ApplicationController
       @users = User.where("id=?", params[:id])
       @user2 = User.find(params[:id])
 
-      @players_user2 = Player.where("user_id=? or id=?", params[:id], "62302")
+      @players_user2 = Player.where("user_id=? or id=?", params[:id], "1")
       @grouped_players2 = @players_user2.inject({}) do |options, player| 
         (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
         options
@@ -121,7 +121,7 @@ class TradesController < ApplicationController
 
     @trade.save
 
-    if params[:trade][:player_id_a1] != "62302"
+    if params[:trade][:player_id_a1] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a1]
@@ -132,7 +132,7 @@ class TradesController < ApplicationController
       @pm.save
     end 
 
-    if params[:trade][:player_id_a2] != "62302"
+    if params[:trade][:player_id_a2] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a2]
@@ -143,7 +143,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_a3] != "62302"
+    if params[:trade][:player_id_a3] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a3]
@@ -154,7 +154,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_a4] != "62302"
+    if params[:trade][:player_id_a4] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a4]
@@ -165,7 +165,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_a5] != "62302"
+    if params[:trade][:player_id_a5] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a5]
@@ -176,7 +176,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_b1] != "62302"
+    if params[:trade][:player_id_b1] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b1]
@@ -187,7 +187,7 @@ class TradesController < ApplicationController
       @pm.save
     end 
 
-    if params[:trade][:player_id_b2] != "62302"
+    if params[:trade][:player_id_b2] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b2]
@@ -198,7 +198,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_b3] != "62302"
+    if params[:trade][:player_id_b3] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b3]
@@ -209,7 +209,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_b4] != "62302"
+    if params[:trade][:player_id_b4] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b4]
@@ -220,7 +220,7 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    if params[:trade][:player_id_b5] != "62302"
+    if params[:trade][:player_id_b5] != "1"
       @pm=Player_Movement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b5]

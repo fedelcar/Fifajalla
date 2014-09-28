@@ -79,11 +79,16 @@
           <% else %>
             <% @nextID=next_pick.user_id %>
           <% end  %>
-         <% if (@nextID == current_user.id and player.team_id==1 ) or (current_user.id ==10 or current_user.id==7) %>
+          <% if current_user==nil %>
+            <% @loggedUser=0 %>
+          <% else %>
+            <% @loggedUser=current_user.id %>
+          <% end  %>
+          <% if (@nextID == @loggedUser and player.team_id==1 ) or (@loggedUser ==10 or @loggedUser==7) %>
               <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
               <td><%= link_to "Draft", @link%></td>
           <% else %>
-              <% if player.team_id!=1 and @nextID == current_user.id %>
+              <% if player.team_id!=1 and @nextID == @loggedUser %>
                 <td>Drafted</td>
               <% end %>
           <% end %>
@@ -93,7 +98,7 @@
           <% if player.first_name == "" %>
             <% @name = player.last_name %>
           <% else %>
-            <% @name = player.first_name + " "+player.last_name %>
+            <% @name = player.first_name.to_s + " "+player.last_name.to_s %>
           <% end %> 
           <td><%= link_to "", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;&nbsp;<%= @name %></td>
           <td><%= player.overall %></td>
@@ -105,12 +110,17 @@
           <% else %>
             <% @nextID=next_pick.user_id %>
           <% end  %>
-          <% if (@nextID == current_user.id and player.team_id==1 ) or (current_user.id ==10 or current_user.id==7) %>
+          <% if current_user==nil %>
+            <% @loggedUser=0 %>
+          <% else %>
+            <% @loggedUser=current_user.id %>
+          <% end  %>
+          <% if (@nextID == @loggedUser and player.team_id==1 ) or (@loggedUser ==10 or @loggedUser==7) %>
               <% @link = "/draft/draftPlayer?id="+player.id.to_s %>
               <td><%= link_to "Draft", @link%></td>
-              
+
           <% else %>
-              <% if player.team_id!=1 and @nextID == current_user.id %>
+              <% if player.team_id!=1 and @nextID == @loggedUser %>
                 <td>Drafted</td>
               <% end %>
           <% end %>

@@ -250,7 +250,7 @@ def edit
 
 
 @grouped_players = @match_players.inject({}) do |options, player|
-	(options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
+	(options[Team.find(player.team_id).name] ||= []) << [player.first_name.to_s + " " + player.last_name, player.id]
 	options
 end
 

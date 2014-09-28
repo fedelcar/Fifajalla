@@ -40,9 +40,9 @@
   					<th><%= link_to "Overall", :sort => "overall" %></th>  
   					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
   					<th><%= link_to "Goles", :sort => "goals" %></th> 
-  					<th>Titular</th>
-  					<th>Trade Block</th> 
-  					<th>Protegido</th>
+  					<th>Titular?</th>
+  					<th>Tradeable?</th> 
+  					<th>Protegido?</th>
   					<% if @team.user_id == current_user.id %>
 		  				<th>Liberar</th>
 		  			<% end %>
@@ -62,13 +62,13 @@
 		  			
 		  			<% if player.starting %>
 		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
-		  				<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
+		  				<td> <font color="green"><b>Sí </b> <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
 		  						<%= link_to "Al Banco", @link %> </font></td>
 		  					<% end %>
 		  			<% else %>
 		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
-		  				<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+		  				<td> <font color="red"><b>No </b> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
 		  						<%= link_to "Titular", @link %> </font></td>
 		  					<% end %>
@@ -76,29 +76,29 @@
 
 		  			<% if player.on_the_block %>
 		  				<% @link = "/players/addToTradeBlock?id="+player.id.to_s+"&from=team" %>
-		  				<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
+		  				<td> <font color="green"><b>Sí </b>  <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
-		  						<%= link_to "Remove", @link %> </font></td>
+		  						<%= link_to "Quitar", @link %> </font></td>
 		  					<% end %>
 		  			<% else %>
 		  				<% @link = "/players/addToTradeBlock?id="+player.id.to_s+"&from=team" %>
-		  				<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+		  				<td> <font color="red"><b>No </b> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
-		  						<%= link_to "Add", @link %> </font></td>
+		  						<%= link_to "Agregar", @link %> </font></td>
 		  					<% end %>
 		  			<% end %>
 
 		  			<% if player.protected %>
 		  				<% @link = "/players/protectPlayer?id="+player.id.to_s+"&from=team" %>
-		  				<td> <font color="green"> <i class="fa fa-shield"></i> </span> &nbsp; 
+		  				<td> <font color="green"><b>Sí </b>  <i class="fa fa-shield"></i> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
-		  						<%= link_to "Unprotect", @link %> </font></td>
+		  						<%= link_to "Desproteger", @link %> </font></td>
 		  					<% end %>
 		  			<% else %>
 		  				<% @link = "/players/protectPlayer?id="+player.id.to_s+"&from=team" %>
-		  				<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+		  				<td> <font color="red"> <b>No </b><span class="glyphicon glyphicon-remove"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
-		  						<%= link_to "Protect", @link %> </font></td>
+		  						<%= link_to "Proteger", @link %> </font></td>
 		  					<% end %>
 		  			<% end %>
 
