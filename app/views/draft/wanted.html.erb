@@ -1,0 +1,35 @@
+<div class="container">
+	<h2>Jugadores Deseados</h2>
+
+	<table class="table table-striped table-hover ">
+				<thead><tr>
+					
+  					
+  					<th>Jugador</th>
+  					<th><%= link_to "Overall", :sort => "overall" %></th>  
+  					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
+					<th>Sacar</th>
+					
+  				</tr></thead>
+				<% if @wanted != nil %>
+	  				<% @wanted.each do |rel| %>
+	  				<% player = Player.find(rel.player_id) %>
+
+					<tbody><tr>
+
+						<% @name = player.first_name + " "+ player.last_name%>
+			  			
+						<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp; <%= @name %></td>
+			  			<td><%= player.overall %></td>
+			  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
+			  			<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 		  					
+		  						<%= link_to "Sacar", '/draft/removeWanted?player_id='+player.id.to_s %> </font></td>
+		  				
+
+			  		
+
+	  				</tr></tbody>
+	  				<% end %>
+	  			<% end %>
+	  		</table>	
+</div>

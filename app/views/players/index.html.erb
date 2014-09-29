@@ -92,6 +92,10 @@
                 <td>Drafted</td>
               <% end %>
           <% end %>
+          <% if (@nextID != @loggedUser and player.team_id==1 ) %>
+              <% @link = "/draft/addWanted?player_id="+player.id.to_s %>
+              <td><%= link_to "Lo Quiero!", @link%></td>
+          <% end %>
     		</tr></tbody>
       <% else %>
         <tbody><tr class="danger">

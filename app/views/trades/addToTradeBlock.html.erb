@@ -9,12 +9,7 @@
     			<th> Name </th>
 				<th> Overall </th>
 				<th> Position </th>
-				<th> Pace </th>
-				<th> Shooting </th>
-				<th> Dribbling </th>
-				<th> Passing </th>
-				<th> Heading </th>
-				<th> Defence </th>
+				
 				
     	</tr></thead>
     	
@@ -24,12 +19,7 @@
   					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%>&nbsp;&nbsp;<%= player.first_name %> <%= player.last_name %></td>
 					<td><%= player.overall %></td>
 					<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
-					<td><%= player.pace ? player.pace : "N/A" %></td>
-					<td><%= player.shooting ? player.shooting : "N/A" %></td>
-				  	<td><%= player.dribbling ? player.dribbling : "N/A" %></td>
-					<td><%= player.passing ? player.passing : "N/A" %></td>
-					<td><%= player.heading ? player.heading : "N/A" %></td>
-					<td><%= player.defence ? player.defence : "N/A" %></td>
+					
 					<% @link = "/players/addToTradeBlock?id="+player.id.to_s+"&from=trades" %>
 					<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; <%= link_to "Remove", @link %> </font></td>
   		</tr></tbody>

@@ -25,35 +25,36 @@
 
       <div class="collapse navbar-collapse">    
         <ul class="nav navbar-nav">    
-        <li><a href="/players?filter=all">Players</a></li>
+        <li><a href="/players?filter=all">Jugadores</a></li>
         <% if  (current_user != nil) %>
           
             
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Matches <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Partidos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li align="center"><a href="/matches">Match List</a></li>
-                    <li align="center"><a href="/matches/new">Play Match</a></li>
+                    <li align="center"><a href="/matches">Lista de Partidos</a></li>
+                    <li align="center"><a href="/matches/new">Jugar Partido</a></li>
                 </ul>
             </li>            
             
             <li class="dropdown" width="50px">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Leagues <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Ligas <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li align="center"><a href="/league/new">New League</a></li>
-                    <li align="center"><a href="/league">League List</a></li>
+                    <li align="center"><a href="/league">Lista de Ligas</a></li>
+                    <li align="center"><a href="/league/new">Nueva Liga</a></li>
+                    
                 </ul>
             </li>
 
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Trades <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Cambios <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li align="center"><a href="/trades/new?id=1">Propose New Trade</a></li>
-                    <li align="center"><a href="/trades/my">My Trades</a></li>
-                    <li align="center"><a href="/trades">Trade List</a></li>
-                    <li align="center"><a href="/trades/proposedTrades">Proposed Trades</a></li>
-                    <li align="center"><a href="/trades/onTheBlock">Trade Block</a></li>
-                    <li align="center"><a href="/trades/addToTradeBlock">My Players For Trade</a></li>
+                    <li align="center"><a href="/trades/new?id=1">Proponer Cambio</a></li>
+                    <li align="center"><a href="/trades/my">Mis Cambios</a></li>
+                    <li align="center"><a href="/trades">Lista de Cambios</a></li>
+                    <li align="center"><a href="/trades/proposedTrades">Cambios Propuestas</a></li>
+                    <li align="center"><a href="/trades/onTheBlock">Mercado de Jugadores</a></li>
+                    <li align="center"><a href="/trades/addToTradeBlock">Mis Jugadores a cambiar</a></li>
 
                 </ul>
             </li>
@@ -62,16 +63,18 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Draft<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li align="center"><a href="/draft">Draft List</a></li>
-                    <li align="center"><a href="/draft/released">Released Players</a></li>
+                    <li align="center"><a href="/draft">Lista de Drafts</a></li>
+                    <li align="center"><a href="/draft/wanted">Jugadores Deseados</a></li>
+                    <li align="center"><a href="/draft/released">Jugadores Liberados</a></li>
+                    
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Stats<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li align="center"><a href="/users?sort=elo">User</a></li>
-                    <li align="center"><a href="/teams">Team</a></li>
-                    <li align="center"><a href="/players/stats?sort=goals">Player</a></li>
+                    <li align="center"><a href="/users?sort=elo">Usuario</a></li>
+                    <li align="center"><a href="/teams">Equipo</a></li>
+                    <li align="center"><a href="/players/stats?sort=goals">Jugador</a></li>
                     <% #<li><a href="/stats">Global</a></li> %>
                 </ul>
             </li>

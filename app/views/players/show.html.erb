@@ -68,6 +68,12 @@
 				<%= link_to "Liberar", @link %> </font></td>
 		<% end %>
 
+		<% if @player.user_id == 1 %>
+			<b> Jugador Deseado? </b>
+			<% @link = "/draft/addWanted?player_id="+@player.id.to_s %>
+			<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span>
+				<%= link_to "Lo Quiero!", @link %> </font></td>
+		<% end %>
 		
 
 		<% if @player.user_id == current_user.id %>

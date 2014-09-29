@@ -38,6 +38,12 @@ Rails.application.routes.draw do
 
   post 'matches#createEvent', to: 'matches#createEvent'
 
+  get 'draft/wanted', to: 'draft#wanted'
+
+  get 'draft/removeWanted', to:'draft#removeWanted'
+
+  get 'draft/addWanted', to:'draft#addWanted'
+
   get 'welcome/history'
 
   get 'trades/proposedTrades', to: 'trades#proposedTrades'

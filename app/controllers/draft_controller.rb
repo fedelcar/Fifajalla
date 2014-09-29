@@ -32,6 +32,24 @@ class DraftController < ApplicationController
     redirect_to '/draft/1'
   end
 
+  def removeWanted
+    @toDelete = WantedPlayer.where('user_id=? and player_id=?',current_user.id, params[:player_id]).first
+    @toDelete.destroy
+    redirect_to '/draft/wanted'
+  end
+
+ def addWanted
+    @toDelete = WantedPlayer.where('user_id=? and player_id=?',current_user.id, params[:player_id]).first
+    if @toDelete == nil
+      @toAdd= WantedPlayer.new
+      @toAdd.user_id = current_user.id
+      @toAdd.player_id = params[:player_id]
+      @toAdd.save
+    end
+
+    redirect_to '/draft/wanted'
+  end
+
   def show
     @picks=Pick.where("draft_id=?",params[:id]).order(number: :asc)
     @draft=Draft.find(params[:id])
@@ -39,6 +57,11 @@ class DraftController < ApplicationController
     @users=User.all
     @players=Player.all
     
+  end
+
+  def wanted
+    @wanted = WantedPlayer.where('user_id=?',current_user.id)
+
   end
 
   def released
@@ -62,7 +85,10 @@ class DraftController < ApplicationController
       		@pick=Pick.find(next_pick.id)
       		@pick.player_id=@player.id
       		@pick.save
-          
+          @wanted = WantedPlayer.where('player_id=?',@player.id)
+          @wanted.each do |wanted|
+            wanted.delete
+          end
           @final = @pick.updated_at.localtime
           
           if @initial.hour >=10 and @final.hour >=10 and @initial.day == @final.day
@@ -97,18 +123,30 @@ class DraftController < ApplicationController
           end
 
           if next_pick != nil
+            
              #si al proximo se le agotó el tiempo drafteo solo
             @nextUser = User.find(next_pick.user_id)
+            
+          
             if @nextUser.minutes <= 0 or @nextUser.id ==4 or @nextUser.id ==5 
               #busco al libre de mayor ovr
-              @playerToDraft = Player.where("user_id=1")  
+              @playerToDraft = Player.where("user_id=1 and id >1")  
               @link = "/draft/draftPlayer?id="+ @playerToDraft.first.id.to_s
             end
+
             if @nextUser.id ==3
               #busco al libre de menor ovr
-              @playerToDraft = Player.where("user_id=1")  
+              @playerToDraft = Player.where("user_id=1 and id >1")  
               @link = "/draft/draftPlayer?id="+ @playerToDraft.last.id.to_s
             end
+            
+            @wantedNow = WantedPlayer.where('user_id=?',@nextUser.id)
+
+            if @wantedNow.first != nil
+              @link = "/draft/draftPlayer?id="+ @wantedNow.first.player_id.to_s
+            end
+
+           
           end
 
       end
