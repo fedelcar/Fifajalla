@@ -3,7 +3,7 @@ class TradesController < ApplicationController
     
     @players_user1 = Player.where("user_id=? or id=?", current_user.id, "1")
     @grouped_players1 = @players_user1.inject({}) do |options, player| 
-        (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
+        (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name + " " + player.primary_position + " " + player.overall.to_s, player.id]
         options
     end
 
@@ -16,7 +16,7 @@ class TradesController < ApplicationController
 
       @players_user2 = Player.where("user_id=? or id=?", params[:id], "1")
       @grouped_players2 = @players_user2.inject({}) do |options, player| 
-        (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name, player.id]
+        (options[Team.find(player.team_id).name] ||= []) << [player.first_name + " " + player.last_name + " " + player.primary_position + " " + player.overall.to_s, player.id]
         options
     end
     end
@@ -65,7 +65,7 @@ class TradesController < ApplicationController
     @trade.status="Completed"
     @trade.save
     UserMailer.trade_complete(User.find(@user2)).deliver
-    if @trade.approvals==@trade.users
+    if @trade.approvals>=@trade.users
       @pms=Player_Movement.where("trade_id=?",@trade.id)
       @pms.each do |pm|
         @player=Player.find(pm.player_id)
@@ -139,7 +139,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_a]
       @pm.second_user_id=params[:trade][:user_id_b]
       @pm.first_team_id=Player.find(params[:trade][:player_id_a2]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_b2]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_b1]).team_id
       @pm.save
     end
 
@@ -150,7 +150,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_a]
       @pm.second_user_id=params[:trade][:user_id_b]
       @pm.first_team_id=Player.find(params[:trade][:player_id_a3]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_b3]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_b1]).team_id
       @pm.save
     end
 
@@ -161,7 +161,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_a]
       @pm.second_user_id=params[:trade][:user_id_b]
       @pm.first_team_id=Player.find(params[:trade][:player_id_a4]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_b4]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_b1]).team_id
       @pm.save
     end
 
@@ -172,7 +172,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_a]
       @pm.second_user_id=params[:trade][:user_id_b]
       @pm.first_team_id=Player.find(params[:trade][:player_id_a5]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_b5]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_b1]).team_id
       @pm.save
     end
 
@@ -194,7 +194,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_b]
       @pm.second_user_id=params[:trade][:user_id_a]
       @pm.first_team_id=Player.find(params[:trade][:player_id_b2]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_a2]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_a1]).team_id
       @pm.save
     end
 
@@ -205,7 +205,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_b]
       @pm.second_user_id=params[:trade][:user_id_a]
       @pm.first_team_id=Player.find(params[:trade][:player_id_b3]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_a3]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_a1]).team_id
       @pm.save
     end
 
@@ -216,7 +216,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_b]
       @pm.second_user_id=params[:trade][:user_id_a]
       @pm.first_team_id=Player.find(params[:trade][:player_id_b4]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_a4]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_a1]).team_id
       @pm.save
     end
 
@@ -227,7 +227,7 @@ class TradesController < ApplicationController
       @pm.first_user_id=params[:trade][:user_id_b]
       @pm.second_user_id=params[:trade][:user_id_a]
       @pm.first_team_id=Player.find(params[:trade][:player_id_b5]).team_id
-      @pm.second_team_id=Player.find(params[:trade][:player_id_a5]).team_id
+      @pm.second_team_id=Player.find(params[:trade][:player_id_a1]).team_id
       @pm.save
     end
 

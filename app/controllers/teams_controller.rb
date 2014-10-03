@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   def index
-  		@teams = Team.where("id>1").order(sort_column2 + ' ' + sort_direction)
+  		@teams = Team.where("id>1 and id<100").order(sort_column2 + ' ' + sort_direction)
   		@users = User.all
       @teams.each do |team|
         team.dg=team.gf-team.ga

@@ -29,14 +29,16 @@
           <td> <% @pm1= Player_Movement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.first_user_id) %>
               <table class="table">
                 <% @pm1.each do |pm1| %>
-                  <tr><td><%= Player.find(pm1.player_id).last_name %></td></tr>
+                <% @player = Player.find(pm1.player_id) %>
+                  <tr><td><%= @player.last_name + " " + @player.primary_position + " " + @player.overall.to_s  %></td></tr>
                 <%end%>
               </table>
           </td>
           <td> <% @pm2= Player_Movement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.second_user_id) %>
               <table class="table">
                 <% @pm2.each do |pm2| %>
-                  <tr><td><%= Player.find(pm2.player_id).last_name %></td></tr>
+                  <% @player = Player.find(pm2.player_id) %>
+                  <tr><td><%= @player.last_name + " " + @player.primary_position + " " + @player.overall.to_s  %></td></tr>
                 <%end%>
               </table>
           </td>
