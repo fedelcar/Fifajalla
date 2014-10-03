@@ -47,13 +47,13 @@ def update
 	@playersa = Player.where("team_id=?",@teamA.id)
 	@playersb = Player.where("team_id=?",@teamB.id)
 	@playersa.each do |p|
-		if p.starting == 't'
+		if p.starting
 			p.games_played=p.games_played+1
 			p.save
 		end
 	end
 	@playersb.each do |p|
-		if p.starting == 't' 
+		if p.starting
 			p.games_played=p.games_played+1
 			p.save
 		end
@@ -197,9 +197,6 @@ def createEvent
 			@event.event_type_id=16
 		when "Cambio"
 			@event.event_type_id=17
-			if @player.starting == 'f'
-				@player.games_played = @player.games_played+1
-			end
 		when "Amarilla"
 			if Event.where("match_id=? and player_id=? and event_type_id=12",@match.id,@player.id).count<=1
 				@event.event_type_id=12
@@ -232,6 +229,9 @@ def createEvent
 		@event.player_id = params[:new_event][:player_id]
 		@event.match_id = params[:match_id]
 		@event.save
+		if !@player.starting
+			@player.games_played = @player.games_played+1
+		end
 		@player.save
 		@user.save
 		@team.save
