@@ -18,7 +18,7 @@ class LeagueController < ApplicationController
 
     order = Array.new
 
-    @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + params[:id]).group(:id)
+    @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + params[:id]).group(:name)
     @teams.each do |team|
     
         # Analizo todos los partidos de local de cada equipo

@@ -7,19 +7,19 @@
 		<h2> Totales</h2>
 		<b>User: </b><%= link_to @user.display_name, user_path(@team.user_id), :method => "get" %><br>
 		<b>Partidos Jugados: </b><%= @pj %><br>
-		<b>Puntos:</b> <%= @pts%><br>
-		<b>Partidos Ganados:</b> <%= @team.wins%><br>
-		<b>Partidos Empatados:</b> <%= @team.draws%><br>
-		<b>Partidos Perdidos:</b> <%= @team.loses%><br>
-		<b>Goles a Favor:</b> <%= @team.gf%><br>
-		<b>Goles en contra:</b> <%= @team.ga%><br>
+		<b>Puntos:</b> <%= @pts %><br>
+		<b>Partidos Ganados:</b> <%= @pg %><br>
+		<b>Partidos Empatados:</b> <%= @pe %><br>
+		<b>Partidos Perdidos:</b> <%= @pp %><br>
+		<b>Goles a Favor:</b> <%= @gf %><br>
+		<b>Goles en contra:</b> <%= @gc %><br>
 		<b>Diferencia de goles:</b> <%= @dg %><br>
 
 		<br>
 
 		<h2> Promedios</h2>
 		<b>Promedio Goles a Favor:</b> <%= number_with_precision(@gfpp, precision: 2)%><br>
-		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gapp, precision: 2)%><br>
+		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gcpp, precision: 2)%><br>
 		<b>Promedio Diferencia de gol:</b> <%= number_with_precision(@dgpp, precision: 2)%><br>
 		<b>Efectividad:</b> <%= number_to_percentage(@efectividad*100, precision: 2)     %><br>
 
@@ -28,61 +28,95 @@
 
 
 
-		
-		
+
+
 <div class="col-md-9">
-		
+
 			<h2> Jugadores</h2>
 			<table class="table table-striped table-hover ">
 				<thead><tr>
-					
+
   					<th>Name</th>
+<<<<<<< Updated upstream
   					<th><%= link_to "Overall", :sort => "overall" %></th>  
   					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
   					<th><%= link_to "Goles", :sort => "goals" %></th> 
   					<th>Titular?</th>
   					<th>Tradeable?</th> 
   					<th>Protegido?</th>
+=======
+  					<th><%= link_to "Overall", :sort => "overall" %></th>
+  					<th><%= link_to "Pos", :sort => "primary_position" %></th>
+  					<th><%= link_to "Goles", :sort => "goals" %></th>
+  					<th><%= link_to "Titular?", :sort => "starting" %></th>
+  					<th><%= link_to "Tradeable?", :sort => "on_the_block" %></th>
+  					<th><%= link_to "Protegido?", :sort => "protected" %></th>
+>>>>>>> Stashed changes
   					<% if @team.user_id == current_user.id %>
 		  				<th>Liberar</th>
 		  			<% end %>
-  					
 
-  					
+
+
   				</tr></thead>
-			
+
   				<% @players.take(1000).each do |player| %>
 				<tbody><tr>
 					<% @name = player.first_name.to_s + " "+ player.last_name%>
+<<<<<<< Updated upstream
 		  			
+=======
+
+>>>>>>> Stashed changes
 					<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp; <%= @name %></td>
 		  			<td><%= player.overall %></td>
 		  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
 		  			<td><%= player.goals %></td>
+<<<<<<< Updated upstream
 		  			
 		  			<% if player.starting %>
 		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
 		  				<td> <font color="green"><b>Sí </b> <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
+=======
+
+		  			<% if player.starting %>
+		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
+		  				<td> <font color="green"><b>Sí </b> <span class="glyphicon glyphicon-ok"> </span> &nbsp;
+		  					<% if player.user_id == current_user.id or current_user.id ==10 %>
+>>>>>>> Stashed changes
 		  						<%= link_to "Al Banco", @link %> </font></td>
 		  					<% end %>
 		  			<% else %>
 		  				<% @link = "/players/hacerTitular?id="+player.id.to_s+"&from=team" %>
+<<<<<<< Updated upstream
 		  				<td> <font color="red"><b>No </b> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
 		  					<% if player.user_id == current_user.id %>
+=======
+		  				<td> <font color="red"><b>No </b> <span class="glyphicon glyphicon-remove"> </span> &nbsp;
+		  					<% if player.user_id == current_user.id or current_user.id ==10 %>
+>>>>>>> Stashed changes
 		  						<%= link_to "Titular", @link %> </font></td>
 		  					<% end %>
 		  			<% end %>
 
 		  			<% if player.on_the_block %>
 		  				<% @link = "/players/addToTradeBlock?id="+player.id.to_s+"&from=team" %>
+<<<<<<< Updated upstream
 		  				<td> <font color="green"><b>Sí </b>  <span class="glyphicon glyphicon-ok"> </span> &nbsp; 
+=======
+		  				<td> <font color="green"><b>Sí </b>  <span class="glyphicon glyphicon-ok"> </span> &nbsp;
+>>>>>>> Stashed changes
 		  					<% if player.user_id == current_user.id %>
 		  						<%= link_to "Quitar", @link %> </font></td>
 		  					<% end %>
 		  			<% else %>
 		  				<% @link = "/players/addToTradeBlock?id="+player.id.to_s+"&from=team" %>
+<<<<<<< Updated upstream
 		  				<td> <font color="red"><b>No </b> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+=======
+		  				<td> <font color="red"><b>No </b> <span class="glyphicon glyphicon-remove"> </span> &nbsp;
+>>>>>>> Stashed changes
 		  					<% if player.user_id == current_user.id %>
 		  						<%= link_to "Agregar", @link %> </font></td>
 		  					<% end %>
@@ -90,13 +124,21 @@
 
 		  			<% if player.protected %>
 		  				<% @link = "/players/protectPlayer?id="+player.id.to_s+"&from=team" %>
+<<<<<<< Updated upstream
 		  				<td> <font color="green"><b>Sí </b>  <i class="fa fa-shield"></i> </span> &nbsp; 
+=======
+		  				<td> <font color="green"><b>Sí </b>  <i class="fa fa-shield"></i> </span> &nbsp;
+>>>>>>> Stashed changes
 		  					<% if player.user_id == current_user.id %>
 		  						<%= link_to "Desproteger", @link %> </font></td>
 		  					<% end %>
 		  			<% else %>
 		  				<% @link = "/players/protectPlayer?id="+player.id.to_s+"&from=team" %>
+<<<<<<< Updated upstream
 		  				<td> <font color="red"> <b>No </b><span class="glyphicon glyphicon-remove"> </span> &nbsp; 
+=======
+		  				<td> <font color="red"> <b>No </b><span class="glyphicon glyphicon-remove"> </span> &nbsp;
+>>>>>>> Stashed changes
 		  					<% if player.user_id == current_user.id %>
 		  						<%= link_to "Proteger", @link %> </font></td>
 		  					<% end %>
@@ -104,27 +146,27 @@
 
   					<% if player.user_id == current_user.id %>
 	  					<% @link = "/players/releasePlayer?id="+player.id.to_s+"&from=team" %>
-	  					<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span> &nbsp; 
+	  					<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span> &nbsp;
 	  						<%= link_to "Release", @link %> </font></td>
-  					<% end %>	
+  					<% end %>
 
-		  		
+
 
   				</tr></tbody>
   				<% end %>
   			</table>
-  		
-  		
-		
-		
-		
+
+
+
+
+
 	</div>
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 </div>

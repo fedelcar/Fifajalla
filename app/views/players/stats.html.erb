@@ -1,34 +1,34 @@
 <div class="container">
 	<br>
-	<h1>Player Stats</h1>
+	<h1>Estadísticas de Jugador</h1>
 
 	<table class="table table-striped table-hover ">
     	<thead><tr>
-        
+
     		<th>Name</th>
         <th>Team</th>
 
-    		<th><%= link_to "Goals", :sort => "goals" %></th>  
+    		<th><%= link_to "Goals", :sort => "goals" %></th>
     		<th><%= link_to "Assists", :sort => "assists" %></th>
         <th><%= link_to "Yellow Cards", :sort => "yellow_cards" %></th>
         <th><%= link_to "Red Cards", :sort => "red_cards" %></th>
         <th><%= link_to "En Contra", :sort => "own_goals" %></th>
 
-        <th>Player of the Match</th>  
-        <th>De Jugada</th>  
-        <th>De Cabeza</th>  
-        <th>De Tiro Libre</th>  
-        <th>De Penal</th>  
+        <th>Player of the Match</th>
+        <th>De Jugada</th>
+        <th>De Cabeza</th>
+        <th>De Tiro Libre</th>
+        <th>De Penal</th>
         <th>Penales Atajados</th>
-       
+
     	</tr></thead>
-    	
+
   		<% @players.each do |player| %>
   		<tbody><tr>
-        
+
   			<td><%= link_to "", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= player.first_name %> <%= player.last_name %></td>
         <td><%= link_to "", team_path(player.team_id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= Team.find(player.team_id).name %> </td>
-        
+
         <% @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2",player.id).count %>
         <% @assists=Event.where("player_id=? and event_type_id=3",player.id).count %>
         <% @yellow=Event.where("player_id=? and event_type_id=12",player.id).count %>
@@ -53,9 +53,9 @@
         <td><%= @deTiroLibre %></td>
         <td><%= @dePenal %></td>
         <td><%= @penalesAtajados %></td>
-  			
-        
-  			
+
+
+
 
   		</tr></tbody>
   		<% end %>
@@ -63,7 +63,7 @@
 
 
 
- 
 
-	
+
+
 </div>

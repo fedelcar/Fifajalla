@@ -37,3 +37,5 @@ db/development - copie 2.sqlite3
 *.sqlite3
 
 *.sqlite3
+
+*.sqlite3

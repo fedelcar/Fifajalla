@@ -6,29 +6,29 @@
 		<h2> Totales</h2>
 
 		<b>Partidos Jugados: </b><%= @pj %><br>
-		<b>Puntos:</b> <%= @pts%><br>
-		<b>Partidos Ganados:</b> <%= @user? @user.wins : ""%><br>
-		<b>Partidos Empatados:</b> <%= @user? @user.draws : ""%><br>
-		<b>Partidos Perdidos:</b> <%= @user? @user.loses : ""%><br>
-		<b>Goles a Favor:</b> <%= @user? @user.gf : ""%><br>
-		<b>Goles en contra:</b> <%= @user? @user.ga : ""%><br>
-		<b>Diferencia de goles:</b> <%= @user? @user.dg : ""%><br>
+		<b>Puntos:</b> <%= @pts %><br>
+		<b>Partidos Ganados:</b> <%= @pg? @pg : ""%><br>
+		<b>Partidos Empatados:</b> <%= @pe? @pe : ""%><br>
+		<b>Partidos Perdidos:</b> <%= @pp? @pp : ""%><br>
+		<b>Goles a Favor:</b> <%= @gf? @gf : ""%><br>
+		<b>Goles en contra:</b> <%= @gc? @gc : ""%><br>
+		<b>Diferencia de goles:</b> <%= @dg? @dg : ""%><br>
 
-	
-		
-		
-		
-		
-		
+
+
+
+
+
+
 	</div>
 
 	<div class="col-md-4">
 		<h2> Promedios</h2>
 		<b>Promedio Goles a Favor:</b> <%= number_with_precision(@gfpp, precision: 2)%><br>
-		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gapp, precision: 2)%><br>
+		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gcpp, precision: 2)%><br>
 		<b>Promedio Diferencia de gol:</b> <%= number_with_precision(@dgpp, precision: 2)%><br>
 		<b>Efectividad:</b> <%= number_to_percentage(@efectividad*100, precision: 2)     %><br>
-		
+
 	</div>
 
 	<div class="col-md-4">
@@ -39,25 +39,25 @@
 		  			<table>
 						<tbody><tr>
 				  			<td><%= link_to team.name, team_path(team.id), :method => "get" %></td>
-				  			
+
 		  				</tr></tbody>
 		  			</table>
 	  			<% end %>
   			<% end %>
   		<% if @user.id == current_user.id %>
 	  			<br>
-				<a href="/teams/new"><button class="btn btn-sm btn-primary">Register New Team</button></a>			
+				<a href="/teams/new"><button class="btn btn-sm btn-primary">Register New Team</button></a>
   		<% end %>
 		</div>
-		
-		
+
+
 	</div>
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 </div>

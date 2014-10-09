@@ -73,6 +73,7 @@ class TradesController < ApplicationController
         @player.team_id=(Team.find_by user_id: pm.second_user_id).id  
         @player.on_the_block=false
         @player.protected=false
+        @player.starting=false
         @player.save
         @pms2=Player_Movement.where("player_id=? and trade_id<>?",@player.id,@trade.id)
         @pm2.each do |pm2|

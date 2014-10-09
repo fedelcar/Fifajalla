@@ -1,31 +1,28 @@
 <div class="container">
-<h1> Users</h1>
+<h1> Usuarios</h1>
 
 
 
 <table class="table table-striped table-hover ">
 	<thead><tr>
-		
-		<th>Name</th>
-		<th>PJ</th> 
-			
-		<th><%= link_to "ELO", :sort => "elo" %></th> 
-		<th><%= link_to "Eff", :sort => "eff" %></th> 
-		<th><%= link_to "Wins", :sort => "wins" %></th>  
-		<th><%= link_to "Draws", :sort => "draws" %></th>  
-		<th><%= link_to "Loses", :sort => "loses" %></th>  
-		
-		<th><%= link_to "GF", :sort => "gf" %></th>  
-		<th><%= link_to "GA", :sort => "ga" %></th>  
-		<th><%= link_to "DG", :sort => "dg" %></th>  
-		<th><%= link_to "Pts", :sort => "pts" %></th>  
-		
-		<th>Amarillas</th>  
-		<th>Rojas</th>
+
+		<th>Nombre</th>
+		<th><%= link_to "ELO", :sort => "elo" %></th>
+		<th><%= link_to "PJ", :sort => "wins" %></th>
+		<th><%= link_to "PG", :sort => "wins" %></th>
+		<th><%= link_to "PE", :sort => "draws" %></th>
+		<th><%= link_to "PP", :sort => "loses" %></th>
+		<th><%= link_to "Pts", :sort => "pts" %></th>
+		<th><%= link_to "Eff", :sort => "eff" %></th>
+		<th><%= link_to "GF", :sort => "gf" %></th>
+		<th><%= link_to "GC", :sort => "ga" %></th>
+		<th><%= link_to "DG", :sort => "dg" %></th>
+		<th><%= link_to "Amarillas", :sort => "amarillas" %></th>
+		<th><%= link_to "Rojas", :sort => "rojas" %></th>
 		<% if next_pick != nil %>
 			<th>Tiempo Restante</th>
 		<% end %>
-		
+
 	</tr></thead>
 
 	<% @users.each do |user| %>
@@ -33,23 +30,22 @@
 
 
 			<td><%= link_to "", user_path(user.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= user.display_name %>
-			<td><%= user.loses + user.wins + user.draws%></td>
-			
 			<td><%= user.elo.to_i %></td>
-			<td><%= number_to_percentage(user.eff*100, precision: 2) %></td>
-  			<td><%= user.wins%></td>
-  			<td><%= user.draws%></td>
-  			<td><%= user.loses%></td>
+			<td><%= @pj[user.id] %></td>
+			<td><%= @pg[user.id] %></td>
+			<td><%= @pe[user.id] %></td>
+			<td><%= @pp[user.id] %></td>
+			<td><%= @pts[user.id] %></td>
+			<td><%= number_to_percentage(@eff[user.id]*100, precision: 2) %></td>
+			<td><%= @gf[user.id] %></td>
+			<td><%= @gc[user.id] %></td>
+			<td><%= @dg[user.id] %></td>
 
-  			<td><%= user.gf%></td>
-  			<td><%= user.ga%></td>
-  			<td><%= user.dg%></td>
-  			<td><%= user.pts%></td>
-  			
+
   			<% @amarillas=0 %>
   			<% @rojas=0 %>
   			<% @players = Player.where("user_id=?",user.id) %>
-  			<% @players.each do |p| %>	
+  			<% @players.each do |p| %>
   				<% @amarillas=@amarillas+p.yellow_cards%>
   				<% @rojas=@rojas+p.red_cards %>
   			<% end %>
@@ -58,7 +54,7 @@
   			<% if next_pick != nil %>
 				<td><%= user.minutes %></td>
 		<% end %>
-  		</tr></tbody>	
+  		</tr></tbody>
 	<% end %>
 </table>
 </div>

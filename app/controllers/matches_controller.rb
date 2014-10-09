@@ -176,10 +176,10 @@ def createEvent
 			@event.event_type_id=2
 			@event.goal_type_id=2
 			@player.own_goals=@player.own_goals+1
-			@otherTeam.gf = @team.gf+1
-			@otherUser.gf = @user.gf+1
-			@team.ga = @otherTeam.ga+1
-			@user.ga = @otherUser.ga+1
+			@otherTeam.gf = @otherTeam.gf+1
+			@otherUser.gf = @otherUser.gf+1
+			@team.ga = @team.ga+1
+			@user.ga = @user.ga+1
 			if @match.local_user_id == @user.id
 				@match.away_goals=@match.away_goals+1
 			else

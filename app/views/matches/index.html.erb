@@ -21,7 +21,7 @@
 			<tr><center>
   			<td><right><%= link_to "", match_path(match.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%></right></td>
 
-				<td><%= match.date %></td>
+				<td><%= match.updated_at.localtime.strftime("%d/%m %H:%M") %></td>
 				<td><%= League.find(match.league_id).name %></td>
 
 				<% if match.local_goals > match.away_goals %>

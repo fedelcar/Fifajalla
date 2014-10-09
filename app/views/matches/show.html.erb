@@ -23,7 +23,7 @@
 			<br>
 			<br>
 			<h3><%= League.find(@match.league_id).name %></h3>
-			<h3>Fecha: <%= @match.updated_at.strftime("%d/%m %H:%M")%></h3>
+			<h3>Fecha: <%= @match.updated_at.localtime.strftime("%d/%m %H:%M")%></h3>
 			<h3>MVP: <%= @pom%></h3>
 
 		</div>
@@ -46,7 +46,7 @@
 			
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
-					<% if goal.team_id==@match.local_team_id %>
+					<% if goal.team_id==@match.local_team_id and goal.goal_type_id!=2 %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(goal.player_id).last_name, player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
@@ -55,14 +55,14 @@
 				<% @ownGoals.each do |goal| %>
 					<% if goal.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
-							<%= link_to Player.find(goal.player_id).last_name.last_name + "(EC)", player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
+							<%= link_to Player.find(goal.player_id).last_name + "(EC)", player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
 					<% end %>
 				<% end %>
 			</div>
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
-					<% if goal.team_id==@match.away_team_id %>
+					<% if goal.team_id==@match.away_team_id and goal.goal_type_id!=2%>
 						<font color="black"><center><p>
 							<%= link_to Player.find(goal.player_id).last_name, player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>

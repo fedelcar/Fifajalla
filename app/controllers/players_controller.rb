@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
 
 	def index
-		
+
 			case params[:filter]
 				when "def"
 					@players = Player.where("primary_position='CB' or primary_position='RB' or primary_position='LB' or primary_position='RWB' or primary_position='LWB'")
@@ -17,9 +17,9 @@ class PlayersController < ApplicationController
 					@players=Player.where("user_id=1 or team_id=48 or team_id=47")
 				when "GK", "RB", "RWB","CB","LB","LWB","CM","CDM","CAM","LM","RM","RW","LW","CF","ST"
 					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter])
-				else					
+				else
 					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
-			end	
+			end
 			if params[:filter] != "all" and params[:filter] != "drafted"
 				#@players=@players.where("league<>'SPrimera Division'")
 			else
@@ -42,7 +42,7 @@ class PlayersController < ApplicationController
 
       	@player.team_id=params[:movePlayer][:team]
       	@player.save
-		
+
 		redirect_to player_path(params[:id])
 	end
 
@@ -59,10 +59,16 @@ class PlayersController < ApplicationController
 			@attributeNames.push("Ball Control", "Crossing", "Curve", "Dribbling", "Finishing", "Free Kick Acc.", "Heading", "Long Pass", "Long Shots", "Marking", "Penalties", "Short Pass", "Shot Power", "Sliding Tackle", "Standing Tackle", "Volleys", "Acceleration", "Agility", "Balance", "Jumping", "Reactions", "Sprint Speed", "Stamina", "Strength", "Aggresion", "Positioning", "Interceptions", "Vision")
 			@attributes.push(@player.ball_control, @player.crossing, @player.curve, @player.dribbling_skill, @player.finishing, @player.free_kick_accuracy, @player.heading_accuracy, @player.long_passing, @player.long_shots, @player.marking, @player.penalties, @player.short_passing, @player.shot_power, @player.sliding_tackle, @player.standing_tackle, @player.volleys, @player.acceleration, @player.agility, @player.balance, @player.jumping, @player.reactions, @player.sprint_speed, @player.stamina, @player.strength, @player.aggression, @player.positioning, @player.interceptions, @player.vision)
 		end
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 	end
 
 	def search
-		
+
 	end
 
 	def releasePlayer
@@ -80,7 +86,11 @@ class PlayersController < ApplicationController
 		@pick.number=Pick.count+1
 		@pick.draft_id=4
 		@pick.save
+<<<<<<< Updated upstream
 		
+=======
+
+>>>>>>> Stashed changes
 		@next_pick = Pick.where("player_id=1").first
 		next_pick = Pick.where("player_id=1").first
 
@@ -94,7 +104,7 @@ class PlayersController < ApplicationController
 		if params[:from] == "players"
 			redirect_to player_path(@player.id)
 		else
-			if params[:from] == "trades"	
+			if params[:from] == "trades"
 				redirect_to '/trades/addToTradeBlock'
 			else
 				redirect_to team_path(@teamid)
@@ -114,13 +124,13 @@ class PlayersController < ApplicationController
 				@player.protected=true
 				@player.save
 			else
-			
+
 			end
 		end
 		if params[:from] == "players"
 			redirect_to player_path(@player.id)
 		else
-			if params[:from] == "trades"	
+			if params[:from] == "trades"
 				redirect_to '/trades/addToTradeBlock'
 			else
 				redirect_to team_path(@player.team_id)
@@ -129,6 +139,33 @@ class PlayersController < ApplicationController
 
 	end
 
+	def hacerTitular
+		@player=Player.find(params[:id])
+
+		if @player.starting
+			@player.starting=false
+			@player.save
+		else
+			if Player.where("team_id=? and starting='t'",@player.team_id).count < 11
+				@player.starting=true
+				@player.save
+			else
+
+			end
+		end
+		if params[:from] == "players"
+			redirect_to player_path(@player.id)
+		else
+			if params[:from] == "trades"
+				redirect_to '/trades/addToTradeBlock'
+			else
+				redirect_to team_path(@player.team_id)
+			end
+		end
+
+	end
+
+<<<<<<< Updated upstream
 	def hacerTitular
 		@player=Player.find(params[:id])
 
@@ -155,13 +192,15 @@ class PlayersController < ApplicationController
 
 	end
 
+=======
+>>>>>>> Stashed changes
 
 	def stats
 
 		@players = Player.where("games_played>0 and user_id>1").order(sort_column + ' ' + sort_direction).take(1000)
-		
+
 	end
-	
+
 	def TradeBlock
 		@player = Player.find(params[:id])
 		if @player.on_the_block
@@ -175,7 +214,7 @@ class PlayersController < ApplicationController
 		if params[:from] == "players"
 			redirect_to player_path(@player.id)
 		else
-			if params[:from] == "trades"	
+			if params[:from] == "trades"
 				redirect_to '/trades/addToTradeBlock'
 			else
 				redirect_to team_path(@player.team_id)
@@ -187,7 +226,7 @@ private
   def sort_column
     params[:sort] || "name"
   end
-  
+
   def sort_direction
     params[:direction] || "desc"
   end
