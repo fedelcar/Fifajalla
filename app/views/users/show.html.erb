@@ -44,10 +44,15 @@
 		  			</table>
 	  			<% end %>
   			<% end %>
+				<br>
+				<% @link = '/matches/my?user='+@user.id.to_s %>
+				<a href=<%=@link%>><button class="btn btn-sm btn-primary">Ver Partidos</button></a>
   		<% if @user.id == current_user.id %>
-	  			<br>
-				<a href="/teams/new"><button class="btn btn-sm btn-primary">Register New Team</button></a>
+
+				<br><br><a href="/teams/new"><button class="btn btn-sm btn-primary">Registrar otro Equipo</button></a>
+
   		<% end %>
+
 		</div>
 
 

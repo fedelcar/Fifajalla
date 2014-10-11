@@ -7,6 +7,12 @@ class MatchesController < ApplicationController
   	@teams = Team.all
   end
 
+  def my
+    @matches = Match.where('local_user_id=? or away_user_id=?',params[:user],params[:user]).order(finished: :asc).order(updated_at: :desc)
+    @users = User.all
+    @teams = Team.all
+  end
+
   def show
 	@match = Match.find(params[:id])
 

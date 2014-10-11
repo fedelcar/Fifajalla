@@ -34,6 +34,8 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="true">Partidos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li align="center"><a href="/matches">Lista de Partidos</a></li>
+                    <% @link = '/matches/my?user='+current_user.id.to_s %>
+                    <li align="center"><a href=<%= @link %>>Mis Partidos</a></li>
                     <li align="center"><a href="/matches/new">Jugar Partido</a></li>
                 </ul>
             </li>

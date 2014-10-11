@@ -42,6 +42,8 @@ Rails.application.routes.draw do
 
   post 'matches/new', to: 'matches#newMatch'
 
+  get 'matches/my', to:'matches#my'
+
   post 'matches#createEvent', to: 'matches#createEvent'
 
   get 'draft/wanted', to: 'draft#wanted'
