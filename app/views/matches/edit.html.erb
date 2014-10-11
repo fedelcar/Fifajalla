@@ -2,8 +2,8 @@
 	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @home_team.name, team_path(@home_team.id), :method => "get" %></h1>
-			<center><h2><%= link_to @home_user.display_name, user_path(@home_user.id), :method => "get" %></h2></center>		
+			<center><h1><%= link_to @home_team.name, team_path(@home_team.id)+'?sort=Overall', :method => "get" %></h1>
+			<center><h2><%= link_to @home_user.display_name, user_path(@home_user.id), :method => "get" %></h2></center>
 		</div>
 	</div>
 
@@ -22,7 +22,7 @@
 	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @away_team.name, team_path(@away_team.id), :method => "get" %></h1>
+			<center><h1><%= link_to @away_team.name, team_path(@away_team.id)+'?sort=Overall', :method => "get" %></h1>
 			<center><h2><%= link_to @away_user.display_name, user_path(@away_user.id), :method => "get" %></h>
 			</center>
 		</div>
@@ -34,7 +34,7 @@
 		<br>
 		<h2>Nuevo Evento</h2>
 		<br>
-		<%= form_for :new_event, url: {action: "createEvent", :match_id => @match.id} do |f| %>	
+		<%= form_for :new_event, url: {action: "createEvent", :match_id => @match.id} do |f| %>
 			<%= f.select :player_id, grouped_options_for_select(@grouped_players), {}, {:class => "form-control"} %>
 			<br>
 			<%= f.submit "De Jugada", :class => "btn btn-success" %>

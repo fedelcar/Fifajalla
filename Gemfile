@@ -57,6 +57,9 @@ gem 'font-awesome-sass'
 #for Switch
 gem 'bootstrap-switch-rails'
 
+#for memory leaks
+gem 'bloat_check'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -65,4 +68,3 @@ gem 'bootstrap-switch-rails'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

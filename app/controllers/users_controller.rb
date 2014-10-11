@@ -2,9 +2,7 @@ class UsersController < ApplicationController
 
 	def index
 
-		@users = User.where("id>1 and id <100").order(sort_column + ' ' + sort_direction)
-<<<<<<< Updated upstream
-=======
+		@users = User.where("id>1 and id <100")
 		@userMatches = Array.new
 		@pg = Array.new
 		@pe = Array.new
@@ -15,28 +13,39 @@ class UsersController < ApplicationController
 		@gc = Array.new
 		@dg = Array.new
 		@eff = Array.new
+		@amarillas = Array.new
+		@rojas = Array.new
+		@list = Array.new
+		@categories = Array.new
+		@categories = ["ID","Usuario","ELO","PJ","PG","PE","PP","Pts","Eff","GF","GC","DG","Amarillas","Rojas"]
 
 
->>>>>>> Stashed changes
 		@users.each do |user|
-			@userMatches[user.id] = Match.where('local_user_id=? or away_user_id=?',user.id,user.id)
-			@pg[user.id] = @userMatches[user.id].where('(local_user_id=? and local_goals > away_goals) or (away_user_id=? and away_goals > local_goals)',user.id,user.id).count
-			@pe[user.id] = @userMatches[user.id].where('local_goals=away_goals').count
-			@pp[user.id] = @userMatches[user.id].where('(local_user_id=? and local_goals < away_goals) or (away_user_id=? and away_goals < local_goals)',user.id,user.id).count
-			@pts[user.id] = @pg[user.id]*3+@pe[user.id]
-			@pj[user.id] = @pg[user.id]+@pe[user.id]+@pp[user.id]
-			@gf[user.id] = @userMatches[user.id].where('local_user_id=?',user.id).sum(:local_goals)
-			@gf[user.id] += @userMatches[user.id].where('away_user_id=?',user.id).sum(:away_goals)
-			@gc[user.id] = @userMatches[user.id].where('local_user_id=?',user.id).sum(:away_goals)
-			@gc[user.id] += @userMatches[user.id].where('away_user_id=?',user.id).sum(:local_goals)
-			@dg[user.id]=@gf[user.id]-@gc[user.id]
-			if @pj[user.id] >0
-				@eff[user.id]=@pts[user.id].to_f/(3*@pj[user.id])
+			@userMatches = Match.where('local_user_id=? or away_user_id=?',user.id,user.id)
+			@pg = @userMatches.where('(local_user_id=? and local_goals > away_goals) or (away_user_id=? and away_goals > local_goals)',user.id,user.id).count
+			@pe = @userMatches.where('local_goals=away_goals').count
+			@pp = @userMatches.where('(local_user_id=? and local_goals < away_goals) or (away_user_id=? and away_goals < local_goals)',user.id,user.id).count
+			@pts = @pg*3+@pe
+			@pj = @pg+@pe+@pp
+			@gf = @userMatches.where('local_user_id=?',user.id).sum(:local_goals)
+			@gf += @userMatches.where('away_user_id=?',user.id).sum(:away_goals)
+			@gc = @userMatches.where('local_user_id=?',user.id).sum(:away_goals)
+			@gc += @userMatches.where('away_user_id=?',user.id).sum(:local_goals)
+			@dg=@gf-@gc
+			if @pj >0
+				@eff=@pts.to_f/(3*@pj)*100
 			else
-				@eff[user.id]=0
+				@eff=0
 			end
+			@amarillas= Event.where("user_id=? and event_type_id=12",user.id).count
+			@rojas= Event.where("user_id=? and event_type_id=14",user.id).count
+
+			@teamArray = [user.id,user.display_name,user.elo,@pj,@pg,@pe,@pp,@pts,@eff,@gf,@gc,@dg,@amarillas,@rojas]
+
+			@list.push(@teamArray)
 		end
 
+		@users = sortList(@categories,params[:sort],@list)
 	end
 
 
@@ -56,7 +65,7 @@ class UsersController < ApplicationController
 		@gfpp=@gf.to_f/@pj
 		@gcpp=@gc.to_f/@pj
 		@dgpp=@gfpp-@gcpp
-		
+
 		if @pj >0
 			@efectividad=@pts.to_f/(3*@pj)
 		else
@@ -101,11 +110,7 @@ class UsersController < ApplicationController
 		 		@user.draws=0
 		 		@user.dg=0
 		 		@user.pts=0
-<<<<<<< Updated upstream
-		 		@user.eff=0	
-=======
 		 		@user.eff=0
->>>>>>> Stashed changes
 		 		@user.save
  			end
 

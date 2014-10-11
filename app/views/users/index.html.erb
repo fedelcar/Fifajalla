@@ -6,19 +6,19 @@
 <table class="table table-striped table-hover ">
 	<thead><tr>
 
-		<th>Nombre</th>
-		<th><%= link_to "ELO", :sort => "elo" %></th>
-		<th><%= link_to "PJ", :sort => "wins" %></th>
-		<th><%= link_to "PG", :sort => "wins" %></th>
-		<th><%= link_to "PE", :sort => "draws" %></th>
-		<th><%= link_to "PP", :sort => "loses" %></th>
-		<th><%= link_to "Pts", :sort => "pts" %></th>
-		<th><%= link_to "Eff", :sort => "eff" %></th>
-		<th><%= link_to "GF", :sort => "gf" %></th>
-		<th><%= link_to "GC", :sort => "ga" %></th>
-		<th><%= link_to "DG", :sort => "dg" %></th>
-		<th><%= link_to "Amarillas", :sort => "amarillas" %></th>
-		<th><%= link_to "Rojas", :sort => "rojas" %></th>
+		<th><%= link_to "Nombre", :sort => "Usuario" %></th>
+		<th><%= link_to "ELO", :sort => "ELO" %></th>
+		<th><%= link_to "PJ", :sort => "PJ" %></th>
+		<th><%= link_to "PG", :sort => "PG" %></th>
+		<th><%= link_to "PE", :sort => "PE" %></th>
+		<th><%= link_to "PP", :sort => "PP" %></th>
+		<th><%= link_to "Pts", :sort => "Pts" %></th>
+		<th><%= link_to "Eff", :sort => "Eff" %></th>
+		<th><%= link_to "GF", :sort => "GF" %></th>
+		<th><%= link_to "GC", :sort => "GC" %></th>
+		<th><%= link_to "DG", :sort => "DG" %></th>
+		<th><%= link_to "Amarillas", :sort => "Amarillas" %></th>
+		<th><%= link_to "Rojas", :sort => "Rojas" %></th>
 		<% if next_pick != nil %>
 			<th>Tiempo Restante</th>
 		<% end %>
@@ -29,28 +29,15 @@
 		<tbody><tr>
 
 
-			<td><%= link_to "", user_path(user.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= user.display_name %>
-			<td><%= user.elo.to_i %></td>
-			<td><%= @pj[user.id] %></td>
-			<td><%= @pg[user.id] %></td>
-			<td><%= @pe[user.id] %></td>
-			<td><%= @pp[user.id] %></td>
-			<td><%= @pts[user.id] %></td>
-			<td><%= number_to_percentage(@eff[user.id]*100, precision: 2) %></td>
-			<td><%= @gf[user.id] %></td>
-			<td><%= @gc[user.id] %></td>
-			<td><%= @dg[user.id] %></td>
+			<td><%= link_to "", user_path(user[0]), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp;  <%= user[1] %>
+			<% for i in 2..13 %>
+				<% if i == 8%>
+					<td><%= number_to_percentage(user[i],precision:2) %></td>
+				<% else %>
+					<td><%= user[i] %></td>
+				<% end %>
+			<% end %>
 
-
-  			<% @amarillas=0 %>
-  			<% @rojas=0 %>
-  			<% @players = Player.where("user_id=?",user.id) %>
-  			<% @players.each do |p| %>
-  				<% @amarillas=@amarillas+p.yellow_cards%>
-  				<% @rojas=@rojas+p.red_cards %>
-  			<% end %>
-  			<td><%= @amarillas%></td>
-  			<td><%= @rojas%></td>
   			<% if next_pick != nil %>
 				<td><%= user.minutes %></td>
 		<% end %>

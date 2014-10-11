@@ -13,3 +13,5 @@ ActionMailer::Base.smtp_settings = {
   :authentication => "plain",
   :enable_starttls_auto => true
 }
+
+require 'bleak_house' if ENV['BLEAK_HOUSE']

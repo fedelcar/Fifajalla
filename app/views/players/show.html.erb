@@ -66,17 +66,6 @@
 			<% @link = "/players/releasePlayer?id="+@player.id.to_s+"&from=team" %>
 			<td> <font color="black"> <span class="glyphicon glyphicon-trash"> </span>
 				<%= link_to "Liberar", @link %> </font></td>
-<<<<<<< Updated upstream
-		<% end %>
-
-		<% if @player.user_id == 1 %>
-			<b> Jugador Deseado? </b>
-			<% @link = "/draft/addWanted?player_id="+@player.id.to_s %>
-			<td> <font color="green"> <span class="glyphicon glyphicon-ok"> </span>
-				<%= link_to "Lo Quiero!", @link %> </font></td>
-		<% end %>
-		
-=======
 		<% end %>
 
 		<% if @player.user_id == 1 %>
@@ -86,7 +75,6 @@
 				<%= link_to "Lo Quiero!", @link %> </font></td>
 		<% end %>
 
->>>>>>> Stashed changes
 
 		<% if @player.user_id == current_user.id %>
 		<br>
@@ -95,11 +83,7 @@
 			<% @teams = Team.where("user_id=? and id<>?",@player.user_id,@player.team_id) %>
 			<div class="col-md-8">
 				<%= t.select :team, options_from_collection_for_select(@teams, "id", "name"), {}, {:class => "form-control"} %>
-<<<<<<< Updated upstream
-			</div>	
-=======
 			</div>
->>>>>>> Stashed changes
 			<%= t.submit "Mover", :class => "btn btn-sm btn-primary" %>
 
 			<% end %>
@@ -123,11 +107,7 @@
 		<div class="col-md-6" align="center">
 			<% @attributeNames.each do |att| %>
 				<% if @attributeNames.index(att) %2 == 0 %>
-<<<<<<< Updated upstream
-					<%=att%>: <b> 
-=======
 					<%=att%>: <b>
->>>>>>> Stashed changes
 						<% @rating = @attributes.at(@attributeNames.index(att)) %>
 						<% if @rating >= 85 %>
 							<font color="27C43C">
@@ -150,11 +130,7 @@
 		<div class="col-md-6" align="center">
 			<% @attributeNames.each do |att| %>
 				<% if @attributeNames.index(att) %2 != 0 %>
-<<<<<<< Updated upstream
-					<%=att%>: <b> 
-=======
 					<%=att%>: <b>
->>>>>>> Stashed changes
 						<% @rating = @attributes.at(@attributeNames.index(att)) %>
 						<% if @rating >= 85 %>
 							<font color="27C43C">
@@ -174,16 +150,6 @@
 				<% end %>
 			<% end %>
 		</div>
-<<<<<<< Updated upstream
-			
-
-			
-
-	
-		
-		
-		
-=======
 
 
 
@@ -194,23 +160,12 @@
 
 
 	</div>
->>>>>>> Stashed changes
 
-	</div>
 
 
 	<div class="col-md-3" align="right">
 		<h2> Stats</h2>
 		<align="right">
-<<<<<<< Updated upstream
-		<b>PJ:</b> <%= @player.games_played %><br>
-		<b>Goles:</b> <%= @player.goals %><br>
-		<b>Asistencis:</b> <%= @player.assists %><br>
-		<b>Goles en Contra:</b> <%= @player.own_goals %><br>
-		<b>Amarillas:</b> <%= @player.yellow_cards %><br>
-		<b>Rojas:</b> <%= @player.red_cards %><br>
-		<b>Promedio de Gol:</b> 
-=======
 
 		<% @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2",@player.id).count %>
 		<% @assists=Event.where("player_id=? and event_type_id=3",@player.id).count %>
@@ -227,7 +182,6 @@
 		<b>Amarillas:</b> <%= @yellow %><br>
 		<b>Rojas:</b> <%= @red %><br>
 		<b>Promedio de Gol:</b>
->>>>>>> Stashed changes
 							<% if @player.games_played == 0 %>
 									0
 							<% else %>
@@ -235,10 +189,7 @@
 							<% end %>
 		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7",@player.id).count %>
 		<br><b>Penales Atajados:</b> <%= @penalesAtajados %><br>
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 		</align>
 		<h3>Tipos de Gol</h3>
 
@@ -254,11 +205,7 @@
 		</right>
 	</div>
 
-<<<<<<< Updated upstream
-	
-=======
 
->>>>>>> Stashed changes
 
 
 

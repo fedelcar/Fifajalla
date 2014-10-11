@@ -1,13 +1,14 @@
 class WelcomeController < ApplicationController
+  include BloatCheck::WrapRequests
   def index
 
   	@numberOfUsers=User.count-1
-  	
+
   	@users=User.all
   	@players=Player.all
 
   	@matches = Match.where("finished='t'").order(updated_at: :desc).take(5)
-  	
+
   	@teams = Team.all
     if current_user
     	@apps= Trade_Approval.where("user_id=?",current_user.id)
@@ -19,5 +20,8 @@ class WelcomeController < ApplicationController
     		end
     	end
     end
+
+    BloatCheck.log("BloatCheckLog")
+
   end
 end

@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
- 
+
+  get 'head_to_head/index'
+
+  post 'head_to_head/index', to: 'head_to_head#show'
+
+  get 'head_to_head/show'
+
   get 'users/cPanel'
 
   get 'welcome/faqs'
 
   patch 'users', to: 'users#update'
-  
+
   resources :users
 
   get 'players/stats'
@@ -23,7 +29,7 @@ Rails.application.routes.draw do
   get 'draft/givePicks', to: 'draft#givePicks'
 
   root 'welcome#index'
-  
+
   get 'players/addToTradeBlock', to: 'players#TradeBlock'
 
   get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
@@ -77,11 +83,11 @@ Rails.application.routes.draw do
   resources :players
 
   resources :stats
-  
+
   resources :league
-  
+
   resources :matches
-  
+
   resources :teams
 
 
@@ -93,7 +99,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy]
   resource :welcome, only: [:index]
 
-  
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,154 @@
+<div class="container">
+  
+  <div class="col-sm-5"align="center">
+    <div class="row">
+      <center><h1><%= link_to @user1.display_name, user_path(@user1.id), :method => "get" %></h2></center>
+    </div>
+    <div class="row">
+    <h3><b>G-E-P:</b> <%= @pg1 %> - <%= @pe %> - <%= @pp1 %> </h3>
+    <h3><b>GF-GC:</b> <%= @gf1 %> - <%= @gc1 %> </h3>
+
+    </div>
+  </div>
+
+  <div class="col-sm-2" align="center">
+    <div class="row">
+        <h1><%= @pg1.to_s + ' - '+ @pg2.to_s %></h1>
+      <br>
+
+
+    </div>
+  </div>
+
+  <div class="col-sm-5" align="center">
+    <div class="row">
+      <center><h1><%= link_to @user2.display_name, user_path(@user2.id), :method => "get" %></h2></center>
+      <div class="row">
+          <h3><b>G-E-P:</b> <%= @pg2 %> - <%= @pe %> - <%= @pp2 %> </h3>
+          <h3><b>GF-GC:</b> <%= @gf2 %> - <%= @gc2 %> </h3>
+
+      </div>
+    </div>
+    <br>
+    <br>
+  </div>
+
+  <h1>Partidos</h1>
+
+    <table class="table table-striped table-hover ">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Fecha</th>
+          <th>Torneo</th>
+          <th>User L.</th>
+          <th>Equipo L.</th>
+          <th>Goles L.</th>
+          <th>Goles V.</th>
+          <th>Equipo V.</th>
+          <th>User V.</th>
+          <th>Finalizado</th>
+        </tr>
+      </thead>
+
+      <% @matches.each do |match| %>
+        <tr><center>
+          <td><right><%= link_to "", match_path(match.id), :method => "get" , class: "glyphicon glyphicon-info-sign right"%></right></td>
+
+          <td><%= match.updated_at.localtime.strftime("%d/%m %H:%M") %></td>
+          <td><%= League.find(match.league_id).name %></td>
+
+          <% if match.local_goals > match.away_goals %>
+            <td><b><p class="text-info"><%= User.find(match.local_user_id).display_name %></p></b>	</td>
+            <td><b><p class="text-info"><%= Team.find(match.local_team_id).name %></p> </b></td>
+            <td><b><p class="text-info"><%= match.local_goals %></p></b></td>
+            <td><%= match.away_goals %></td>
+            <td><%= Team.find(match.away_team_id).name %></td>
+            <td><%= User.find(match.away_user_id).display_name %></td>
+          <% else %>
+            <% if match.local_goals < match.away_goals %>
+              <td><%= User.find(match.local_user_id).display_name %>	</td>
+              <td><%= Team.find(match.local_team_id).name %> </td>
+              <td><%= match.local_goals %></td>
+              <td><b><p class="text-info"><%= match.away_goals %></p></b></td>
+              <td><b><p class="text-info"><%= Team.find(match.away_team_id).name %></p></b></td>
+              <td><b><p class="text-info"><%= User.find(match.away_user_id).display_name %></p></b></td>
+            <% else %>
+              <td><%= User.find(match.local_user_id).display_name %>	</td>
+              <td><%= Team.find(match.local_team_id).name %> </td>
+              <td><%= match.local_goals %></td>
+              <td><%= match.away_goals %></td>
+              <td><%= Team.find(match.away_team_id).name %></td>
+              <td><%= User.find(match.away_user_id).display_name %></td>
+            <% end %>
+          <% end %>
+
+          <td>
+            <% if match.finished %>
+              <span class="glyphicon glyphicon-ok"%></span>
+            <% else %>
+                <%= link_to "Jugar", edit_match_path(match.id), :method => "get" %>
+            <% end %>
+          </td>
+
+        </tr>
+      <% end %>
+      <br>
+    </table>
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <h2>Goleadores</h2>
+        <table class="table table-striped table-hover ">
+          <thead><tr>
+            <th>Nombre</th>
+            <th>Goles</th>
+          </tr></thead>
+
+          <% @goleadores.each do |player| %>
+          <tbody><tr>
+            <td><%= link_to "", player_path(player[2]), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= player[0] %></td>
+            <td><%= player[1] %> </td>
+          </tr></tbody>
+          <% end %>
+        </table>
+      </div>
+
+
+      <div class="col-md-4">
+        <h2>Asistidores</h2>
+        <table class="table table-striped table-hover ">
+          <thead><tr>
+            <th>Nombre</th>
+            <th>Asistencias</th>
+          </tr></thead>
+
+          <% @asistidores.each do |player| %>
+          <tbody><tr>
+            <td><%= link_to "", player_path(player[2]), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= player[0] %></td>
+            <td><%= player[1] %> </td>
+          </tr></tbody>
+          <% end %>
+        </table>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Jugador del Partido</h2>
+        <table class="table table-striped table-hover ">
+          <thead><tr>
+            <th>Nombre</th>
+            <th>POM</th>
+          </tr></thead>
+
+          <% @pomPlayers.each do |player| %>
+          <tbody><tr>
+            <td><%= link_to "", player_path(player[2]), :method => "get" , class: "glyphicon glyphicon-info-sign right"%>&nbsp;&nbsp;<%= player[0] %></td>
+            <td><%= player[1] %> </td>
+          </tr></tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+  </div>

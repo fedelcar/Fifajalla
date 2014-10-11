@@ -59,17 +59,11 @@ class PlayersController < ApplicationController
 			@attributeNames.push("Ball Control", "Crossing", "Curve", "Dribbling", "Finishing", "Free Kick Acc.", "Heading", "Long Pass", "Long Shots", "Marking", "Penalties", "Short Pass", "Shot Power", "Sliding Tackle", "Standing Tackle", "Volleys", "Acceleration", "Agility", "Balance", "Jumping", "Reactions", "Sprint Speed", "Stamina", "Strength", "Aggresion", "Positioning", "Interceptions", "Vision")
 			@attributes.push(@player.ball_control, @player.crossing, @player.curve, @player.dribbling_skill, @player.finishing, @player.free_kick_accuracy, @player.heading_accuracy, @player.long_passing, @player.long_shots, @player.marking, @player.penalties, @player.short_passing, @player.shot_power, @player.sliding_tackle, @player.standing_tackle, @player.volleys, @player.acceleration, @player.agility, @player.balance, @player.jumping, @player.reactions, @player.sprint_speed, @player.stamina, @player.strength, @player.aggression, @player.positioning, @player.interceptions, @player.vision)
 		end
-<<<<<<< Updated upstream
-=======
 
 
 
->>>>>>> Stashed changes
 	end
 
-	def search
-
-	end
 
 	def releasePlayer
 		@rel = Release.new
@@ -86,16 +80,12 @@ class PlayersController < ApplicationController
 		@pick.number=Pick.count+1
 		@pick.draft_id=4
 		@pick.save
-<<<<<<< Updated upstream
-		
-=======
 
->>>>>>> Stashed changes
 		@next_pick = Pick.where("player_id=1").first
 		next_pick = Pick.where("player_id=1").first
 
-		@player.user_id=100
-		@player.team_id=100
+		@player.user_id=1
+		@player.team_id=1
 		@player.on_the_block=false
 		@player.protected=false
 		@player.starting=false
@@ -165,39 +155,40 @@ class PlayersController < ApplicationController
 
 	end
 
-<<<<<<< Updated upstream
-	def hacerTitular
-		@player=Player.find(params[:id])
-
-		if @player.starting
-			@player.starting=false
-			@player.save
-		else
-			if Player.where("team_id=? and starting='t'",@player.team_id).count < 11
-				@player.starting=true
-				@player.save
-			else
-			
-			end
-		end
-		if params[:from] == "players"
-			redirect_to player_path(@player.id)
-		else
-			if params[:from] == "trades"	
-				redirect_to '/trades/addToTradeBlock'
-			else
-				redirect_to team_path(@player.team_id)
-			end
-		end
-
-	end
-
-=======
->>>>>>> Stashed changes
 
 	def stats
 
-		@players = Player.where("games_played>0 and user_id>1").order(sort_column + ' ' + sort_direction).take(1000)
+		@players = Player.where("games_played>0 and user_id>1")
+		@playersWithEvents=Array.new
+		@players.each do |player|
+			if Event.exists?(player_id: player.id)
+				@playersWithEvents.push(player)
+			end
+		end
+
+		@list = Array.new
+		@categories = Array.new
+		@categories = ["ID", "IDEquipo","Nombre","Equipo","PJ","Goles","Promedio_de_gol", "Asistencias", "Amarillas", "Rojas", "POM", "De_jugada", "En_contra", "De_cabeza", "De_tiro_libre", "De_penal", "Penales_errados","Penales_atajados"]
+
+		@playersWithEvents.each do |player|
+			@playerEvents=Event.where("player_id=?",player.id)
+		 	@goals=@playerEvents.where("event_type_id=2 and goal_type_id<>2",player.id).count
+		 	@assists=@playerEvents.where("event_type_id=3",player.id).count
+		 	@amarillas=@playerEvents.where("event_type_id=12",player.id).count
+		 	@rojas=@playerEvents.where("event_type_id=14",player.id).count
+			@enContra=@playerEvents.where("event_type_id=2 and goal_type_id=2",player.id).count
+		 	@POM=@playerEvents.where("event_type_id=9",player.id).count
+		 	@deJugada=@playerEvents.where("event_type_id=2 and goal_type_id=1",player.id).count
+		 	@dePenal=@playerEvents.where("event_type_id=2 and goal_type_id=3",player.id).count
+		 	@deTiroLibre=@playerEvents.where("event_type_id=2 and goal_type_id=4" ,player.id).count
+		 	@deCabeza=@playerEvents.where("event_type_id=2 and goal_type_id=5",player.id).count
+		 	@errados=@playerEvents.where("event_type_id=16",player.id).count
+			@atajados=@playerEvents.where("event_type_id=7",player.id).count
+			@playerArray = [player.id,player.team_id,player.first_name+ ' ' + player.last_name,Team.find(player.team_id).name,player.games_played,@goals,@goals/player.games_played.to_f,@assists,@amarillas, @rojas, @POM,@deJugada,@enContra,@deCabeza,@deTiroLibre, @dePenal,@errados,@atajados ]
+			@list.push(@playerArray)
+		end
+
+		@players = sortList(@categories,params[:sort],@list)
 
 	end
 

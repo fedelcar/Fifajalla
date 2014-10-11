@@ -20,7 +20,7 @@ class MatchesController < ApplicationController
 	@assists = Event.where("match_id=? and event_type_id=3", @match.id)
 	@yellow_cards = Event.where("match_id=? and event_type_id=12", @match.id)
 	@red_cards = Event.where("match_id=? and (event_type_id=13 or event_type_id=14)", @match.id)
-		
+
 	if Event.where("match_id=? and event_type_id=9",@match.id).exists?
 		@pom_event = Event.where("match_id=? and event_type_id=9",@match.id)
 		@pome = @pom_event.take
@@ -81,7 +81,7 @@ def update
 			@userB.wins=@userB.wins+1
 			@userA.loses=@userA.loses+1
 		end
-	end 
+	end
 	@match.date= Time.now.strftime("%Y/%m/%d")
 	@match.time= Time.now.strftime("%H:%M:%S")
 	@match.save
@@ -150,7 +150,7 @@ def createEvent
 	@player = Player.find(params[:new_event][:player_id])
 	@team = Team.find(@player.team_id)
 	@user= User.find(@player.user_id)
-	
+
 	@event.team_id=@team.id
 	@event.user_id=@user.id
 
@@ -204,11 +204,11 @@ def createEvent
 			end
 		when "Roja"
 			if Event.where("match_id=? and player_id=? and event_type_id=14",@match.id,@player.id).count==0
-				@event.event_type_id=14		
+				@event.event_type_id=14
 				@player.red_cards=@player.red_cards+1
 			end
 		when "Jugador del Partido"
-			@event.event_type_id=9	
+			@event.event_type_id=9
 		when "Lesión"
 			@event.event_type_id=15
 	end
@@ -239,31 +239,31 @@ def createEvent
 		@otherTeam.save
 		@match.save
 
-	
+
 	redirect_to edit_match_path(@event.match_id)
 end
 
 def edit
-@match = Match.find(params[:id])
-@new_event = Event.new
+  @match = Match.find(params[:id])
+  @new_event = Event.new
 
-@users = User.where("id > 1")
-@teams = Team.all
+  @users = User.where("id > 1")
+  @teams = Team.all
 
-@home_user = User.find(@match.local_user_id)
-@away_user = User.find(@match.away_user_id)
-@home_team = Team.find(@match.local_team_id)
-@away_team = Team.find(@match.away_team_id)
+  @home_user = User.find(@match.local_user_id)
+  @away_user = User.find(@match.away_user_id)
+  @home_team = Team.find(@match.local_team_id)
+  @away_team = Team.find(@match.away_team_id)
 
-@match_players = Player.where("team_id=? or team_id=?", @home_team.id, @away_team.id)
+  @match_players = Player.where("team_id=? or team_id=?", @home_team.id, @away_team.id)
 
 
-@grouped_players = @match_players.inject({}) do |options, player|
-	(options[Team.find(player.team_id).name] ||= []) << [player.first_name.to_s + " " + player.last_name, player.id]
-	options
+  @grouped_players = @match_players.inject({}) do |options, player|
+  	(options[Team.find(player.team_id).name] ||= []) << [player.first_name.to_s + " " + player.last_name, player.id]
+  	options
 end
 
-end	
+end
 
 def new
 	@users=User.where("id>1")

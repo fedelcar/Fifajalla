@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Historial Mano a Mano</h1>
+  <br>
+
+
+<%= form_for :head_to_head do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.label "Usuario 1" %>
+      <%= f.select :user1, options_for_select(@groupedUsers), {}, {:class => "form-control"} %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label "Usuario 2" %>
+      <%= f.select :user2, options_for_select(@groupedUsers), {}, {:class => "form-control"} %>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    &nbsp;&nbsp;&nbsp;&nbsp;<%= f.submit "Ver Historial", :class => "btn btn-primary" %>
+  </div>
+
+<% end %>
+
+</div>

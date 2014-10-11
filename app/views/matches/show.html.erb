@@ -4,7 +4,7 @@
 		<div class="row">
 			<center>
 				<h1>
-					<%= link_to @team_local.name, team_path(@team_local.id), :method => "get" %>
+					<%= link_to @team_local.name, team_path(@team_local.id)+'?sort=Overall', :method => "get" %>
 				</h1>
 			</center>
 			<center>
@@ -43,7 +43,7 @@
 
 		<div class="row">
 			<h1><center><p class="text-primary">Goles</p></center></h1>
-			
+
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
 					<% if goal.team_id==@match.local_team_id and goal.goal_type_id!=2 %>
@@ -77,13 +77,13 @@
 				<% end %>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<h2><center><p class="text-primary">Asistencias</p></center></h2>
 			<div class="col-sm-6">
 				<% @assists.each do |assist| %>
 					<% if assist.team_id==@match.local_team_id %>
-						
+
 						<font color="black"><center><p>
 							<%= link_to Player.find(assist.player_id).last_name, player_path(Player.find(assist.player_id)), :method => "get", class:"h4" %>
 						</p></center></font>
@@ -144,18 +144,18 @@
 				<% end %>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @team_visitante.name, team_path(@team_visitante.id), :method => "get" %></h1>
+			<center><h1><%= link_to @team_visitante.name, team_path(@team_visitante.id)+'?sort=Overall', :method => "get" %></h1>
 			<center><h2><%= link_to @user_visitante.display_name, user_path(@user_visitante.id), :method => "get" %></h>
 			</center>
 		</div>
-		
 
-		
+
+
 	</div>
 </div>
