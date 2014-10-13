@@ -1,25 +1,27 @@
 <div class="container">
 	<h1>Create Match</h1>
 	<br>
-	<h5><a href="/matches/newReal">Jugar con equipos reales </a></h5>
+	<h5><a href="/matches/new">Jugar con equipos fifajalla </a></h5>
 	<br>
 
 <%= form_for :match do |f| %>
 	<div class="row">
 		<div class="col-md-4">
 			<%= f.label "Local" %>
-			<%= f.select :teamL, grouped_options_for_select(@groupedTeams), {}, {:class => "form-control"} %>
+			<%= f.select :teamL, options_for_select(@teams), {}, {:class => "form-control"} %><br>
+			<%= f.select :userL, options_for_select(@users), {}, {:class => "form-control"} %>
 		</div>
 		<div class="col-md-4">
 			<%= f.label "Visitante" %>
-			<%= f.select :teamV, grouped_options_for_select(@groupedTeams), {}, {:class => "form-control"} %>
+			<%= f.select :teamV, options_for_select(@teams), {}, {:class => "form-control"} %><br>
+			<%= f.select :userV, options_for_select(@users), {}, {:class => "form-control"} %>
 		</div>
 
 	</div>
 	<br>
 	<div class="row">
 		<div class="col-md-3">
-			<% @ligas = League.order(id: :asc) %>
+			<% @ligas = League.order(id: :asc) %><br>
 			<%= f.select :torneo, options_from_collection_for_select(@ligas, "id", "name"), {}, {:class => "form-control"} %>
 		</div>
 	</div>

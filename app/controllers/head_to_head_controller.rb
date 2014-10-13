@@ -14,7 +14,7 @@ class HeadToHeadController < ApplicationController
       redirect_to '/head_to_head/index'
     end
 
-    @matches = Match.where('(local_user_id=? and away_user_id=?) or (local_user_id=? and away_user_id=?)',@user1.id,@user2.id,@user2.id,@user1.id)
+    @matches = Match.where('(local_user_id=? and away_user_id=?) or (local_user_id=? and away_user_id=?)',@user1.id,@user2.id,@user2.id,@user1.id).order(updated_at: :desc)
     @pg1 = @matches.where('(local_user_id=? and local_goals>away_goals)or(away_user_id=? and away_goals>local_goals)',@user1.id,@user1.id).count
     @pp2 = @pg1
     @pe = @matches.where('local_goals=away_goals').count

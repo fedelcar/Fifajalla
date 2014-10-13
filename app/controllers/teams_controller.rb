@@ -85,8 +85,8 @@ class TeamsController < ApplicationController
 
     @list = Array.new
     @players.each do |player|
-      @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2",player.id).count
-      @asistencias=Event.where("player_id=? and event_type_id=3",player.id).count
+      @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2 and team_id<5--",player.id).count
+      @asistencias=Event.where("player_id=? and event_type_id=3 and team_id<500",player.id).count
       @teamArray = [player.first_name+ ' ' +player.last_name,player.overall,player.primary_position,@goals,@asistencias,player.starting,player.on_the_block,player.protected,player.id,player.user_id]
       @list.push(@teamArray)
     end

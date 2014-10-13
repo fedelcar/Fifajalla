@@ -167,12 +167,12 @@
 		<h2> Stats</h2>
 		<align="right">
 
-		<% @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2",@player.id).count %>
-		<% @assists=Event.where("player_id=? and event_type_id=3",@player.id).count %>
-		<% @yellow=Event.where("player_id=? and event_type_id=12",@player.id).count %>
+		<% @goals=Event.where("player_id=? and event_type_id=2 and goal_type_id<>2 and team_id<500",@player.id).count %>
+		<% @assists=Event.where("player_id=? and event_type_id=3 and team_id<500",@player.id).count %>
+		<% @yellow=Event.where("player_id=? and event_type_id=12 and team_id<500",@player.id).count %>
 		<% @red=Event.where("player_id=? and event_type_id=14",@player.id).count %>
-		<% @own=Event.where("player_id=? and event_type_id=2 and goal_type_id=2",@player.id).count %>
-		<% @POM=Event.where("player_id=? and event_type_id=9",@player.id).count %>
+		<% @own=Event.where("player_id=? and event_type_id=2 and goal_type_id=2 and team_id<500",@player.id).count %>
+		<% @POM=Event.where("player_id=? and event_type_id=9 and team_id<500",@player.id).count %>
 
 		<b>PJ:</b> <%= @player.games_played %><br>
 		<b>Goles:</b> <%= @goals %><br>
@@ -187,16 +187,16 @@
 							<% else %>
 								 	<%= number_with_precision(@player.goals.to_f / @player.games_played.to_f, precision: 2)%><br>
 							<% end %>
-		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7",@player.id).count %>
+		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7 and team_id<500",@player.id).count %>
 		<br><b>Penales Atajados:</b> <%= @penalesAtajados %><br>
 
 		</align>
 		<h3>Tipos de Gol</h3>
 
-		<% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1",@player.id).count %>
-		<% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3",@player.id).count %>
-		<% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4",@player.id).count %>
-		<% @deCabeza=Event.where("player_id=? and event_type_id=2 and goal_type_id=5",@player.id).count %>
+		<% @deJugada=Event.where("player_id=? and event_type_id=2 and goal_type_id=1 and team_id<500",@player.id).count %>
+		<% @dePenal=Event.where("player_id=? and event_type_id=2 and goal_type_id=3 and team_id<500",@player.id).count %>
+		<% @deTiroLibre=Event.where("player_id=? and event_type_id=2 and goal_type_id=4 and team_id<500",@player.id).count %>
+		<% @deCabeza=Event.where("player_id=? and event_type_id=2 and goal_type_id=5 and team_id<500",@player.id).count %>
 
 		<b>De Jugada:</b> <%= @deJugada %>
 		<br><b>De Cabeza:</b> <%= @deCabeza %>

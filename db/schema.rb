@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929003734) do
+ActiveRecord::Schema.define(version: 20141013165524) do
 
   create_table "drafts", force: true do |t|
     t.string   "name"
@@ -169,6 +169,18 @@ ActiveRecord::Schema.define(version: 20140929003734) do
 
   add_index "players", ["team_id"], name: "index_players_on_team_id"
 
+  create_table "realPlayers", force: true do |t|
+    t.integer "player_id"
+    t.integer "real_team_id"
+  end
+
+  create_table "realTeams", force: true do |t|
+    t.string   "name"
+    t.string   "league"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "releases", force: true do |t|
     t.integer  "player_id"
     t.integer  "user_id"
@@ -247,7 +259,7 @@ ActiveRecord::Schema.define(version: 20140929003734) do
     t.integer  "minutes"
   end
 
-  create_table "wantedPlayers", force: true do |t|
+  create_table "wanted_players", force: true do |t|
     t.integer "player_id"
     t.integer "user_id"
   end

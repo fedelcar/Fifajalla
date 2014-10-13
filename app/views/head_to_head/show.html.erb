@@ -1,5 +1,5 @@
 <div class="container">
-  
+
   <div class="col-sm-5"align="center">
     <div class="row">
       <center><h1><%= link_to @user1.display_name, user_path(@user1.id), :method => "get" %></h2></center>
@@ -57,28 +57,35 @@
 
           <td><%= match.updated_at.localtime.strftime("%d/%m %H:%M") %></td>
           <td><%= League.find(match.league_id).name %></td>
+          <% if match.local_team_id <500 %>
+            <% @teamL=Team.find(match.local_team_id).name %>
+            <% @teamV=Team.find(match.away_team_id).name %>
+          <% else %>
+            <% @teamL=Realteam.find(match.local_team_id).name %>
+            <% @teamV=Realteam.find(match.away_team_id).name %>
+          <% end %>
 
           <% if match.local_goals > match.away_goals %>
             <td><b><p class="text-info"><%= User.find(match.local_user_id).display_name %></p></b>	</td>
-            <td><b><p class="text-info"><%= Team.find(match.local_team_id).name %></p> </b></td>
+            <td><b><p class="text-info"><%= @teamL  %></p> </b></td>
             <td><b><p class="text-info"><%= match.local_goals %></p></b></td>
             <td><%= match.away_goals %></td>
-            <td><%= Team.find(match.away_team_id).name %></td>
+            <td><%= @teamV %></td>
             <td><%= User.find(match.away_user_id).display_name %></td>
           <% else %>
             <% if match.local_goals < match.away_goals %>
               <td><%= User.find(match.local_user_id).display_name %>	</td>
-              <td><%= Team.find(match.local_team_id).name %> </td>
+              <td><%= @teamL  %> </td>
               <td><%= match.local_goals %></td>
               <td><b><p class="text-info"><%= match.away_goals %></p></b></td>
-              <td><b><p class="text-info"><%= Team.find(match.away_team_id).name %></p></b></td>
+              <td><b><p class="text-info"><%= @teamV %></p></b></td>
               <td><b><p class="text-info"><%= User.find(match.away_user_id).display_name %></p></b></td>
             <% else %>
               <td><%= User.find(match.local_user_id).display_name %>	</td>
-              <td><%= Team.find(match.local_team_id).name %> </td>
+              <td><%= @teamL  %> </td>
               <td><%= match.local_goals %></td>
               <td><%= match.away_goals %></td>
-              <td><%= Team.find(match.away_team_id).name %></td>
+              <td><%= @teamV %></td>
               <td><%= User.find(match.away_user_id).display_name %></td>
             <% end %>
           <% end %>

@@ -171,7 +171,7 @@ class PlayersController < ApplicationController
 		@categories = ["ID", "IDEquipo","Nombre","Equipo","PJ","Goles","Promedio_de_gol", "Asistencias", "Amarillas", "Rojas", "POM", "De_jugada", "En_contra", "De_cabeza", "De_tiro_libre", "De_penal", "Penales_errados","Penales_atajados"]
 
 		@playersWithEvents.each do |player|
-			@playerEvents=Event.where("player_id=?",player.id)
+			@playerEvents=Event.where("player_id=? and team_id<500",player.id)
 		 	@goals=@playerEvents.where("event_type_id=2 and goal_type_id<>2",player.id).count
 		 	@assists=@playerEvents.where("event_type_id=3",player.id).count
 		 	@amarillas=@playerEvents.where("event_type_id=12",player.id).count
