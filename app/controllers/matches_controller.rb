@@ -122,7 +122,7 @@ def update
 end
 
 def newRealMatch
-  if (params[:match][:teamL] != params[:match][:teamV]) and (params[:match][:userL] != params[:match][:userV])
+  if (params[:match][:userL] != params[:match][:userV])
     @match = Match.new
     @match.local_team_id = (Realteam.find(params[:match][:teamL])).id
     @match.away_team_id = (Realteam.find(params[:match][:teamV])).id
