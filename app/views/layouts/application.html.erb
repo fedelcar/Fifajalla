@@ -4,7 +4,7 @@
 
     <title>FIFAjalla</title>
 
-    <%= favicon_link_tag '/favicon.ico' %>
+    <%= favicon_link_tag '/images/favicon.ico' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -139,7 +139,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
-      <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p>
+      <!-- <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p> -->
       <p class="navbar-text"><a href="/welcome/history"> <font color="white">Version History </font></a></p>
       <% if current_user!= nil %>
         <p class="navbar-text"><a href="/users/cPanel"> <font color="white">My Settings </font></a></p>

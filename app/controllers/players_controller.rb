@@ -25,9 +25,10 @@ class PlayersController < ApplicationController
 			else
 			end
 
-			@players=@players.where("id>1").take(150)
+		@players=@players.where("id>1").order(overall: :desc).take(150)
 
 	end
+
 
 	def movePlayer
 		@team = Team.find(params[:movePlayer][:team])
@@ -158,7 +159,7 @@ class PlayersController < ApplicationController
 
 	def stats
 
-		@players = Player.where("games_played>0 and user_id>1")
+		@players = Player.where("games_played>3 and user_id>1")
 		@playersWithEvents=Array.new
 		@players.each do |player|
 			if Event.exists?(player_id: player.id)

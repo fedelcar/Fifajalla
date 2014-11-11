@@ -253,7 +253,7 @@ def createEvent
 
   else
 
-    @realPlayer = Realplayer.find(@player.id)
+    @realPlayer = Player.find(@player.id)
     @team = Realteam.find(@realPlayer.real_team_id)
     if @team.id == @match.local_team_id
       @user= User.find(@match.local_user_id)
@@ -341,7 +341,7 @@ def edit
   else
     @home_team = Realteam.find(@match.local_team_id)
     @away_team = Realteam.find(@match.away_team_id)
-    @real_players = Realplayer.where("real_team_id in(?)",[@home_team.id,@away_team.id])
+    @real_players = Player.where("real_team_id in(?)",[@home_team.id,@away_team.id])
     @grouped_players = @real_players.inject({}) do |options, player|
       (options[Realteam.find(player.real_team_id).name] ||= []) << [Player.find(player.id).first_name.to_s + " " + Player.find(player.id).last_name, player.id]
       options

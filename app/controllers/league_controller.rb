@@ -10,7 +10,15 @@ class LeagueController < ApplicationController
     @categories = Array.new
     @categories = ["Equipo","Usuario","PJ","PG","PE","PP","Pts","Eff","GF","GC","DG","Amarillas","Rojas"]
 
-    @teams = Team.joins("JOIN matches ON (matches.local_team_id = teams.id OR matches.away_team_id = teams.id) AND matches.league_id = " + params[:id]).group(:name)
+
+    @matches = Match.where("league_id=?",params[:id])
+    @IDS = Array.new
+    @matches.each do |match|
+      @IDS.push(match.local_team_id)
+      @IDS.push(match.away_team_id)
+    end
+    @teams = Team.where("id in(?)",@IDS)
+
     @teams.each do |team|
       @pj=0
       @pg=0

@@ -96,11 +96,11 @@ class TeamsController < ApplicationController
 
 
   def new
-    @teams = team.where("id>1")
+    @teams = Team.where("id>1")
   end
 
   def create
-  	@teams = team.where("id>1")
+  	@teams = Team.where("id>1")
     team_id = current_team.id
 
     @team = Team.new

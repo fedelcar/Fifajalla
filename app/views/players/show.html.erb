@@ -185,7 +185,7 @@
 							<% if @player.games_played == 0 %>
 									0
 							<% else %>
-								 	<%= number_with_precision(@player.goals.to_f / @player.games_played.to_f, precision: 2)%><br>
+								 	<%= number_with_precision(@goals.to_f / @player.games_played.to_f, precision: 2)%><br>
 							<% end %>
 		<% @penalesAtajados=Event.where("player_id=? and event_type_id=7 and team_id<500",@player.id).count %>
 		<br><b>Penales Atajados:</b> <%= @penalesAtajados %><br>

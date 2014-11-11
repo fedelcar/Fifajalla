@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   get 'head_to_head/index'
 
+  get 'download', to: 'welcome#download'
+
   post 'head_to_head/index', to: 'head_to_head#show'
 
   get 'head_to_head/show'
