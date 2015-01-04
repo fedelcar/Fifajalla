@@ -1,0 +1,19 @@
+<div class="container">
+	<h1>Opciones de Admin</h1>
+	<div class="col-md-6">
+		<div class="jumbotron">
+			<h3>Crear Usuario</h3>
+			<%= form_for :user, url: new_user_path do |t| %>
+				<b>Usuario:</b> <%= t.text_field('name', placeholder: "Username") %> <br>
+				<b>ELO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    </b> <%= t.text_field('elo', placeholder: "1400") %> <br><br>
+				<%= t.submit "Crear", :class => "btn btn-success" %>
+			<% end %>
+		</div>	
+	</div>	
+
+	<div class="col-md-6">
+		<div class="jumbotron">
+			<h3>Crear Equipo</h3>
+		</div>	
+	</div>	
+</div>

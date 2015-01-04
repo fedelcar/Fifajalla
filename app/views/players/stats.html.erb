@@ -4,23 +4,21 @@
 
 	<table class="table table-striped table-hover ">
     	<thead><tr>
-
-    		<th><%= link_to "Nombre", :sort => "Nombre" %></th>
-        <!-- <th><%= link_to "Equipo", :sort => "Equipo" %></th> -->
-				<th><%= link_to "PJ", :sort => "PJ" %></th>
-    		<th><%= link_to "Goles", :sort => "Goles" %></th>
-				<th><%= link_to "Promedio de Gol", :sort => "Promedio_de_gol" %></th>
-    		<th><%= link_to "Asistencias", :sort => "Asistencias" %></th>
-				<th><%= link_to "Amarillas", :sort => "Amarillas" %></th>
-        <th><%= link_to "Rojas", :sort => "Rojas" %></th>
-				<th><%= link_to "Jugador del Partido", :sort => "POM" %></th>
-				<th><%= link_to "De Jugada", :sort => "De_jugada" %></th>
-				<th><%= link_to "En Contra", :sort => "En_contra" %></th>
-        <th><%= link_to "De Cabeza", :sort => "De_cabeza" %></th>
-				<th><%= link_to "De Tiro Libre", :sort => "De_tiro_libre" %></th>
-				<th><%= link_to "De Penal", :sort => "De_penal" %></th>
-				<th><%= link_to "Penales Errados", :sort => "Penales_errados" %></th>
-				<th><%= link_to "Penales Atajados", :sort => "Penales_atajados" %></th>
+    			<th><center><%= link_to "Nombre", :sort => "Nombre" %></center></th>
+				<th><center><%= link_to "PJ", :sort => "PJ" %></center></th>
+    			<th><center><%= link_to "Goles", :sort => "Goles" %></center></th>
+				<th><center><%= link_to "Promedio de Gol", :sort => "Promedio_de_gol" %></center></th>
+    			<th><center><%= link_to "Asistencias", :sort => "Asistencias" %></center></th>
+				<th><center><%= link_to "Amarillas", :sort => "Amarillas" %></center></th>
+        		<th><center><%= link_to "Rojas", :sort => "Rojas" %></center></th>
+				<th><center><%= link_to "Jugador del Partido", :sort => "POM" %></center></th>
+				<th><center><%= link_to "De Jugada", :sort => "De_jugada" %></center></th>
+				<th><center><%= link_to "En Contra", :sort => "En_contra" %></center></th>
+        		<th><center><%= link_to "De Cabeza", :sort => "De_cabeza" %></center></th>
+				<th><center><%= link_to "De Tiro Libre", :sort => "De_tiro_libre" %></center></th>
+				<th><center><%= link_to "De Penal", :sort => "De_penal" %></center></th>
+				<th><center><%= link_to "Penales Errados", :sort => "Penales_errados" %></center></th>
+				<th><center><%= link_to "Penales Atajados", :sort => "Penales_atajados" %></center></th>
     	</tr></thead>
 
   		<% @players.each do |player| %>

@@ -4,12 +4,9 @@
 
     <title>FIFAjalla</title>
 
-    <%= favicon_link_tag '/images/favicon.ico' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
-
-
 
 </head>
 <body>
@@ -78,8 +75,7 @@
                     <li align="center"><a href="/users?sort=ELO">Usuario</a></li>
                     <li align="center"><a href="/teams?sort=Pts">Equipo</a></li>
                     <li align="center"><a href="/players/stats?sort=Goles">Jugador</a></li>
-                    <li align="center"><a href="/head_to_head/index">Mano a Mano</a></li>
-                    <% #<li><a href="/stats">Global</a></li> %>
+                    <li align="center"><a href="/head_to_head/table">Mano a Mano</a></li>             
                 </ul>
             </li>
 
@@ -94,7 +90,10 @@
             <li><h4><font color="white">Next Pick: <%= User.find(next_pick.user_id).display_name%> (<%= next_pick.number %>)&nbsp;&nbsp;&nbsp;&nbsp;</font></h4></li>
           <% end %>
           <% if current_user %>
-            <li><%= link_to current_user.display_name, user_path(current_user.id) %></li>
+            <li>
+              <%= link_to current_user.display_name, user_path(current_user.id) %> 
+
+            </li>
             <% @teams = Team.where(user_id: current_user.id) %>
             <% if @teams.count <=2 %>
               <% @teams.each do |team| %>
@@ -123,26 +122,23 @@
  </div>
 </nav>
 
-<% # <nav class="navbar navbar-default navbar-inverse" role="navigation">%>
-<% #  <div class="container fluid">%>
-<% #    <ul class="nav navbar-nav navbar-right">%>
-
-<% #    </ul> %>
-<% #  </div> %>
-
 </nav>
 
 <%= yield %>
-<br>
-<br>
+
+<br><br><br>
+
 <nav class="navbar navbar-inverse navbar-fixed-bottom " role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014 All Rights Reserved.</p>
+      <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> FIFAjalla 2014</p>
       <!-- <p class="navbar-text"><a href="/welcome/faqs"> <font color="white">FAQs </font></a></p> -->
-      <p class="navbar-text"><a href="/welcome/history"> <font color="white">Version History </font></a></p>
+      <p class="navbar-text"><a href="/welcome/history"> <font color="white">Versiones </font></a></p>
       <% if current_user!= nil %>
-        <p class="navbar-text"><a href="/users/cPanel"> <font color="white">My Settings </font></a></p>
+        <p class="navbar-text"><a href="/cPanel"> <font color="white">Mis Opciones </font></a></p>
+      <% end %>
+      <%if current_user.isAdmin %>
+        <p class="navbar-text"><a href="/admin"> <font color="white">Admin </font></a></p>
       <% end %>
     </div>
     <div class="navbar-header navbar-right">

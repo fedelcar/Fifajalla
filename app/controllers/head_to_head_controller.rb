@@ -1,17 +1,10 @@
 class HeadToHeadController < ApplicationController
-  def index
-    @users=User.where("id>1")
-    @groupedUsers=Array.new
-    @users.each do |user|
-      @groupedUsers.push(user.display_name)
-    end
-  end
 
   def show
-    @user1=User.find_by display_name:(params[:head_to_head][:user1])
-    @user2=User.find_by display_name:(params[:head_to_head][:user2])
+    @user1=User.find_by display_name:(params[:user1])
+    @user2=User.find_by display_name:(params[:user2])
     if @user1.id == @user2.id
-      redirect_to '/head_to_head/index'
+      redirect_to '/head_to_head/table'
     end
 
     @matches = Match.where('(local_user_id=? and away_user_id=?) or (local_user_id=? and away_user_id=?)',@user1.id,@user2.id,@user2.id,@user1.id).order(updated_at: :desc)
@@ -77,5 +70,31 @@ class HeadToHeadController < ApplicationController
     end
 
 
+  end
+
+  def table
+    @users = User.where("id>1").order(id: :asc)
+    @result = Array.new(20){ Array.new(20)}
+    
+    for i in 2..17
+      for x in i..17
+          if i != 3 && x != 3
+            if i == x
+              @result[i][x]="-"
+            else
+              @user1=User.find(i)
+              @user2=User.find(x)
+
+              @matches = Match.where('(local_user_id=? and away_user_id=?) or (local_user_id=? and away_user_id=?)',@user1.id,@user2.id,@user2.id,@user1.id)
+              @pg1 = @matches.where('(local_user_id=? and local_goals>away_goals)or(away_user_id=? and away_goals>local_goals)',@user1.id,@user1.id).count
+              @pp2 = @pg1
+              @pp1 = @matches.where('(local_user_id=? and local_goals<away_goals)or(away_user_id=? and away_goals<local_goals)',@user1.id,@user1.id).count
+              @pg2 = @pp1
+              @result[i][x] = (@pg1.to_s) + "-" + (@pg2.to_s)
+              @result[x][i] = (@pg2.to_s) + "-" + (@pg1.to_s)
+            end
+          end     
+      end
+    end
   end
 end

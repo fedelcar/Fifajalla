@@ -1,3 +1,4 @@
+require "net/http"
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -5,6 +6,7 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery with: :null_session
   helper_method :current_user
   helper_method :next_pick
+
 
 
 
@@ -30,4 +32,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def sendPushNotification(title,message,link)
+
+    http = Net::HTTP.new("http://api.mobiopush.com/v1/")
+
+    request = Net::HTTP::Put.new("/")
+    request.set_form_data({"SITE_KEY" => "e329fa097bc637eebd9c5af4fb77553b", "API_KEY" => "1dc7e4c12e9f17cd0c567e10ff6c11ca","TITLE" => title,"MESSAGE" => message,"LINK" => link, "WEB_NOTIFICATION" => "1","PUSH_NOTIFICATION" => "1"})
+    response = http.request(request)
+
+    return response
+
+  end
 end

@@ -1,103 +1,68 @@
 Rails.application.routes.draw do
 
-  get 'head_to_head/index'
-
-  get 'download', to: 'welcome#download'
-
-  post 'head_to_head/index', to: 'head_to_head#show'
-
-  get 'head_to_head/show'
-
-  get 'users/cPanel'
-
+  root 'welcome#index'
   get 'welcome/faqs'
-
+  get 'welcome/history'
+ 
+  post 'users/new', to: 'users#new'
+  get 'cPanel', to: 'users#cPanel'
+  get 'admin', to: 'users#admin'
   patch 'users', to: 'users#update'
-
+  get 'users/destroy', to:'users#destroy'
   resources :users
 
   get 'players/stats'
-
   get 'players/search'
-
   get 'players/download'
-
-  get 'trades/addToTradeBlock'
-
-  get 'trades/onTheBlock'
-
-  get 'trades/new'
-
-  get 'draft/givePicks', to: 'draft#givePicks'
-
-  root 'welcome#index'
-
   get 'players/addToTradeBlock', to: 'players#TradeBlock'
-
-  get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
-
-  get 'draft/draftPlayer', to: 'draft#draftPlayer'
-
-  get 'trades/my', to: 'trades#my'
-
-  post 'matches', to: 'matches#newMatch'
-
-  post 'matches/new', to: 'matches#newMatch'
-
-  get 'matches/newReal', to: 'matches#newReal'
-
-  post 'matches/newReal', to: 'matches#newRealMatch'
-
-  get 'matches/my', to:'matches#my'
-
-  post 'matches#createEvent', to: 'matches#createEvent'
-
-  get 'draft/wanted', to: 'draft#wanted'
-
-  get 'draft/removeWanted', to:'draft#removeWanted'
-
-  get 'draft/addWanted', to:'draft#addWanted'
-
-  get 'welcome/history'
-
-  get 'trades/proposedTrades', to: 'trades#proposedTrades'
-
-  get 'trades/approveTrade', to: 'trades#approveTrade'
-
-  get 'trades/rejectTrade', to: 'trades#rejectTrade'
-
-  get 'league/new', to: 'league#new'
-
-  post 'league/new', to: 'league#create'
-
-  get 'trades/cancelTrade', to: 'trades#cancelTrade'
-
   get 'players/protectPlayer', to: 'players#protectPlayer'
-
   get 'players/hacerTitular', to: 'players#hacerTitular'
-
   get 'players/releasePlayer', to: 'players#releasePlayer'
-
-  get 'draft/released'
-
-  get 'matches/schedule', to: 'matches#schedule'
-
   post 'players/movePlayer', to: 'players#movePlayer'
-
-  resources :draft
-
-  resources :trades
-
   resources :players
 
-  resources :stats
+  get 'trades/addToTradeBlock'
+  get 'trades/onTheBlock'
+  get 'trades/new'
+  get 'trades/my', to: 'trades#my'
+  get 'trades/proposedTrades', to: 'trades#proposedTrades'
+  get 'trades/approveTrade', to: 'trades#approveTrade'
+  get 'trades/rejectTrade', to: 'trades#rejectTrade'
+  get 'trades/cancelTrade', to: 'trades#cancelTrade'
+  resources :trades
 
-  resources :league
+  get 'draft/givePicks', to: 'draft#givePicks'
+  get 'draft/draftPlayer', to: 'draft#draftPlayer'
+  get 'draft/wanted', to: 'draft#wanted'
+  get 'draft/removeWanted', to:'draft#removeWanted'
+  get 'draft/addWanted', to:'draft#addWanted'
+  get 'draft/released'
+  resources :draft
 
+  get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
+  resources :teams
+  
+  post 'matches', to: 'matches#newMatch'
+  post 'matches/new', to: 'matches#newMatch'
+  get 'matches/newReal', to: 'matches#newReal'
+  post 'matches/newReal', to: 'matches#newRealMatch'
+  get 'matches/my', to:'matches#my'
+  post 'matches#createEvent', to: 'matches#createEvent'
+  get 'matches/schedule', to: 'matches#schedule'
+  get 'matches/destroy', to:'matches#destroy'
+  get 'matches/deleteEvent', to: 'matches#deleteEvent'
   resources :matches
 
-  resources :teams
+  get 'league/new', to: 'league#new'
+  post 'league/new', to: 'league#create'
+  resources :league
 
+  get 'download', to: 'welcome#download'
+  
+  get 'head_to_head/index'
+  get 'head_to_head/table'
+  get 'head_to_head/show'
+  get 'head_to_head/table'
 
   #Everything below is for facebook OAuth
   get 'auth/:provider/callback', to: 'sessions#create'
@@ -106,6 +71,7 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:create, :destroy]
   resource :welcome, only: [:index]
+
 
 
 

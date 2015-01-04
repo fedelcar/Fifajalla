@@ -5,6 +5,7 @@
 	<div class="col-md-4">
 		<h2> Totales</h2>
 
+		<b>ELO: </b><%= @user.elo %><br>
 		<b>Partidos Jugados: </b><%= @pj %><br>
 		<b>Puntos:</b> <%= @pts %><br>
 		<b>Partidos Ganados:</b> <%= @pg? @pg : ""%><br>
@@ -46,13 +47,15 @@
   			<% end %>
 				<br>
 				<% @link = '/matches/my?user='+@user.id.to_s %>
-				<a href=<%=@link%>><button class="btn btn-sm btn-primary">Ver Partidos</button></a>
+				<a href=<%= @link %>><button class="btn btn-sm btn-primary">Ver Partidos</button></a>
   		<% if @user.id == current_user.id %>
-
 				<br><br><a href="/teams/new"><button class="btn btn-sm btn-primary">Registrar otro Equipo</button></a>
-
   		<% end %>
-
+  		<% if current_user.isAdmin %>
+				<% @link = '/users/destroy?id='+@user.id.to_s %>
+				<br><br><a href=<%= @link %> ><button class="btn btn-sm btn-primary">Eliminar Usuario</button></a>
+  		<% end %>
+  		
 		</div>
 
 

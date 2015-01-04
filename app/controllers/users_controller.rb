@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
 	def index
-
 		@users = User.where("id>1 and id <100")
 		@userMatches = Array.new
 		@pg = Array.new
@@ -18,7 +17,6 @@ class UsersController < ApplicationController
 		@list = Array.new
 		@categories = Array.new
 		@categories = ["ID","Usuario","ELO","PJ","PG","PE","PP","Pts","Eff","GF","GC","DG","Amarillas","Rojas"]
-
 
 		@users.each do |user|
 			@userMatches = Match.where('local_user_id=? or away_user_id=?',user.id,user.id)
@@ -66,6 +64,7 @@ class UsersController < ApplicationController
 		@gcpp=@gc.to_f/@pj
 		@dgpp=@gfpp-@gcpp
 
+
 		if @pj >0
 			@efectividad=@pts.to_f/(3*@pj)
 		else
@@ -79,7 +78,6 @@ class UsersController < ApplicationController
 
 
 	def update
-
 		@user = User.find(current_user.id)
 
 		if params[:display_name] != ""
@@ -103,14 +101,7 @@ class UsersController < ApplicationController
  		else
  			if @user.display_name == ""
  				@user.display_name = @user.name.split(" ").first
- 				@user.gf=0
-		 		@user.ga=0
-		 		@user.wins=0
-		 		@user.loses=0
-		 		@user.draws=0
-		 		@user.dg=0
-		 		@user.pts=0
-		 		@user.eff=0
+		 		@user.elo=1400
 		 		@user.save
  			end
 
@@ -123,16 +114,24 @@ class UsersController < ApplicationController
 		redirect_to 'teams/new'
 	end
 
-	def destroy
-		User.destroy(params[:id])
-		@users = User.all
+	def new
+		@user = User.new
+		@user.name = params[:user][:name]
+		@user.display_name = @user.name
+		@user.elo = params[:user][:elo]
+		@user.isAdmin=false
+		@user.save
+		redirect_to '/users/'+@user.id.to_s
+	end
 
-		render 'users/index'
+	def destroy
+		User.delete(params[:id])
+		redirect_to '/users?sort=ELO'
 	end
 
 	private
 		def user_params
-			params.require(:user).permit(:name, :id, :password, :email, :password_confirmation, :display_name)
+			params.require(:user).permit(:name, :id, :email, :password_confirmation, :display_name, :isAdmin)
 		end
 
 		def sort_column

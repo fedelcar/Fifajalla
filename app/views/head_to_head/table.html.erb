@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>Historial Mano a Mano</h1>
+  <br>
+ <table class="table table-striped table-hover ">
+	<thead><tr>
+		<th>User</th>
+		<% @users.each do |user| %>
+			<th><center><%= user.display_name %></center></th>
+		<% end %>
+	</tr></thead>
+	
+	<tbody>
+		<% @users.each do |user| %>
+			<% @row=user.id %>
+			<tr>
+				<td><b><%= user.display_name %></b></td>
+				<% for i in 2..17 %>
+					<% if i !=3 %>
+ 						<td><center><%= link_to @result[@row][i], "/head_to_head/show?user1=" + User.find(@row).display_name + "&user2="+User.find(i).display_name %></td>
+					<% end %>
+				<% end %>
+	  		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016185100) do
+ActiveRecord::Schema.define(version: 20150103221838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,14 +228,6 @@ ActiveRecord::Schema.define(version: 20141016185100) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "email"
-    t.integer  "gf"
-    t.integer  "ga"
-    t.integer  "wins"
-    t.integer  "draws"
-    t.integer  "loses"
-    t.integer  "pts"
-    t.integer  "dg"
-    t.float    "eff"
     t.text     "provider"
     t.text     "uid"
     t.text     "oauth_token"
@@ -243,6 +235,7 @@ ActiveRecord::Schema.define(version: 20141016185100) do
     t.text     "display_name"
     t.integer  "elo"
     t.integer  "minutes"
+    t.boolean  "isAdmin"
   end
 
   create_table "wanted_players", force: true do |t|

@@ -1,5 +1,2 @@
-FIFAjalla
+Fifajalla
 =========
-Liga de FIFA
-
-http://fifajalla.herokuapp.com/

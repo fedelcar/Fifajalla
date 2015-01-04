@@ -1,17 +1,17 @@
 class DraftController < ApplicationController
   def index
-  	
-  	
+
+
   	@drafts=Draft.all.order(created_at: :desc)
-  	
+
     @users=User.all
   	@players=Player.all
-  	
+
   end
 
 
   def givePicks
-    for i in 3..9   
+    for i in 3..9
       @pick = Pick.new
       @pick.user_id=3
       @pick.number= (i-1) *26 + 2
@@ -28,7 +28,7 @@ class DraftController < ApplicationController
       @pick2.player_id=1
       @pick2.save
     end
-    
+
     redirect_to '/draft/1'
   end
 
@@ -56,7 +56,7 @@ class DraftController < ApplicationController
     @numberOfUsers=@draft.users
     @users=User.all
     @players=Player.all
-    
+
   end
 
   def wanted
@@ -71,11 +71,11 @@ class DraftController < ApplicationController
   def draftPlayer
   		@player=Player.find(params[:id])
       @link='/players?filter=all'
-      
+
       if (@player.user_id==1 or current_user.id==10) #and (@player.league!='Primera Division')
           @np = next_pick.user_id
           @initial=(Pick.find_by number: (next_pick.number-1)).updated_at.localtime
-          
+
 
           @team=Team.where("user_id=?",next_pick.user_id).last.id
           @user=User.find(next_pick.user_id)
@@ -90,9 +90,9 @@ class DraftController < ApplicationController
             wanted.delete
           end
           @final = @pick.updated_at.localtime
-          
+
           if @initial.hour >=10 and @final.hour >=10 and @initial.day == @final.day
-              @minutesForPick = @final.to_i/60 - @initial.to_i/60  
+              @minutesForPick = @final.to_i/60 - @initial.to_i/60
           end
 
           if @initial.hour >=10 and @final.hour >=10 and @initial.day != @final.day
@@ -123,33 +123,41 @@ class DraftController < ApplicationController
           end
 
           if next_pick != nil
-            
+
              #si al proximo se le agotó el tiempo drafteo solo
             @nextUser = User.find(next_pick.user_id)
-            
-          
-            if @nextUser.minutes <= 0 or @nextUser.id ==4 or @nextUser.id ==5 
+
+
+            if @nextUser.minutes <= 0 or @nextUser.id ==4 or @nextUser.id ==5
               #busco al libre de mayor ovr
-              @playerToDraft = Player.where("user_id=1 and id >1")  
+              @playerToDraft = Player.where("user_id=1 and id >1")
               @link = "/draft/draftPlayer?id="+ @playerToDraft.first.id.to_s
             end
 
             if @nextUser.id ==3
               #busco al libre de menor ovr
-              @playerToDraft = Player.where("user_id=1 and id >1")  
+              @playerToDraft = Player.where("user_id=1 and id >1")
               @link = "/draft/draftPlayer?id="+ @playerToDraft.last.id.to_s
             end
-            
+
             @wantedNow = WantedPlayer.where('user_id=?',@nextUser.id)
 
             if @wantedNow.first != nil
               @link = "/draft/draftPlayer?id="+ @wantedNow.first.player_id.to_s
             end
 
-           
+
           end
 
       end
+
+      message = @user.display_name" ha elegido a "+@player.last_name+"con el pick número "+@pick.number
+      if next_pick != nil
+        message += ". Ahora le toca a " + User.find(next_pick.user_id).display_name
+      end
+
+      # response = sendPushNotification(@user.display_name+" ha elegido.",message,"/players/"+@player.id)
+
       redirect_to @link
   end
 end

@@ -3,61 +3,56 @@
 		<br>
 		<div class="row">
 			<center>
-				<h1>
-					<%= link_to @team_local.name, team_path(@team_local.id)+'?sort=Overall', :method => "get" %>
-				</h1>
+				<h1><%= link_to @team_local.name, team_path(@team_local.id)+'?sort=Overall', :method => "get" %></h1>
 			</center>
 			<center>
-				<h2>
-					<%= link_to @user_local.display_name, user_path(@user_local.id), :method => "get" %>
-				</h2>
+				<h2><%= link_to @user_local.display_name, user_path(@user_local.id), :method => "get" %></h2>
 			</center>
 		</div>
-		<div class="row">
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+		<div class="row"><br><br><br><br><br><br><br><br>			
 			<h3><%= League.find(@match.league_id).name %></h3>
 			<h3>Fecha: <%= @match.updated_at.localtime.strftime("%d/%m %H:%M")%></h3>
 			<h3>MVP: <%= @pom%></h3>
-
+			<% if current_user.isAdmin %>
+				<% @link = '/matches/destroy?id='+@match.id.to_s %><br><br>
+				<a href=<%= @link %> ><button class="btn btn-sm btn-primary">Eliminar Partido</button></a>
+  			<% end %>
 		</div>
-
-
 	</div>
 
-	<div class="col-sm-4">
-		<br>
-		<div class="row">
-			<br>
+	<div class="col-sm-4"><br>
+		<div class="row"><br>
 			<h1><font size= "7"><center><%= @match.local_goals %>   -    <%=  @match.away_goals %></center></font></h1>
-		</div>
-
-		<br>
-		<br>
-
+		</div><br><br>
 		<div class="row">
 			<h1><center><p class="text-primary">Goles</p></center></h1>
-
 			<div class="col-sm-6">
 				<% @goals.each do |goal| %>
 					<% if goal.team_id==@match.local_team_id and goal.goal_type_id!=2 %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(goal.player_id).last_name, player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
-						</p></center></font>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+goal.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+								<% end %></td>
+							<% end %>
+							</p></center></font>									
 					<% end %>
 				<% end %>
+
 				<% @ownGoals.each do |goal| %>
 					<% if goal.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(goal.player_id).last_name + "(EC)", player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
-						</p></center></font>
-					<% end %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+goal.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+								<% end %></td>
+								<% end %>	
+							</p></center></font>
+					<% end %>	
 				<% end %>
 			</div>
 			<div class="col-sm-6">
@@ -65,13 +60,23 @@
 					<% if goal.team_id==@match.away_team_id and goal.goal_type_id!=2%>
 						<font color="black"><center><p>
 							<%= link_to Player.find(goal.player_id).last_name, player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+goal.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
-					<%end%>
+					<% end %>
 				<% end %>
 				<% @ownGoals.each do |goal| %>
 					<% if goal.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(goal.player_id).last_name + "(EC)", player_path(Player.find(goal.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+goal.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
 					<% end %>
 				<% end %>
@@ -86,6 +91,11 @@
 
 						<font color="black"><center><p>
 							<%= link_to Player.find(assist.player_id).last_name, player_path(Player.find(assist.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+assist.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
 					<% end %>
 				<% end %>
@@ -95,8 +105,13 @@
 					<% if assist.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(assist.player_id).last_name, player_path(Player.find(assist.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+assist.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
-					<%end%>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
@@ -108,6 +123,11 @@
 					<% if yellow_card.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(yellow_card.player_id).last_name, player_path(Player.find(yellow_card.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+yellow_card.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
 					<% end %>
 				<% end %>
@@ -117,8 +137,13 @@
 					<% if yellow_card.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(yellow_card.player_id).last_name, player_path(Player.find(yellow_card.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+yellow_card.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
-					<%end%>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
@@ -130,6 +155,11 @@
 					<% if red_card.team_id==@match.local_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(red_card.player_id).last_name, player_path(Player.find(red_card.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+red_card.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
 					<% end %>
 				<% end %>
@@ -139,6 +169,11 @@
 					<% if red_card.team_id==@match.away_team_id %>
 						<font color="black"><center><p>
 							<%= link_to Player.find(red_card.player_id).last_name, player_path(Player.find(red_card.player_id)), :method => "get", class:"h4" %>
+							<% if current_user.isAdmin %>
+								<% @link = "/matches/deleteEvent?id="+red_card.id.to_s+"&from="+@match.id.to_s %>
+			  					<td> <%= link_to @link do %>
+									<font color="red"> <span class="glyphicon glyphicon-remove"> </span></font>
+							<% end %></td><% end %>
 						</p></center></font>
 					<%end%>
 				<% end %>

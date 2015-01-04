@@ -7,9 +7,10 @@ class WelcomeController < ApplicationController
   	@users=User.all
   	@players=Player.all
 
-  	@matches = Match.where("finished='t'").order(updated_at: :desc).take(5)
+  	@matches = Match.where("finished='t' and local_team_id<?",101).order(updated_at: :desc).take(5)
 
   	@teams = Team.all
+
     if current_user
     	@apps= Trade_Approval.where("user_id=?",current_user.id)
     	@pendingTrade=false

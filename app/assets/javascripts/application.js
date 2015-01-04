@@ -11,14 +11,14 @@
 // about supported directives.
 //
 
-//= require jquery
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//= require bootstrap
-//= require bootstrap-hover-dropdown
+ require bootstrap
+ require bootstrap-hover-dropdown
+ require bootstrap-switch
+ require jquery
 
-//= require bootstrap-switch
 
 $(function() {
   $('input:checkbox').bootstrapSwitch();

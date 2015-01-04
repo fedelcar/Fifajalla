@@ -354,6 +354,43 @@ def newReal
   @users = User.where("id>1").order(elo: :desc).map { |user| [user.display_name, user.id]}
 end
 
+def deleteEvent
+  @event = Event.find(params[:id])  #busco el evento
+  
+  if @event.event_type_id==2  #si fue gol tengo que sacarle un gol a alguien
+    @match = Match.find(params[:from])  #busco el partido de donde es el evento
+    if @event.goal_type_id==2  #fue gol en contra
+      #busco de quien fue el gol
+      if @match.local_user_id == @event.user_id #fue gol en contra del local
+        @match.away_goals = @match.away_goals - 1#le saco un gol al visitante
+      else #fue gol en contra del visitante
+        @match.local_goals = @match.local_goals - 1 #le saco un gol al local
+      end 
+    else  #no fue gol en contra
+      #busco de quien fue el gol
+      if @match.local_user_id == @event.user_id #fue gol del local
+        @match.local_goals = @match.local_goals - 1 #le saco un gol al local
+      else #fue gol del visitante
+        @match.away_goals = @match.away_goals - 1 #le saco un gol al visitante
+      end
+    end
+    @match.save
+  end
+  
+  @event.delete   #borro el evento de la tabla
+  redirect_to '/matches/'+params[:from].to_s
+end
+
+def destroy
+  @events=Event.where("match_id=?",params[:id])
+  @events.each do |event|
+    event.delete
+  end
+
+  Match.delete(params[:id])
+  redirect_to '/matches'
+end
+
 def new
 	@users=User.where("id>1")
 	@teams = Team.where("user_id>1").order(wins: :desc)

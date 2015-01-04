@@ -82,8 +82,20 @@ class LeagueController < ApplicationController
 
         @sortedList = Array.new
         @sortedList = sortList(@categories,params[:sort],@list)
+       
     end
 
+    if !([7,15].include?(@league.id))
+      if @matches.count == Match.where("finished='t' and league_id=?",@league.id).count
+        @sortedList = sortList(@categories,"GF",@list)
+        @sortedList = sortList(@categories,"DG",@sortedList)
+        @sortedList = sortList(@categories,"Pts",@sortedList) 
+        @champion = User.find_by display_name: (@sortedList.first[1])
+        @league.champion_id = @champion.id
+        @league.finished=true
+        @league.save
+      end
+    end
 
   end
 
