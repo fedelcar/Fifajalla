@@ -1,29 +1,39 @@
 class PlayersController < ApplicationController
 
 	def index
+		@nations = Player.order(nation: :asc).uniq.pluck(:nation)
+		@leagues = Player.order(league: :asc).uniq.pluck(:league)
 
-			case params[:filter]
-				when "def"
-					@players = Player.where("primary_position='CB' or primary_position='RB' or primary_position='LB' or primary_position='RWB' or primary_position='LWB'")
-				when "med"
-					@players = Player.where("primary_position='CDM' or primary_position='CM' or primary_position='LM' or primary_position='RM' or primary_position='CAM'")
-				when "fw"
-					@players = Player.where("primary_position='CF' or primary_position='ST' or primary_position='LW' or primary_position='RW'")
-				when "all"
-					@players = Player
-				when "drafted"
-					@players=Player.where("user_id<>1")
-				when "undrafted"
-					@players=Player.where("user_id=1 or team_id=48 or team_id=47")
-				when "GK", "RB", "RWB","CB","LB","LWB","CM","CDM","CAM","LM","RM","RW","LW","CF","ST"
-					@players = Player.where("primary_position=? or secondary_position=?",params[:filter],params[:filter])
-				else
-					@players=Player.where("last_name LIKE ? or first_name LIKE ?",'%'+params[:filter]+'%','%'+params[:filter]+'%')
-			end
-			if params[:filter] != "all" and params[:filter] != "drafted"
-				#@players=@players.where("league<>'SPrimera Division'")
+		case params[:filter1]
+			when "def"
+				@players = Player.where("primary_position='CB' or primary_position='RB' or primary_position='LB' or primary_position='RWB' or primary_position='LWB'")
+			when "med"
+				@players = Player.where("primary_position='CDM' or primary_position='CM' or primary_position='LM' or primary_position='RM' or primary_position='CAM'")
+			when "fw"
+				@players = Player.where("primary_position='CF' or primary_position='ST' or primary_position='LW' or primary_position='RW'")
+			when "GK", "RB", "RWB","CB","LB","LWB","CM","CDM","CAM","LM","RM","RW","LW","CF","ST"
+				@players = Player.where("primary_position=? or secondary_position=?",params[:filter1],params[:filter1])
+			when "all"
+				@players = Player.all
 			else
-			end
+				@players = Player.where("first_name LIKE ? or last_name LIKE ?",params[:filter1],params[:filter1])
+
+		end
+		
+		case params[:filter2]
+			when "drafted"
+				@players= @players.where("user_id>1")
+			when "undrafted"
+				@players= @players.where("user_id=1")
+		end		
+		
+		if params[:filter3] != "all" and params[:filter3] != nil
+			@players=@players.where("league=?",params[:filter3])
+		end
+
+		if params[:filter4] != "all" and params[:filter3] != nil
+			@players=@players.where("nation=?",params[:filter4])
+		end
 
 		@players=@players.where("id>1").order(overall: :desc).take(150)
 
@@ -36,11 +46,11 @@ class PlayersController < ApplicationController
 		@player=Player.find(params[:id])
       	@pm.player_id=@player.id
       	@pm.first_user_id=@player.user_id
+      	@player.user_id=@team.user_id
       	@pm.second_user_id=@player.user_id
       	@pm.first_team_id=@player.team_id
       	@pm.second_team_id=params[:movePlayer][:team]
       	@pm.save
-
       	@player.team_id=params[:movePlayer][:team]
       	@player.save
 

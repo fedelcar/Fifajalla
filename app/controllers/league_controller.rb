@@ -18,6 +18,7 @@ class LeagueController < ApplicationController
       @IDS.push(match.away_team_id)
     end
     @teams = Team.where("id in(?)",@IDS)
+    @teams = @teams + Realteam.where("id in(?)",@IDS)
 
     @teams.each do |team|
       @pj=0
@@ -86,7 +87,7 @@ class LeagueController < ApplicationController
     end
 
     if !([7,15].include?(@league.id))
-      if @matches.count == Match.where("finished='t' and league_id=?",@league.id).count
+      if @league.finished
         @sortedList = sortList(@categories,"GF",@list)
         @sortedList = sortList(@categories,"DG",@sortedList)
         @sortedList = sortList(@categories,"Pts",@sortedList) 
@@ -124,12 +125,19 @@ class LeagueController < ApplicationController
     end
     taken = 1
 
-    if (teams.count < 3) or (params[:league][:name] == "")
+    if (params[:league][:name] == "")
       redirect_to '/league/new' and return
     end
 
     @league = League.new
     @league.name = params[:league][:name]
+    
+    if teams.count<2
+      @league.finished = false
+      @league.save
+      redirect_to '/league/'+@league.id.to_s and return 
+    end
+
     if teams.count < 6
       @league.importance = 1
     else
@@ -161,6 +169,13 @@ class LeagueController < ApplicationController
       taken = taken + 1
     end
 
+    redirect_to '/league'
+  end
+
+  def changeFinished
+    @league = League.find(params[:id])
+    @league.finished= !@league.finished
+    @league.save
     redirect_to '/league'
   end
 

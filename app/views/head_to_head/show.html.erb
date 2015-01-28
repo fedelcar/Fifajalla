@@ -7,16 +7,13 @@
     <div class="row">
     <h3><b>G-E-P:</b> <%= @pg1 %> - <%= @pe %> - <%= @pp1 %> </h3>
     <h3><b>GF-GC:</b> <%= @gf1 %> - <%= @gc1 %> </h3>
-
+    <h3><b>Mayor Goleada:</b><br><%= @goleada1 %> </h3>
     </div>
   </div>
-
   <div class="col-sm-2" align="center">
     <div class="row">
         <h1><%= @pg1.to_s + ' - '+ @pg2.to_s %></h1>
       <br>
-
-
     </div>
   </div>
 
@@ -26,6 +23,8 @@
       <div class="row">
           <h3><b>G-E-P:</b> <%= @pg2 %> - <%= @pe %> - <%= @pp2 %> </h3>
           <h3><b>GF-GC:</b> <%= @gf2 %> - <%= @gc2 %> </h3>
+          <h3><b>Mayor Goleada:</b><br><%= @goleada2 %> </h3>
+          
 
       </div>
     </div>
@@ -47,7 +46,7 @@
           <th>Goles V.</th>
           <th>Equipo V.</th>
           <th>User V.</th>
-          <th>Finalizado</th>
+
         </tr>
       </thead>
 
@@ -90,13 +89,6 @@
             <% end %>
           <% end %>
 
-          <td>
-            <% if match.finished %>
-              <span class="glyphicon glyphicon-ok"%></span>
-            <% else %>
-                <%= link_to "Jugar", edit_match_path(match.id), :method => "get" %>
-            <% end %>
-          </td>
 
         </tr>
       <% end %>

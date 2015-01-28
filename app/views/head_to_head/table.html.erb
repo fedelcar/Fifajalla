@@ -14,8 +14,8 @@
 			<% @row=user.id %>
 			<tr>
 				<td><b><%= user.display_name %></b></td>
-				<% for i in 2..17 %>
-					<% if i !=3 %>
+				<% for i in 2..@lastUser %>
+					<% if @userIDs.include?(i) %>
  						<td><center><%= link_to @result[@row][i], "/head_to_head/show?user1=" + User.find(@row).display_name + "&user2="+User.find(i).display_name %></td>
 					<% end %>
 				<% end %>

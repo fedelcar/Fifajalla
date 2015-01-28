@@ -19,6 +19,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -36,8 +37,9 @@ gem 'foreigner'
 gem 'simple_form'
 
 # Add Twitter Bootstrap
-gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+
 gem 'bootswatch-rails'
 
 # Use ActiveModel has_secure_password
@@ -59,9 +61,6 @@ gem 'font-awesome-sass'
 
 #for Switch
 gem 'bootstrap-switch-rails'
-
-#for memory leaks
-gem 'bloat_check'
 
 # Use unicorn as the app server
 gem 'unicorn'

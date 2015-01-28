@@ -1,26 +1,13 @@
 <div class="container">
 	<h1>Nuevo Equipo</h1>
 	<br>
-<form class="form-horizontal row-sm-7" action="/teams" method="post">
-
-
-<div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="post" /></div>
-			 <fieldset>
-			    <div class="form-group col-sm-8">
-			      	<div class="row">
-			      	<div class="col-sm-1"><label for="name" class="control-label">Nombre:</label> </div>
-			      	<div class="col-sm-4"><input type="text" class="form-control" id="name" name="name" placeholder="Team Name"></div>
-				    </div>
-
-
-					<div class="row">
-			      	<div class="col-sm-8">
-			      		<br>
-			        	<button class="btn btn-default">Cancelar</button>
-			        	<button class="btn btn-success" type="submit" name="commit" value="Save Team">Enviar</button>
-			      	</div>
-			      	</div>
-			    </div>
-			</fieldset>
-		</form>
+	<%= form_for :team, url: new_team_path do |t| %>
+		<b>Nombre:</b> <%= t.text_field('name', placeholder: "Barcelona") %> <br>
+		<% if current_user.isAdmin %>
+			<b>Usuario:</b> <%= t.select :userID, options_from_collection_for_select(User.where("id>1"), :id, :display_name) %> <br>
+			<b>Team Logo URL:</b> <%= t.text_field('imageURL', placeholder: "Image URL") %> <br>
+		<% end %>
+		
+		<%= t.submit "Crear", :class => "btn btn-success" %>
+	<% end %>
 </div>

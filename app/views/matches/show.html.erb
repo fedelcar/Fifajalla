@@ -3,19 +3,25 @@
 		<br>
 		<div class="row">
 			<center>
-				<h1><%= link_to @team_local.name, team_path(@team_local.id)+'?sort=Overall', :method => "get" %></h1>
+				<img height="100" src= <%= @localURL %>>
+				<center><h1> <%= link_to @team_local.name, team_path(@team_local.id)+'?sort=Overall', :method => "get" %></h1>
 			</center>
 			<center>
 				<h2><%= link_to @user_local.display_name, user_path(@user_local.id), :method => "get" %></h2>
 			</center>
 		</div>
-		<div class="row"><br><br><br><br><br><br><br><br>			
-			<h3><%= League.find(@match.league_id).name %></h3>
+		<div class="row"><br><br><br><br><br><br><br><br>	
+			<% @league = League.find(@match.league_id) %>		
+			<h3><%= link_to @league.name, league_path(@league.id) %></h3>
 			<h3>Fecha: <%= @match.updated_at.localtime.strftime("%d/%m %H:%M")%></h3>
-			<h3>MVP: <%= @pom%></h3>
+			<% if @pom != "" %>
+				<h3>MVP: <%= link_to @pom, player_path(@pomp.id) %></h3>
+			<% end %>
 			<% if current_user.isAdmin %>
 				<% @link = '/matches/destroy?id='+@match.id.to_s %><br><br>
 				<a href=<%= @link %> ><button class="btn btn-sm btn-primary">Eliminar Partido</button></a>
+				<% @link = '/matches/'+@match.id.to_s+'/edit' %><br><br>
+				<a href=<%= @link %> ><button class="btn btn-sm btn-primary">Editar Partido</button></a>
   			<% end %>
 		</div>
 	</div>
@@ -185,7 +191,8 @@
 	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @team_visitante.name, team_path(@team_visitante.id)+'?sort=Overall', :method => "get" %></h1>
+			<center><img height="100" 	src= <%= @awayURL %>>
+			<h1> <%= link_to @team_visitante.name, team_path(@team_visitante.id)+'?sort=Overall', :method => "get" %></h1></center>
 			<center><h2><%= link_to @user_visitante.display_name, user_path(@user_visitante.id), :method => "get" %></h>
 			</center>
 		</div>

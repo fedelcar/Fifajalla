@@ -11,13 +11,13 @@
 // about supported directives.
 //
 
-//= require jquery_ujs
-//= require turbolinks
+//= require jquery
+//= require bootstrap
+//= require bootstrap/dropdown
+//= require bootstrap-sprockets
+//= require bootstrap-switch
+//= require bootstrap-hover-dropdown
 //= require_tree .
- require bootstrap
- require bootstrap-hover-dropdown
- require bootstrap-switch
- require jquery
 
 
 $(function() {

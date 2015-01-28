@@ -13,7 +13,17 @@
 
 	<div class="col-md-6">
 		<div class="jumbotron">
-			<h3>Crear Equipo</h3>
+			<h3>Dar Pick</h3>
+			<%= form_for :user, url: {action: "givePick", method:"post"}  do |t| %>
+				<b>Usuario: &nbsp;</b> <%= t.select :userID, options_from_collection_for_select(User.where("id>1"), :id, :display_name) %> <br>
+				<b>Cantidad:</b> <%= t.text_field('cantidad', placeholder: "1") %> <br><br>
+				<%= t.submit "Dar", :class => "btn btn-success" %>
+			<% end %>
+			
 		</div>	
+
+
+
+
 	</div>	
 </div>

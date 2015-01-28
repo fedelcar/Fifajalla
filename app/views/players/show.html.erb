@@ -91,6 +91,23 @@
 
 		<% end %>
 
+		<% if current_user.isAdmin %>
+		<br>
+			<%= form_for :movePlayer, url: "movePlayer?id="+@player.id.to_s do |t| %>
+			<b> Mover Jugador? </b> <br>
+			<% @teams = Team.where("id<>?",@player.team_id) %>
+			<div class="col-md-8">
+				<%= t.select :team, options_from_collection_for_select(@teams, "id", "name"), {}, {:class => "form-control"} %>
+			</div>
+			<%= t.submit "Mover", :class => "btn btn-sm btn-primary" %>
+
+			<% end %>
+
+
+		<% end %>
+
+
+
 		<h2>Características</h2>
 		<b>Overall:</b> <%= @player.overall %><br>
 		<b>Posición:</b> <%= @player.primary_position %> <%= @player.secondary_position ? @player.secondary_position : " " %><br>

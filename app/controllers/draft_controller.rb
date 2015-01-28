@@ -46,8 +46,7 @@ class DraftController < ApplicationController
       @toAdd.player_id = params[:player_id]
       @toAdd.save
     end
-
-    redirect_to '/draft/wanted'
+    redirect_to :back
   end
 
   def show
@@ -60,7 +59,17 @@ class DraftController < ApplicationController
   end
 
   def wanted
-    @wanted = WantedPlayer.where('user_id=?',current_user.id)
+    @wantedPlayers = WantedPlayer.where('user_id=?',current_user.id)
+    
+    @list = Array.new
+    @categories = Array.new
+    @categories = ["ID","Jugador","OVR","Pos"]
+    @wantedPlayers.each do |p|
+      @player = Player.find(p.player_id)
+      @list.push([@player.id,@player.first_name + " " + @player.last_name,@player.overall,@player.primary_position])
+    end
+    @wanted = sortList(@categories,params[:sort],@list)
+
 
   end
 
@@ -70,7 +79,7 @@ class DraftController < ApplicationController
 
   def draftPlayer
   		@player=Player.find(params[:id])
-      @link='/players?filter=all'
+      @link='/players?filter1=all&filter2=undrafted&filter3=all&filter4=Argentina'
 
       if (@player.user_id==1 or current_user.id==10) #and (@player.league!='Primera Division')
           @np = next_pick.user_id
@@ -122,13 +131,13 @@ class DraftController < ApplicationController
             #UserMailer.next_pick(User.find(next_pick.user_id)).deliver
           end
 
-          if next_pick != nil
+          if next_pick != nil and 1==0
 
              #si al proximo se le agotó el tiempo drafteo solo
             @nextUser = User.find(next_pick.user_id)
 
 
-            if @nextUser.minutes <= 0 or @nextUser.id ==4 or @nextUser.id ==5
+            if @nextUser.minutes <= 0 or @nextUser.id ==4 or @nextUser.id ==5 
               #busco al libre de mayor ovr
               @playerToDraft = Player.where("user_id=1 and id >1")
               @link = "/draft/draftPlayer?id="+ @playerToDraft.first.id.to_s
@@ -151,13 +160,7 @@ class DraftController < ApplicationController
 
       end
 
-      message = @user.display_name" ha elegido a "+@player.last_name+"con el pick número "+@pick.number
-      if next_pick != nil
-        message += ". Ahora le toca a " + User.find(next_pick.user_id).display_name
-      end
-
-      # response = sendPushNotification(@user.display_name+" ha elegido.",message,"/players/"+@player.id)
-
+  
       redirect_to @link
   end
 end

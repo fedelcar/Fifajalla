@@ -94,38 +94,45 @@ class TeamsController < ApplicationController
     @players = sortList(@categories,params[:sort],@list)
   end
 
-
-  def new
-    @teams = Team.where("id>1")
+  def destroy
+    Team.delete(params[:id])
+    redirect_to '/teams?sort=Pts'
   end
 
   def create
-  	@teams = Team.where("id>1")
-    team_id = current_team.id
-
     @team = Team.new
-      @team.name= params[:name]
-      if !Team.exists?(team_id)
-        @team.id=team_id
-      end
-      @team.team_id=team_id
- 			@team.country=0
- 			@team.gf=0
- 			@team.ga=0
- 			@team.wins=0
- 			@team.draws=0
- 			@team.loses=0
- 			@team.pts=0
- 			@team.dg=0
- 			@team.eff=0
- 			@team.save
+    @team.name =  params[:team][:name]
+    if params[:team][:userID] != ""
+      @team.user_id=params[:team][:userID]
+      @team.imageURL=params[:team][:imageURL]
+    else
+      @team.user_id=current_user.id
+      @team.imageURL="http://3.bp.blogspot.com/-qAigoxmfPSg/UgrZueNeVnI/AAAAAAAAAmg/T0rYB9NdlJo/s1600/Football+Logo+dgf.jpg"
+    end
+    @lastTeam=Team.where(user_id: @team.user_id).order(id: :asc).last.id
+    if @lastTeam != nil
+      @team.id = @lastTeam + 20
+    else
+      @team.id = @team.user_id
+    end
+
+		@team.country=0
+		@team.gf=0
+		@team.ga=0
+		@team.wins=0
+		@team.draws=0
+		@team.loses=0
+		@team.pts=0
+		@team.dg=0
+		@team.eff=0
+		@team.save
 		redirect_to team_path(@team.id)
   end
 
 private
 
   def team_params
-			params.require(:team).permit(:name,:team, :team_id, :country, :gf, :ga, :wins, :draws, :loses, :pts, :dg, :eff)
+			params.require(:team).permit(:name,:team, :team_id, :country, :gf, :ga, :wins, :draws, :loses, :pts, :dg, :eff, :user_id)
   end
 
   def sort_column

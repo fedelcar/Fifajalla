@@ -7,11 +7,14 @@ Rails.application.routes.draw do
   post 'users/new', to: 'users#new'
   get 'cPanel', to: 'users#cPanel'
   get 'admin', to: 'users#admin'
+  post 'admin', to: 'users#givePick'
+  post 'users', to: 'users#givePick'
   patch 'users', to: 'users#update'
   get 'users/destroy', to:'users#destroy'
   resources :users
 
   get 'players/stats'
+  post 'players', to: 'players#index'
   get 'players/search'
   get 'players/download'
   get 'players/addToTradeBlock', to: 'players#TradeBlock'
@@ -39,7 +42,9 @@ Rails.application.routes.draw do
   get 'draft/released'
   resources :draft
 
+  post 'teams/new', to: 'teams#create'
   get 'teams/addToTradeBlock', to: 'teams#TradeBlock'
+  get 'teams/destroy', to:'teams#destroy'
   resources :teams
   
   post 'matches', to: 'matches#newMatch'
@@ -47,6 +52,7 @@ Rails.application.routes.draw do
   get 'matches/newReal', to: 'matches#newReal'
   post 'matches/newReal', to: 'matches#newRealMatch'
   get 'matches/my', to:'matches#my'
+  post 'matches#editUser', to: 'matches#editUser'
   post 'matches#createEvent', to: 'matches#createEvent'
   get 'matches/schedule', to: 'matches#schedule'
   get 'matches/destroy', to:'matches#destroy'
@@ -55,6 +61,7 @@ Rails.application.routes.draw do
 
   get 'league/new', to: 'league#new'
   post 'league/new', to: 'league#create'
+  get 'league/changeFinished', to: 'league#changeFinished'
   resources :league
 
   get 'download', to: 'welcome#download'

@@ -8,22 +8,33 @@ class MatchesController < ApplicationController
   end
 
   def my
-    @matches = Match.where('local_user_id=? or away_user_id=?',params[:user],params[:user]).order(finished: :asc).order(updated_at: :desc)
+    if params[:user] != nil
+      @matches = Match.where('local_user_id=? or away_user_id=?',params[:user],params[:user]).order(finished: :asc).order(updated_at: :desc)
+    else
+      @matches = Match.all
+    end
+    if params[:league] != nil
+      @matches = @matches.where('league_id = ?', params[:league]).order(finished: :asc).order(updated_at: :desc)
+    end
+
     @users = User.all
     @teams = Team.all
   end
 
   def show
 	@match = Match.find(params[:id])
-
 	@user_local = User.find(@match.local_user_id)
 	@user_visitante = User.find(@match.away_user_id)
   if @match.local_team_id < 500
     @team_local = Team.find(@match.local_team_id)
+    @localURL = @team_local.imageURL
     @team_visitante = Team.find(@match.away_team_id)
+    @awayURL = @team_visitante.imageURL
   else
     @team_local = Realteam.find(@match.local_team_id)
+    @localURL = ""
     @team_visitante = Realteam.find(@match.away_team_id)
+    @awayURL = ""
   end
 
 
@@ -127,7 +138,9 @@ def newRealMatch
     @match.local_team_id = (Realteam.find(params[:match][:teamL])).id
     @match.away_team_id = (Realteam.find(params[:match][:teamV])).id
     @localUser = User.find(params[:match][:userL]).id
+    @localURL=""
     @awayUser = User.find(params[:match][:userV]).id
+    @awayURL = ""
     @match.local_user_id = @localUser
     @match.away_user_id = @awayUser
     @match.local_goals = 0
@@ -155,6 +168,7 @@ def newMatch
 		@match.away_team_id = (Team.find(params[:match][:teamV])).id
 		@localUser = User.find(Team.find(@match.local_team_id).user_id).id
 		@awayUser = User.find(Team.find(@match.away_team_id).user_id).id
+   
 		@match.local_user_id = @localUser
 		@match.away_user_id = @awayUser
 		@match.local_goals = 0
@@ -175,6 +189,16 @@ def newMatch
 	end
 end
 
+def editUser
+  @match = Match.find(params[:matchID])
+  if params[:editUser][:userL] != nil
+    @match.local_user_id=params[:editUser][:userL]
+  else
+    @match.away_user_id=params[:editUser][:userV]
+  end
+  @match.save
+  redirect_to '/matches/'+@match.id.to_s+"/edit"
+end
 
 def createEvent
 
@@ -333,6 +357,8 @@ def edit
   if @match.local_team_id < 500
     @home_team = Team.find(@match.local_team_id)
     @away_team = Team.find(@match.away_team_id)
+    @localURL = @home_team.imageURL
+    @awayURL = @away_team.imageURL
     @match_players = Player.where("team_id=? or team_id=?", @home_team.id, @away_team.id)
     @grouped_players = @match_players.inject({}) do |options, player|
       (options[Team.find(player.team_id).name] ||= []) << [player.first_name.to_s + " " + player.last_name, player.id]

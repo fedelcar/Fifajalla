@@ -5,29 +5,20 @@
 				<thead><tr>
 					
   					
-  					<th>Jugador</th>
-  					<th><%= link_to "Overall", :sort => "overall" %></th>  
-  					<th><%= link_to "Pos", :sort => "primary_position" %></th> 
+  					<th><%= link_to "Jugador", :sort => "Jugador" %></th>
+  					<th><%= link_to "Overall", :sort => "OVR" %></th>  
+  					<th><%= link_to "Pos", :sort => "Pos" %></th> 
 					<th>Sacar</th>
 					
   				</tr></thead>
 				<% if @wanted != nil %>
 	  				<% @wanted.each do |rel| %>
-	  				<% player = Player.find(rel.player_id) %>
-
 					<tbody><tr>
-
-						<% @name = player.first_name + " "+ player.last_name%>
-			  			
-						<td><%= link_to " ", player_path(player.id), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp; <%= @name %></td>
-			  			<td><%= player.overall %></td>
-			  			<td><%= player.primary_position %> <%= player.secondary_position ? player.secondary_position : " " %></td>
+						<td><%= link_to " ", player_path(rel[0]), :method => "get" , class: "glyphicon glyphicon-info-sign"%> &nbsp;&nbsp; <%= rel[1] %></td>
+			  			<td><%= rel[2] %></td>
+			  			<td><%= rel[3] %></td>
 			  			<td> <font color="red"> <span class="glyphicon glyphicon-remove"> </span> &nbsp; 		  					
-		  						<%= link_to "Sacar", '/draft/removeWanted?player_id='+player.id.to_s %> </font></td>
-		  				
-
-			  		
-
+		  						<%= link_to "Sacar", '/draft/removeWanted?player_id='+rel[0].to_s %> </font></td>
 	  				</tr></tbody>
 	  				<% end %>
 	  			<% end %>

@@ -2,8 +2,15 @@
 	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @home_team.name, team_path(@home_team.id)+'?sort=Overall', :method => "get" %></h1>
-			<center><h2><%= link_to @home_user.display_name, user_path(@home_user.id), :method => "get" %></h2></center>
+			<center><img height="100" 	src= <%= @localURL %>></center>
+			<center><h1> <%= link_to @home_team.name, team_path(@home_team.id)+'?sort=Overall', :method => "get" %></center></h1>
+			<center><h2><%= link_to @home_user.display_name, user_path(@home_user.id), :method => "get" %></h2><br>
+			<%= form_for :editUser, url: {action: "editUser", :matchID => @match.id} do |f| %>
+				<div class="col-sm-6">
+					<%= f.select :userL, options_from_collection_for_select(User.where("id>1"), "id", "display_name") , {}, {:class => "form-control"} %> 
+				</div>
+				<%= f.submit "Cambiar", :class => "btn btn-success" %>
+			<% end %></center>
 		</div>
 	</div>
 
@@ -13,7 +20,9 @@
 			<br>
 			<h1><font size= "7"><center><%= @match.local_goals %>   -    <%=  @match.away_goals %></center></font></h1>
 			<br>
-			<h3><center><%= League.find(@match.league_id).name %></center></h3>
+			<% @league = League.find(@match.league_id) %>		
+			<h3><%=  %></h3>
+			<h3><center><%= link_to @league.name, league_path(@league.id) %></center></h3>
 			<h3><center><%= link_to "Ver Partido", match_path(@match.id) %></center></h3>
 
 		</div>
@@ -22,8 +31,15 @@
 	<div class="col-sm-4">
 		<br>
 		<div class="row">
-			<center><h1><%= link_to @away_team.name, team_path(@away_team.id)+'?sort=Overall', :method => "get" %></h1>
-			<center><h2><%= link_to @away_user.display_name, user_path(@away_user.id), :method => "get" %></h>
+			<center><img height="100" 	src= <%= @awayURL %>> </center>
+			<center><h1><%= link_to @away_team.name, team_path(@away_team.id)+'?sort=Overall', :method => "get" %></h1></center>
+			<center><h2><%= link_to @away_user.display_name, user_path(@away_user.id), :method => "get" %></h2><br>
+			<%= form_for :editUser, url: {action: "editUser", :matchID => @match.id} do |f| %>
+				<div class="col-sm-6">
+					<%= f.select :userV, options_from_collection_for_select(User.where("id>1"), "id", "display_name") , {}, {:class => "form-control"} %> 
+				</div>
+				<%= f.submit "Cambiar", :class => "btn btn-success" %>
+			<% end %>
 			</center>
 		</div>
 	</div>

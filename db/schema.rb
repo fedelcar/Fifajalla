@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150103221838) do
+ActiveRecord::Schema.define(version: 20150104041005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150103221838) do
     t.integer  "reactions"
     t.text     "nation"
     t.integer  "real_team_id"
+    t.string   "imageURL"
   end
 
   add_index "players", ["team_id"], name: "index_players_on_team_id", using: :btree
@@ -200,6 +201,7 @@ ActiveRecord::Schema.define(version: 20150103221838) do
     t.integer  "pts"
     t.integer  "dg"
     t.float    "eff"
+    t.string   "imageURL"
   end
 
   add_index "teams", ["user_id"], name: "index_teams_on_user_id", using: :btree
@@ -236,6 +238,7 @@ ActiveRecord::Schema.define(version: 20150103221838) do
     t.integer  "elo"
     t.integer  "minutes"
     t.boolean  "isAdmin"
+    t.string   "imageURL"
   end
 
   create_table "wanted_players", force: true do |t|

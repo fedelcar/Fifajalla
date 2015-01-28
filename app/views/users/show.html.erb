@@ -39,7 +39,18 @@
 				<% @teams.each do |team| %>
 		  			<table>
 						<tbody><tr>
-				  			<td><%= link_to team.name, team_path(team.id), :method => "get" %></td>
+				  			<td><%= link_to team.name, team_path(team.id), :method => "get" %>
+							<% case team.id - team.user_id %>
+								<% when 0 %>
+									(Principal)
+								<% when 20 %>
+									(Equipo B)
+								<% when 40 %>
+									(Liga Argentina)
+								<% else %>
+									(Otro)
+							<% end %>
+				  			</td>
 
 		  				</tr></tbody>
 		  			</table>
@@ -53,6 +64,7 @@
   		<% end %>
   		<% if current_user.isAdmin %>
 				<% @link = '/users/destroy?id='+@user.id.to_s %>
+				<br><br><a href="/teams/new"><button class="btn btn-sm btn-primary">Registrar otro Equipo</button></a>
 				<br><br><a href=<%= @link %> ><button class="btn btn-sm btn-primary">Eliminar Usuario</button></a>
   		<% end %>
   		

@@ -1,11 +1,22 @@
 <div class="container">
 
 
-	<h1> <%= @team.name %></h1>
+	<h1> <img height="100" 	src= <%= @team.imageURL %>> <%= @team.name %>	 </h1>
 	<br>
 	<div class="col-md-3">
 		<h2> Totales</h2>
 		<b>User: </b><%= link_to @user.display_name, user_path(@team.user_id), :method => "get" %><br>
+		<b>Tipo de Equipo: </b>
+		<% case @team.id - @team.user_id %>
+			<% when 0 %>
+				Principal
+			<% when 20 %>
+				Equipo B
+			<% when 40 %>
+				Liga Argentina
+			<% else %>
+				Otro
+		<% end %><br>
 		<b>Partidos Jugados: </b><%= @pj %><br>
 		<b>Puntos:</b> <%= @pts %><br>
 		<b>Partidos Ganados:</b> <%= @pg %><br>
@@ -22,7 +33,10 @@
 		<b>Promedio Goles en contra:</b> <%= number_with_precision(@gcpp, precision: 2)%><br>
 		<b>Promedio Diferencia de gol:</b> <%= number_with_precision(@dgpp, precision: 2)%><br>
 		<b>Efectividad:</b> <%= number_to_percentage(@efectividad*100, precision: 2)     %><br>
-
+		<% if current_user.isAdmin %>
+			<% @link = '/teams/destroy?id='+@team.id.to_s %>
+			<br><br><a href=<%= @link %> ><button class="btn btn-sm btn-primary">Eliminar Equipo</button></a>
+  		<% end %>
 	</div>
 
 

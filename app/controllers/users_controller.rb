@@ -101,24 +101,25 @@ class UsersController < ApplicationController
  		else
  			if @user.display_name == ""
  				@user.display_name = @user.name.split(" ").first
-		 		@user.elo=1400
+		 		@user.elo = 1400
 		 		@user.save
  			end
-
-
+ 			@user.elo = 1400
+ 			@user.id = User.order(id: :asc).last.id+1
  			@user.save
  			UserMailer.welcome_email(@user).deliver
 
  		end
 
-		redirect_to 'teams/new'
+		redirect_to '/users/'+@user.id.to_s
 	end
 
 	def new
 		@user = User.new
+		@user.id = User.order(id: :asc).last.id+1
 		@user.name = params[:user][:name]
 		@user.display_name = @user.name
-		@user.elo = params[:user][:elo]
+		@user.elo=1400
 		@user.isAdmin=false
 		@user.save
 		redirect_to '/users/'+@user.id.to_s
@@ -128,10 +129,27 @@ class UsersController < ApplicationController
 		User.delete(params[:id])
 		redirect_to '/users?sort=ELO'
 	end
+	
+
+	def givePick
+		if params[:user][:cantidad] == ""
+			params[:user][:cantidad] = 1
+		end
+		for i in 1..(params[:user][:cantidad]).to_i
+			@pick=Pick.new
+			@pick.user_id=params[:user][:userID]
+	      	@pick.number=Pick.all.order(number: :asc).last.number+1
+	      	@pick.id=@pick.number
+	      	@pick.draft_id=4
+	      	@pick.player_id=1
+	      	@pick.save
+	    end
+      	redirect_to '/admin'
+	end
 
 	private
 		def user_params
-			params.require(:user).permit(:name, :id, :email, :password_confirmation, :display_name, :isAdmin)
+			params.require(:user).permit(:name, :id, :email, :password_confirmation, :display_name, :isAdmin, :elo)
 		end
 
 		def sort_column

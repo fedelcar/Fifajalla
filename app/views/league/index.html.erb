@@ -11,6 +11,9 @@
 				<th>Partidos</th>
 				<th>Campeón</th>
 				<th>Terminada?</th>
+				<% if current_user.isAdmin %>
+					<th>Admin</th>
+				<% end %>
 			</tr>
 		</thead>
 
@@ -42,6 +45,15 @@
 									<span class="glyphicon glyphicon-remove"%></span>
 							<% end %>
 					</td>
+					<% if current_user.isAdmin %>
+						<td>
+							<% if ! league.finished %>
+									<%= link_to "","/league/changeFinished?id="+league.id.to_s, class: "glyphicon glyphicon-ok center"%>
+							<% else %>
+									<%= link_to "","/league/changeFinished?id="+league.id.to_s, class: "glyphicon glyphicon-remove center"%>
+							<% end %>
+						</td>
+					<% end %>
 			</tr>
 		<% end %>
 	</table>

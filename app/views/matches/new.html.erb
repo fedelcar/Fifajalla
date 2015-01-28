@@ -19,7 +19,7 @@
 	<br>
 	<div class="row">
 		<div class="col-md-3">
-			<% @ligas = League.order(id: :asc) %>
+			<% @ligas = League.where("finished= 'f' ").order(id: :asc) %>
 			<%= f.select :torneo, options_from_collection_for_select(@ligas, "id", "name"), {}, {:class => "form-control"} %>
 		</div>
 	</div>
