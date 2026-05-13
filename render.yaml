@@ -4,7 +4,7 @@ services:
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec unicorn -p $PORT -c config/unicorn.rb"
+    startCommand: "bundle exec rake db:migrate && bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         sync: false  # set manually in Render dashboard to your Neon connection string
