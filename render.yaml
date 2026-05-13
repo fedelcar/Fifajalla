@@ -1,0 +1,24 @@
+databases:
+  - name: fifajalla-db
+    databaseName: fifajalla
+    user: fifajalla
+    plan: free
+
+services:
+  - type: web
+    name: fifajalla
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec unicorn -p $PORT -c config/unicorn.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fifajalla-db
+          property: connectionString
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production

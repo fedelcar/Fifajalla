@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: db/fifajalla_production_db
+  url: <%= ENV['DATABASE_URL'] %>
