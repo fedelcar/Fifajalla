@@ -1,4 +1,4 @@
-class Goal_Type < ActiveRecord::Base
+class GoalType < ActiveRecord::Base
 	
 	belongs_to :event
 
