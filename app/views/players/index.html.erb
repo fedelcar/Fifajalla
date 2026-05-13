@@ -5,34 +5,34 @@
  <div class="btn-toolbar">
       <div class="btn-group"><br>
       <form role="search">    
-        <%= link_to "Todos", params.merge(:filter1 => "all", :filter2 => "all", :filter3 => "all", :filter4 => "all"), class: "btn btn-default btn-sm", type: "button" %>&nbsp;&nbsp;
-        <%= link_to "GK", params.merge(:filter1 => "GK"), class: "btn btn-warning btn-sm", type: "button" %>
-        <%= link_to "def", params.merge(:filter1 => "def"), class: "btn btn-primary btn-sm", type: "button" %> 
-        <%= link_to "med", params.merge(:filter1 => "med"), class: "btn btn-success btn-sm", type: "button" %> 
-        <%= link_to "fw", params.merge(:filter1 => "fw"), class: "btn btn-danger btn-sm", type: "button" %> &nbsp;&nbsp;
+        <%= link_to "Todos", request.query_parameters.merge(:filter1 => "all", :filter2 => "all", :filter3 => "all", :filter4 => "all"), class: "btn btn-default btn-sm", type: "button" %>&nbsp;&nbsp;
+        <%= link_to "GK", request.query_parameters.merge(:filter1 => "GK"), class: "btn btn-warning btn-sm", type: "button" %>
+        <%= link_to "def", request.query_parameters.merge(:filter1 => "def"), class: "btn btn-primary btn-sm", type: "button" %> 
+        <%= link_to "med", request.query_parameters.merge(:filter1 => "med"), class: "btn btn-success btn-sm", type: "button" %> 
+        <%= link_to "fw", request.query_parameters.merge(:filter1 => "fw"), class: "btn btn-danger btn-sm", type: "button" %> &nbsp;&nbsp;
 
-        <%= link_to "RB", params.merge(:filter1 => "RB"), class: "btn btn-primary btn-sm", type: "button" %> 
-        <%= link_to "RWB", params.merge(:filter1 => "RWB"), class: "btn btn-primary btn-sm", type: "button" %> 
-        <%= link_to "CB", params.merge(:filter1 => "CB"), class: "btn btn-primary btn-sm", type: "button" %> 
-        <%= link_to "LB", params.merge(:filter1 => "LB"), class: "btn btn-primary btn-sm", type: "button" %> 
-        <%= link_to "LWB", params.merge(:filter1 => "LWB"), class: "btn btn-primary btn-sm", type: "button" %> &nbsp;&nbsp;
+        <%= link_to "RB", request.query_parameters.merge(:filter1 => "RB"), class: "btn btn-primary btn-sm", type: "button" %> 
+        <%= link_to "RWB", request.query_parameters.merge(:filter1 => "RWB"), class: "btn btn-primary btn-sm", type: "button" %> 
+        <%= link_to "CB", request.query_parameters.merge(:filter1 => "CB"), class: "btn btn-primary btn-sm", type: "button" %> 
+        <%= link_to "LB", request.query_parameters.merge(:filter1 => "LB"), class: "btn btn-primary btn-sm", type: "button" %> 
+        <%= link_to "LWB", request.query_parameters.merge(:filter1 => "LWB"), class: "btn btn-primary btn-sm", type: "button" %> &nbsp;&nbsp;
 
-        <%= link_to "CDM", params.merge(:filter1 => "CDM"), class: "btn btn-success btn-sm", type: "button" %> 
-        <%= link_to "CM", params.merge(:filter1 => "CM"), class: "btn btn-success btn-sm", type: "button" %> 
-        <%= link_to "CAM", params.merge(:filter1 => "CAM"), class: "btn btn-success btn-sm", type: "button" %> 
-        <%= link_to "RM", params.merge(:filter1 => "RM"), class: "btn btn-success btn-sm", type: "button" %> 
-        <%= link_to "LM", params.merge(:filter1 => "LM"), class: "btn btn-success btn-sm", type: "button" %> &nbsp;&nbsp;
+        <%= link_to "CDM", request.query_parameters.merge(:filter1 => "CDM"), class: "btn btn-success btn-sm", type: "button" %> 
+        <%= link_to "CM", request.query_parameters.merge(:filter1 => "CM"), class: "btn btn-success btn-sm", type: "button" %> 
+        <%= link_to "CAM", request.query_parameters.merge(:filter1 => "CAM"), class: "btn btn-success btn-sm", type: "button" %> 
+        <%= link_to "RM", request.query_parameters.merge(:filter1 => "RM"), class: "btn btn-success btn-sm", type: "button" %> 
+        <%= link_to "LM", request.query_parameters.merge(:filter1 => "LM"), class: "btn btn-success btn-sm", type: "button" %> &nbsp;&nbsp;
 
-        <%= link_to "RW", params.merge(:filter1 => "RW"), class: "btn btn-danger btn-sm", type: "button" %>
-        <%= link_to "LW", params.merge(:filter1 => "LW"), class: "btn btn-danger btn-sm", type: "button" %>
-        <%= link_to "CF", params.merge(:filter1 => "CF"), class: "btn btn-danger btn-sm", type: "button" %>
-        <%= link_to "ST", params.merge(:filter1 => "ST"), class: "btn btn-danger btn-sm", type: "button" %> 
+        <%= link_to "RW", request.query_parameters.merge(:filter1 => "RW"), class: "btn btn-danger btn-sm", type: "button" %>
+        <%= link_to "LW", request.query_parameters.merge(:filter1 => "LW"), class: "btn btn-danger btn-sm", type: "button" %>
+        <%= link_to "CF", request.query_parameters.merge(:filter1 => "CF"), class: "btn btn-danger btn-sm", type: "button" %>
+        <%= link_to "ST", request.query_parameters.merge(:filter1 => "ST"), class: "btn btn-danger btn-sm", type: "button" %> 
       </form>
       </div><br>
       <div class="btn-group">
         <form role="search"><br>
-          <%= link_to "Drafted", params.merge(:filter2 => "drafted"), class: "btn btn-default btn-sm", type: "button" %> &nbsp;
-          <%= link_to "Undrafted", params.merge(:filter2 => "undrafted"), class: "btn btn-default btn-sm", type: "button" %> &nbsp;&nbsp;        
+          <%= link_to "Drafted", request.query_parameters.merge(:filter2 => "drafted"), class: "btn btn-default btn-sm", type: "button" %> &nbsp;
+          <%= link_to "Undrafted", request.query_parameters.merge(:filter2 => "undrafted"), class: "btn btn-default btn-sm", type: "button" %> &nbsp;&nbsp;        
           <%= form_tag('/search', id: "search-form") do %>    
                 <%= text_field_tag :filter1, "", placeholder: "Messi" %> &nbsp;&nbsp;
                 <button class="btn btn-sm btn-success" type="submit">Buscar</button>
