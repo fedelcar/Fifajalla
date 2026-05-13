@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   get 'head_to_head/table'
 
   get 'signout', to: 'sessions#destroy', as: 'signout'
+  post 'impersonate', to: 'sessions#impersonate', as: 'impersonate'
   resources :sessions, only: [:destroy]
   resource :welcome, only: [:index]
 

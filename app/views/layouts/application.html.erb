@@ -20,6 +20,17 @@
 
       </div>
 
+      <% if Rails.env.development? %>
+      <div class="navbar-form navbar-left" style="margin-left:10px">
+        <%= form_tag impersonate_path, method: :post do %>
+          <%= select_tag :user_id,
+                options_from_collection_for_select(User.order(:name), :id, :name, session[:user_id]),
+                class: "form-control input-sm", style: "width:160px;display:inline-block" %>
+          <%= submit_tag "Go", class: "btn btn-warning btn-sm" %>
+        <% end %>
+      </div>
+      <% end %>
+
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
         <li><a href="/players?filter1=all&filter2=all&filter3=all&filter4=all">Jugadores</a></li>
