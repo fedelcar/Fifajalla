@@ -20,11 +20,8 @@ gem 'bootswatch-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'comma', '~> 4.0'
 
-gem 'omniauth', '~> 2.1'
-gem 'omniauth-facebook', '~> 10.0'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 gem 'font-awesome-sass', '~> 4.7'
 gem 'bootstrap-switch-rails'
 
-gem 'spring', group: :development
+gem 'dotenv-rails', groups: [:development, :test]
