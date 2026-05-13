@@ -1,9 +1,3 @@
-databases:
-  - name: fifajalla-db
-    databaseName: fifajalla
-    user: fifajalla
-    plan: free
-
 services:
   - type: web
     name: fifajalla
@@ -13,9 +7,7 @@ services:
     startCommand: "bundle exec unicorn -p $PORT -c config/unicorn.rb"
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: fifajalla-db
-          property: connectionString
+        sync: false  # set manually in Render dashboard to your Neon connection string
       - key: SECRET_KEY_BASE
         generateValue: true
       - key: RAILS_ENV
