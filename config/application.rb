@@ -7,10 +7,9 @@ Bundler.require(*Rails.groups)
 module Fifajalla
   class Application < Rails::Application
     config.time_zone = 'Buenos Aires'
+    config.active_support.cache_format_version = 7.1
 
     config.assets.enabled = true
-    config.assets.paths << "#{Rails.root}/app/assets/fonts"
-    config.assets.paths << "#{Rails.root}/bower_components/bootstrap/fonts"
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.precompile += %w( .svg .eot .woff .ttf )
   end

@@ -71,12 +71,8 @@ Rails.application.routes.draw do
   get 'head_to_head/show'
   get 'head_to_head/table'
 
-  #Everything below is for facebook OAuth
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
-
-  resources :sessions, only: [:create, :destroy]
+  resources :sessions, only: [:destroy]
   resource :welcome, only: [:index]
 
 
