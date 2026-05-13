@@ -1,4 +1,4 @@
-class Event_Type < ActiveRecord::Base
+class EventType < ActiveRecord::Base
 
 	belongs_to :event
 end
