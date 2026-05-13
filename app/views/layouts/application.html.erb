@@ -136,7 +136,7 @@
       <p class="navbar-text"><a href="/welcome/history"> <font color="white">Versiones </font></a></p>
       <% if current_user!= nil %>
         <p class="navbar-text"><a href="/cPanel"> <font color="white">Mis Opciones </font></a></p>
-        <%if current_user.isAdmin %>
+        <%if current_user.try(:isAdmin) %>
           <p class="navbar-text"><a href="/admin"> <font color="white">Admin </font></a></p>
         <% end %>
       <% end %>

@@ -7,7 +7,6 @@ gem 'rails', '~> 7.1.0'
 gem 'pg', '~> 1.5'
 
 gem 'sass-rails', '~> 6.0'
-gem 'uglifier', '>= 4.0'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.11'
