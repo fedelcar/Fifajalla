@@ -1,5 +1,7 @@
 OmniAuth.config.logger = Rails.logger
+OmniAuth.config.allowed_request_methods = [:get, :post]
+OmniAuth.config.silence_get_warning = true
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, '1451780838434124', '70819a2eb83e556d127ca80371f2ea05', {:client_options => {:ssl => {:ca_file => Rails.root.join("cacert.pem").to_s}}}
+  provider :facebook, ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_APP_SECRET']
 end

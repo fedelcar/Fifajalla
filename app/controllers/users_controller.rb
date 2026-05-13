@@ -107,7 +107,7 @@ class UsersController < ApplicationController
  			@user.elo = 1400
  			@user.id = User.order(id: :asc).last.id+1
  			@user.save
- 			UserMailer.welcome_email(@user).deliver
+ 			UserMailer.welcome_email(@user).deliver_now
 
  		end
 

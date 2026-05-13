@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
   	@teams = Team.all
 
     if current_user
-    	@apps= Trade_Approval.where("user_id=?",current_user.id)
+    	@apps= TradeApproval.where("user_id=?",current_user.id)
     	@pendingTrade=false
       
 
