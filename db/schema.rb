@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_13_174133) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_13_174607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -159,6 +159,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_13_174133) do
     t.integer "stamina"
     t.integer "reactions"
     t.text "nation"
+    t.string "imageURL"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -197,6 +198,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_13_174133) do
     t.integer "pts"
     t.integer "dg"
     t.float "eff"
+    t.string "imageURL"
     t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
@@ -239,6 +241,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_13_174133) do
     t.integer "elo"
     t.integer "minutes"
     t.boolean "isAdmin"
+    t.string "imageURL"
   end
 
   create_table "wanted_players", id: :serial, force: :cascade do |t|
