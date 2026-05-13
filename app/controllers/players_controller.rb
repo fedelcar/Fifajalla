@@ -42,7 +42,7 @@ class PlayersController < ApplicationController
 
 	def movePlayer
 		@team = Team.find(params[:movePlayer][:team])
-		@pm = Player_Movement.new
+		@pm = PlayerMovement.new
 		@player=Player.find(params[:id])
       	@pm.player_id=@player.id
       	@pm.first_user_id=@player.user_id

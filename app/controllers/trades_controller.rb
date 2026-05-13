@@ -27,21 +27,21 @@ class TradesController < ApplicationController
   end
   
   def rejectTrade
-    @app=Trade_Approval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
-    @user2=((Trade_Approval.where("trade_id=? and user_id<>?",params[:trade_id],current_user.id)).first).user_id
+    @app=TradeApproval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
+    @user2=((TradeApproval.where("trade_id=? and user_id<>?",params[:trade_id],current_user.id)).first).user_id
     @trade=Trade.find(@app.trade_id)
     @trade.approvals=@trade.users
     @trade.status="Rejected"
     @trade.save
-    UserMailer.trade_rejected(User.find(@user2)).deliver
+    UserMailer.trade_rejected(User.find(@user2)).deliver_now
     redirect_to '/trades/'  
   end
 
   def my
   if current_user.id==10
-    @apps=Trade_Approval.all.order(updated_at: :desc)
+    @apps=TradeApproval.all.order(updated_at: :desc)
   else
-    @apps=Trade_Approval.where("user_id=?",current_user.id).order(updated_at: :desc)
+    @apps=TradeApproval.where("user_id=?",current_user.id).order(updated_at: :desc)
   end
   end
 
@@ -56,17 +56,17 @@ class TradesController < ApplicationController
 
 
   def approveTrade
-    @app=Trade_Approval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
+    @app=TradeApproval.where("user_id=? and trade_id=?",current_user.id,params[:trade_id]).first
     @app.approved=true
     @app.save
-    @user2=((Trade_Approval.where("trade_id=? and user_id<>?",params[:trade_id],current_user.id)).first).user_id
+    @user2=((TradeApproval.where("trade_id=? and user_id<>?",params[:trade_id],current_user.id)).first).user_id
     @trade=Trade.find(@app.trade_id)
     @trade.approvals=@trade.approvals+1
     @trade.status="Completed"
     @trade.save
-    UserMailer.trade_complete(User.find(@user2)).deliver
+    UserMailer.trade_complete(User.find(@user2)).deliver_now
     if @trade.approvals>=@trade.users
-      @pms=Player_Movement.where("trade_id=?",@trade.id)
+      @pms=PlayerMovement.where("trade_id=?",@trade.id)
       @pms.each do |pm|
         @player=Player.find(pm.player_id)
         @player.user_id=pm.second_user_id
@@ -75,7 +75,7 @@ class TradesController < ApplicationController
         @player.protected=false
         @player.starting=false
         @player.save
-        @pms2=Player_Movement.where("player_id=? and trade_id<>?",@player.id,@trade.id)
+        @pms2=PlayerMovement.where("player_id=? and trade_id<>?",@player.id,@trade.id)
         @pm2.each do |pm2|
           @trades=Trade.where("trade_id=? and status='Created'",pm2.trade_id)
           @trades.each do |trade|
@@ -84,7 +84,7 @@ class TradesController < ApplicationController
           end
         end
       end 
-      @pms2=Player_Movement.where("player_id=?",@player.id)
+      @pms2=PlayerMovement.where("player_id=?",@player.id)
 
     
     
@@ -94,7 +94,7 @@ class TradesController < ApplicationController
 
 
   def proposedTrades
-    @approvals=Trade_Approval.where("user_id=? and approved='f'",current_user.id)
+    @approvals=TradeApproval.where("user_id=? and approved='f'",current_user.id)
   end
 
 
@@ -123,7 +123,7 @@ class TradesController < ApplicationController
     @trade.save
 
     if params[:trade][:player_id_a1] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a1]
       @pm.first_user_id=params[:trade][:user_id_a]
@@ -134,7 +134,7 @@ class TradesController < ApplicationController
     end 
 
     if params[:trade][:player_id_a2] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a2]
       @pm.first_user_id=params[:trade][:user_id_a]
@@ -145,7 +145,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_a3] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a3]
       @pm.first_user_id=params[:trade][:user_id_a]
@@ -156,7 +156,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_a4] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a4]
       @pm.first_user_id=params[:trade][:user_id_a]
@@ -167,7 +167,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_a5] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_a5]
       @pm.first_user_id=params[:trade][:user_id_a]
@@ -178,7 +178,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_b1] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b1]
       @pm.first_user_id=params[:trade][:user_id_b]
@@ -189,7 +189,7 @@ class TradesController < ApplicationController
     end 
 
     if params[:trade][:player_id_b2] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b2]
       @pm.first_user_id=params[:trade][:user_id_b]
@@ -200,7 +200,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_b3] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b3]
       @pm.first_user_id=params[:trade][:user_id_b]
@@ -211,7 +211,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_b4] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b4]
       @pm.first_user_id=params[:trade][:user_id_b]
@@ -222,7 +222,7 @@ class TradesController < ApplicationController
     end
 
     if params[:trade][:player_id_b5] != "1"
-      @pm=Player_Movement.new
+      @pm=PlayerMovement.new
       @pm.trade_id=@trade.id
       @pm.player_id=params[:trade][:player_id_b5]
       @pm.first_user_id=params[:trade][:user_id_b]
@@ -232,20 +232,20 @@ class TradesController < ApplicationController
       @pm.save
     end
 
-    @approvalA = Trade_Approval.new
+    @approvalA = TradeApproval.new
     @approvalA.trade_id=@trade.id
     @approvalA.user_id=params[:trade][:user_id_a]
     @approvalA.approved=true
     @approvalA.save
 
  
-    @approvalB = Trade_Approval.new
+    @approvalB = TradeApproval.new
     @approvalB.trade_id=@trade.id
     @approvalB.user_id=params[:trade][:user_id_b]
     @approvalB.approved=false
     @approvalB.save
     
-    UserMailer.trade_offer(User.find(params[:trade][:user_id_b])).deliver
+    UserMailer.trade_offer(User.find(params[:trade][:user_id_b])).deliver_now
 
     redirect_to trades_path
 

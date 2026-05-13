@@ -21,12 +21,12 @@
 
         
         
-          <% @pm = Player_Movement.where("trade_id=?",trade.id) %>
+          <% @pm = PlayerMovement.where("trade_id=?",trade.id) %>
           
           <td><%= trade.created_at.to_date %></td>
           <td><%= User.find(@pm.first.second_user_id).display_name %></td>
           <td><%= User.find(@pm.first.first_user_id).display_name %></td>
-          <td> <% @pm1= Player_Movement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.first_user_id) %>
+          <td> <% @pm1= PlayerMovement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.first_user_id) %>
               <table class="table">
                 <% @pm1.each do |pm1| %>
                 <% @player = Player.find(pm1.player_id) %>
@@ -34,7 +34,7 @@
                 <%end%>
               </table>
           </td>
-          <td> <% @pm2= Player_Movement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.second_user_id) %>
+          <td> <% @pm2= PlayerMovement.where("trade_id=? and first_user_id=?",trade.id,@pm.first.second_user_id) %>
               <table class="table">
                 <% @pm2.each do |pm2| %>
                   <% @player = Player.find(pm2.player_id) %>

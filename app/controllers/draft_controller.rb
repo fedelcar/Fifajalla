@@ -46,7 +46,7 @@ class DraftController < ApplicationController
       @toAdd.player_id = params[:player_id]
       @toAdd.save
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def show
