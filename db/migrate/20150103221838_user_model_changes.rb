@@ -1,4 +1,4 @@
-class UserModelChanges < ActiveRecord::Migration
+class UserModelChanges < ActiveRecord::Migration[4.2]
   def change
   	 add_column :users, :isAdmin, :boolean
   	 remove_column :users, :gf
